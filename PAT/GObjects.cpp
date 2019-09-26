@@ -1,6 +1,7 @@
 #include <string>
 #include "GObjects.h"
 #include <fstream>
+#include "tinyformat.h"
 
 void OffsetDumper::Dump()
 {
@@ -22,12 +23,13 @@ void OffsetDumper::Dump()
 	for (int i = 0; i < /*500*/ObjObjects.GetNumElements(); i++)
 	{
 		auto obj = ObjObjects.GetObjects(i).GetUObject();
-		o << "===============================" << std::endl;
-		o << "Base: 0x" << std::hex << ObjObjects.GetObjects(i).GetBaseAddress() << std::endl;
-		o << "ID: " << std::dec << obj.GetInternalIndex() << std::endl;
-		o << "Name: " << g.GetActorNameFromID(obj.GetNameID()) << std::endl;
-		o << "Class: " << obj.GetClass().GetInternalIndex() << " " << g.GetActorNameFromID(obj.GetClass().GetNameID()) << std::endl;
-		o << "Outer: " << obj.GetOuter().GetInternalIndex() << " " << g.GetActorNameFromID(obj.GetOuter().GetNameID()) << std::endl;
+		int id = obj.GetInternalIndex();
+		std::string name = g.GetActorNameFromID(obj.GetNameID());
+		std::string outername = g.GetActorNameFromID(obj.GetOuter().GetNameID());
+		std::string classname = "("+g.GetActorNameFromID(obj.GetClass().GetNameID())+")";
+		std::string pathname = outername == "NULL" ? name : outername + " -> " + name;
+		int off = obj.offset;
+		o << tfm::format("[0x%010X]\t%6d\t[0x%05X]\t%30s\t%s\n", ObjObjects.GetObjects(i).GetBaseAddress(), id,off, classname, pathname);
 	}
 	o.close();
 	system(path.data());

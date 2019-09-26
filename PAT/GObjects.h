@@ -36,7 +36,7 @@ public:
 	FORCEINLINE FName GetFName() const;
 	FORCEINLINE UObject GetOuter() const;
 	FORCEINLINE uint64 GetNameID() const;
-protected:
+//protected:
 	uint64 pad1 = 0;	// 0x0000
 	uint64 pad2 = 0;	// 0x0008
 	uint64 OuterPrivate = 0;		// 0x0010
@@ -44,6 +44,8 @@ protected:
 	uint32 InternalIndex = 0;	// 0x0020
 	uint32 pad3 = 0;	// 0x0020
 	uint64 ClassPrivate = 0;//0x28
+	char pad4[0x1c] = {};
+	int32 offset;
 };
 class UClass : public UObject
 {

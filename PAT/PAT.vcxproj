@@ -157,7 +157,8 @@
     <ClCompile Include="Lite.cpp" />
     <ClCompile Include="MemoryHelper.cpp" />
     <ClCompile Include="GObjects.cpp" />
-    <ClCompile Include="PAT.cpp" />
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="tinyformat.h" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GNames.h" />

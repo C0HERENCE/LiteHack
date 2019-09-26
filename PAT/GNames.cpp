@@ -70,7 +70,6 @@ uint64 GNames::DecryptGNames(uint64 a)
 	DecryptedGNames = d;
 	return d;
 }
-
 std::string GNames::GetActorNameFromID(int ID)
 {
 	uint64 fNamePtr = mh.Read64(DecryptedGNames + int(ID / off_ChunkSize) * 8);
