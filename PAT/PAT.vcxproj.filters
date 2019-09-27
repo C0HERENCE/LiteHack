@@ -30,7 +30,49 @@
     <ClCompile Include="GObjects\GObjects.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="GWorld\GWorld.cpp">
+    <ClCompile Include="GWorld\UWorld.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GWorld\AActor.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GWorld\ADroppedItem.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GWorld\APlayerCameraManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GWorld\APlayerController.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GWorld\FText.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GWorld\UVehicleRiderComponent.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GWorld\USkeletalMeshComponent.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GWorld\USceneComponent.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GWorld\ULocalPlayer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GWorld\ULevel.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GWorld\UItem.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GWorld\UGameViewportClient.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GWorld\UGameInstance.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GWorld\AWeaponProcessor.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -47,79 +89,85 @@
     <ClInclude Include="GObjects\GObjects.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="GWorld\LiteSDK\AActor.hpp">
+    <ClInclude Include="GWorld\AActor.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="GWorld\LiteSDK\ADroppedItem.hpp">
+    <ClInclude Include="GWorld\ADroppedItem.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="GWorld\LiteSDK\APlayerCameraManager.hpp">
+    <ClInclude Include="GWorld\APlayerCameraManager.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="GWorld\LiteSDK\APlayerController.hpp">
+    <ClInclude Include="GWorld\APlayerController.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="GWorld\LiteSDK\ATslWeapon.hpp">
+    <ClInclude Include="GWorld\ATslWeapon.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="GWorld\LiteSDK\AWeaponProcessor.hpp">
+    <ClInclude Include="GWorld\AWeaponProcessor.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="GWorld\LiteSDK\FCameraCacheEntry.hpp">
+    <ClInclude Include="GWorld\FCameraCacheEntry.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="GWorld\LiteSDK\FRecoilInfo.hpp">
+    <ClInclude Include="GWorld\FRecoilInfo.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="GWorld\LiteSDK\FRotator.hpp">
+    <ClInclude Include="GWorld\FRotator.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="GWorld\LiteSDK\FText.hpp">
+    <ClInclude Include="GWorld\FText.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="GWorld\LiteSDK\FTrajectoryWeaponData.hpp">
+    <ClInclude Include="GWorld\FTrajectoryWeaponData.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="GWorld\LiteSDK\FTransform.hpp">
+    <ClInclude Include="GWorld\FTransform.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="GWorld\LiteSDK\FWeaponData.hpp">
+    <ClInclude Include="GWorld\FWeaponData.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="GWorld\LiteSDK\FWeaponDeviationData.hpp">
+    <ClInclude Include="GWorld\FWeaponDeviationData.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="GWorld\LiteSDK\FWeaponGunAnim.hpp">
+    <ClInclude Include="GWorld\FWeaponGunAnim.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="GWorld\LiteSDK\FWeaponGunData.hpp">
+    <ClInclude Include="GWorld\FWeaponGunData.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="GWorld\LiteSDK\TArray.hpp">
+    <ClInclude Include="GWorld\TArray.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="GWorld\LiteSDK\UGameInstance.hpp">
+    <ClInclude Include="GWorld\UGameInstance.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="GWorld\LiteSDK\UGameViewportClient.hpp">
+    <ClInclude Include="GWorld\UGameViewportClient.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="GWorld\LiteSDK\UItem.hpp">
+    <ClInclude Include="GWorld\UItem.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="GWorld\LiteSDK\ULocalPlayer.hpp">
+    <ClInclude Include="GWorld\ULocalPlayer.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="GWorld\LiteSDK\USceneComponent.hpp">
+    <ClInclude Include="GWorld\USceneComponent.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="GWorld\LiteSDK\USkeletalMeshComponent.hpp">
+    <ClInclude Include="GWorld\USkeletalMeshComponent.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="GWorld\LiteSDK\UVehicleRiderComponent.hpp">
+    <ClInclude Include="GWorld\UVehicleRiderComponent.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="GWorld\GWorld.h">
+    <ClInclude Include="GWorld\UWorld.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GWorld\Vector.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GWorld\ULevel.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -7,7 +7,6 @@
    Copyright (c) 2007-2017 Hex-Rays
 
 */
-
 #ifndef HEXRAYS_DEFS_H
 #define HEXRAYS_DEFS_H
 

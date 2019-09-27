@@ -76,12 +76,16 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
+    <IncludePath>D:\Program Files %28x86%29\Microsoft DirectX SDK %28June 2010%29\Include;$(IncludePath)</IncludePath>
+    <LibraryPath>D:\Program Files %28x86%29\Microsoft DirectX SDK %28June 2010%29\Lib\x64;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
+    <IncludePath>D:\Program Files %28x86%29\Microsoft DirectX SDK %28June 2010%29\Include;$(IncludePath)</IncludePath>
+    <LibraryPath>D:\Program Files %28x86%29\Microsoft DirectX SDK %28June 2010%29\Lib\x64;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -136,13 +140,14 @@
     <ClCompile>
       <PrecompiledHeader>
       </PrecompiledHeader>
-      <WarningLevel>Level3</WarningLevel>
+      <WarningLevel>Level4</WarningLevel>
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories);$(DXSDK_DIR)Include;</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -154,7 +159,21 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="GNames\GNames.cpp" />
-    <ClCompile Include="GWorld\GWorld.cpp" />
+    <ClCompile Include="GWorld\AActor.cpp" />
+    <ClCompile Include="GWorld\ADroppedItem.cpp" />
+    <ClCompile Include="GWorld\APlayerCameraManager.cpp" />
+    <ClCompile Include="GWorld\APlayerController.cpp" />
+    <ClCompile Include="GWorld\AWeaponProcessor.cpp" />
+    <ClCompile Include="GWorld\FText.cpp" />
+    <ClCompile Include="GWorld\UGameInstance.cpp" />
+    <ClCompile Include="GWorld\UGameViewportClient.cpp" />
+    <ClCompile Include="GWorld\UItem.cpp" />
+    <ClCompile Include="GWorld\ULevel.cpp" />
+    <ClCompile Include="GWorld\ULocalPlayer.cpp" />
+    <ClCompile Include="GWorld\USceneComponent.cpp" />
+    <ClCompile Include="GWorld\USkeletalMeshComponent.cpp" />
+    <ClCompile Include="GWorld\UVehicleRiderComponent.cpp" />
+    <ClCompile Include="GWorld\UWorld.cpp" />
     <ClCompile Include="Utils\MemoryHelper.cpp" />
     <ClCompile Include="GObjects\GObjects.cpp" />
     <ClCompile Include="main.cpp" />
@@ -162,34 +181,36 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GNames\GNames.h" />
+    <ClInclude Include="GWorld\ULevel.hpp" />
+    <ClInclude Include="GWorld\UWorld.hpp" />
+    <ClInclude Include="GWorld\Vector.hpp" />
     <ClInclude Include="Utils\ida_defs.h" />
-    <ClInclude Include="GWorld\GWorld.h" />
     <ClInclude Include="Utils\MemoryHelper.h" />
     <ClInclude Include="GObjects\GObjects.h" />
-    <ClInclude Include="GWorld\LiteSDK\AActor.hpp" />
-    <ClInclude Include="GWorld\LiteSDK\ADroppedItem.hpp" />
-    <ClInclude Include="GWorld\LiteSDK\APlayerCameraManager.hpp" />
-    <ClInclude Include="GWorld\LiteSDK\APlayerController.hpp" />
-    <ClInclude Include="GWorld\LiteSDK\ATslWeapon.hpp" />
-    <ClInclude Include="GWorld\LiteSDK\AWeaponProcessor.hpp" />
-    <ClInclude Include="GWorld\LiteSDK\FCameraCacheEntry.hpp" />
-    <ClInclude Include="GWorld\LiteSDK\FRecoilInfo.hpp" />
-    <ClInclude Include="GWorld\LiteSDK\FRotator.hpp" />
-    <ClInclude Include="GWorld\LiteSDK\FText.hpp" />
-    <ClInclude Include="GWorld\LiteSDK\FTrajectoryWeaponData.hpp" />
-    <ClInclude Include="GWorld\LiteSDK\FTransform.hpp" />
-    <ClInclude Include="GWorld\LiteSDK\FWeaponData.hpp" />
-    <ClInclude Include="GWorld\LiteSDK\FWeaponDeviationData.hpp" />
-    <ClInclude Include="GWorld\LiteSDK\FWeaponGunAnim.hpp" />
-    <ClInclude Include="GWorld\LiteSDK\FWeaponGunData.hpp" />
-    <ClInclude Include="GWorld\LiteSDK\TArray.hpp" />
-    <ClInclude Include="GWorld\LiteSDK\UGameInstance.hpp" />
-    <ClInclude Include="GWorld\LiteSDK\UGameViewportClient.hpp" />
-    <ClInclude Include="GWorld\LiteSDK\UItem.hpp" />
-    <ClInclude Include="GWorld\LiteSDK\ULocalPlayer.hpp" />
-    <ClInclude Include="GWorld\LiteSDK\USceneComponent.hpp" />
-    <ClInclude Include="GWorld\LiteSDK\USkeletalMeshComponent.hpp" />
-    <ClInclude Include="GWorld\LiteSDK\UVehicleRiderComponent.hpp" />
+    <ClInclude Include="GWorld\AActor.hpp" />
+    <ClInclude Include="GWorld\ADroppedItem.hpp" />
+    <ClInclude Include="GWorld\APlayerCameraManager.hpp" />
+    <ClInclude Include="GWorld\APlayerController.hpp" />
+    <ClInclude Include="GWorld\ATslWeapon.hpp" />
+    <ClInclude Include="GWorld\AWeaponProcessor.hpp" />
+    <ClInclude Include="GWorld\FCameraCacheEntry.hpp" />
+    <ClInclude Include="GWorld\FRecoilInfo.hpp" />
+    <ClInclude Include="GWorld\FRotator.hpp" />
+    <ClInclude Include="GWorld\FText.hpp" />
+    <ClInclude Include="GWorld\FTrajectoryWeaponData.hpp" />
+    <ClInclude Include="GWorld\FTransform.hpp" />
+    <ClInclude Include="GWorld\FWeaponData.hpp" />
+    <ClInclude Include="GWorld\FWeaponDeviationData.hpp" />
+    <ClInclude Include="GWorld\FWeaponGunAnim.hpp" />
+    <ClInclude Include="GWorld\FWeaponGunData.hpp" />
+    <ClInclude Include="GWorld\TArray.hpp" />
+    <ClInclude Include="GWorld\UGameInstance.hpp" />
+    <ClInclude Include="GWorld\UGameViewportClient.hpp" />
+    <ClInclude Include="GWorld\UItem.hpp" />
+    <ClInclude Include="GWorld\ULocalPlayer.hpp" />
+    <ClInclude Include="GWorld\USceneComponent.hpp" />
+    <ClInclude Include="GWorld\USkeletalMeshComponent.hpp" />
+    <ClInclude Include="GWorld\UVehicleRiderComponent.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

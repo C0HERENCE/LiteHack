@@ -1,13 +1,15 @@
 #pragma once
-#include<Windows.h>
-#include"ida_defs.h"
-class MemoryHelper
+#include <string>
+
+#include <Windows.h>
+#include"../Utils/ida_defs.h"
+class Memory
 {
 private:
 	HANDLE hProcess;
 public:
-	MemoryHelper();
-	MemoryHelper(HANDLE h);
+	Memory();
+	Memory(HANDLE h);
 	uint64 Read64(uint64 address);
 	uint32 Read32(uint64 address);
 	template<class T>

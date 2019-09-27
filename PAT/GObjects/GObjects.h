@@ -1,13 +1,14 @@
 #pragma once
+#include <fstream>
+#include "../GNames/GNames.h"
+#include "..//Utils/tinyformat.h"
 #include "..//Utils/MemoryHelper.h"
-#include "..////GNames/GNames.h"
-#include <iostream>
 #define off_GObjectsCount	 	                                                0x43C9C30			//up
 #define off_GObjects																0x43C9C20			//up		(ENC)
 #define off_off																			0x44
 
-extern MemoryHelper mem;
-extern uint64 Base;
+extern Memory GameMemory;
+extern uint64 GameBaseAddress;
 extern GNames NameStore;
 
 class UObject;

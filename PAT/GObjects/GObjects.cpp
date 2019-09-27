@@ -1,7 +1,5 @@
-#include <string>
+#include <iostream>
 #include "GObjects.h"
-#include <fstream>
-#include "..//Utils/tinyformat.h"
 
 GObjects::GObjects()
 {
@@ -9,7 +7,7 @@ GObjects::GObjects()
 }
 GObjects::GObjects(uint64 a)
 {
-	ObjObjects = mem.Read<TUObjectArray>(a);
+	ObjObjects = GameMemory.Read<TUObjectArray>(a);
 }
 
 void GObjects::Dump()
@@ -77,7 +75,7 @@ FORCEINLINE int32 UObject::GetInternalIndex() const
 FORCEINLINE UClass UObject::GetClass() const
 {
 	uint64 v24 = ClassPrivate;
-	return mem.Read<UClass>(__ROL8__(v24 ^ 0x665B98933272E58C, 21) ^ (__ROL8__(v24 ^ 0x665B98933272E58C, 21) << 32) ^ 0xBB57415CF335D646);
+	return GameMemory.Read<UClass>(__ROL8__(v24 ^ 0x665B98933272E58C, 21) ^ (__ROL8__(v24 ^ 0x665B98933272E58C, 21) << 32) ^ 0xBB57415CF335D646);
 }
 
 FORCEINLINE FName UObject::GetFName() const
@@ -88,13 +86,13 @@ FORCEINLINE FName UObject::GetFName() const
 FORCEINLINE UObject UObject::GetOuter() const
 {
 	uint64 v30 = OuterPrivate;
-	return mem.Read<UObject>(__ROR8__(v30 ^ 0xE2FFCEA309ED3A2B, 30) ^ (__ROR8__(v30 ^ 0xE2FFCEA309ED3A2B, 30) << 32) ^ 0xD6AECB5A6D8252C0);
+	return GameMemory.Read<UObject>(__ROR8__(v30 ^ 0xE2FFCEA309ED3A2B, 30) ^ (__ROR8__(v30 ^ 0xE2FFCEA309ED3A2B, 30) << 32) ^ 0xD6AECB5A6D8252C0);
 }
 
 
 UObject FUObjectItem::GetUObject()
 {
-	return mem.Read<UObject>(Object);
+	return GameMemory.Read<UObject>(Object);
 }
 uint64 FUObjectItem::GetBaseAddress()
 {
@@ -114,16 +112,16 @@ uint64 TUObjectArray::GetBaseAddress()
 FUObjectItem TUObjectArray::GetObjects()
 {
 	uint64 v7 = Objects;
-	uintptr_t v416;
+	uint64 v416;
 	LODWORD(v416) = (v7 + 1988483301) ^ 0x85E5D16B;
 	HIDWORD(v416) = (HIDWORD(v7) - 1081503205) ^ 0xFB75FBB5;
-	return mem.Read<FUObjectItem>(v416);
+	return GameMemory.Read<FUObjectItem>(v416);
 }
 FUObjectItem TUObjectArray::GetObjects(int i)
 {
 	uint64 v7 = Objects;
-	uintptr_t v416;
+	uint64 v416;
 	LODWORD(v416) = (v7 + 1988483301) ^ 0x85E5D16B;
 	HIDWORD(v416) = (HIDWORD(v7) - 1081503205) ^ 0xFB75FBB5;
-	return mem.Read<FUObjectItem>(v416 + 0x18 * i);
+	return GameMemory.Read<FUObjectItem>(v416 + 0x18 * i);
 }

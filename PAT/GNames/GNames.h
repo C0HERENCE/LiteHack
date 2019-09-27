@@ -1,5 +1,6 @@
 #pragma once
 #include "../Utils/MemoryHelper.h"
+#include <string>
 class GNames
 {
 public:
