@@ -1,8 +1,10 @@
 #pragma once
-#include "MemoryHelper.h"
+#include "../Utils/MemoryHelper.h"
 class GNames
 {
 public:
+	GNames();
+	GNames(uint64);
 	uint64 DecryptGNames(uint64 a);
 	std::string GetActorNameFromID(int ID);
 private:

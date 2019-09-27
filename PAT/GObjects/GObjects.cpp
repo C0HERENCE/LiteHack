@@ -1,17 +1,23 @@
 #include <string>
 #include "GObjects.h"
 #include <fstream>
-#include "tinyformat.h"
+#include "..//Utils/tinyformat.h"
 
-void OffsetDumper::Dump()
+GObjects::GObjects()
 {
-	GNames g;
-	g.DecryptGNames(Base + 0x46546C0);
 
-	TUObjectArray  ObjObjects = mh.Read<TUObjectArray>(Base + off_GObjects);
+}
+GObjects::GObjects(uint64 a)
+{
+	ObjObjects = mem.Read<TUObjectArray>(a);
+}
+
+void GObjects::Dump()
+{
+	
 	std::cout << "ObjObjects: 0x" << std::hex << ObjObjects.GetObjects().GetBaseAddress()<< std::endl;
 	std::cout << "NumElements: " << std::dec << ObjObjects.GetNumElements() << std::endl;
-	std::cout << g.GetActorNameFromID(ObjObjects.GetObjects(100).GetUObject().GetNameID()) << std::endl;
+	std::cout << NameStore.GetActorNameFromID(ObjObjects.GetObjects(100).GetUObject().GetNameID()) << std::endl;
 
 	std::ofstream o;
 	SYSTEMTIME st = { 0 };
@@ -24,9 +30,9 @@ void OffsetDumper::Dump()
 	{
 		auto obj = ObjObjects.GetObjects(i).GetUObject();
 		int id = obj.GetInternalIndex();
-		std::string name = g.GetActorNameFromID(obj.GetNameID());
-		std::string outername = g.GetActorNameFromID(obj.GetOuter().GetNameID());
-		std::string classname = "("+g.GetActorNameFromID(obj.GetClass().GetNameID())+")";
+		std::string name = NameStore.GetActorNameFromID(obj.GetNameID());
+		std::string outername = NameStore.GetActorNameFromID(obj.GetOuter().GetNameID());
+		std::string classname = "("+ NameStore.GetActorNameFromID(obj.GetClass().GetNameID())+")";
 		std::string pathname = outername == "NULL" ? name : outername + " -> " + name;
 		int off = obj.offset;
 		o << tfm::format("[0x%010X]\t%6d\t[0x%05X]\t%30s\t%s\n", ObjObjects.GetObjects(i).GetBaseAddress(), id,off, classname, pathname);
@@ -71,7 +77,7 @@ FORCEINLINE int32 UObject::GetInternalIndex() const
 FORCEINLINE UClass UObject::GetClass() const
 {
 	uint64 v24 = ClassPrivate;
-	return mh.Read<UClass>(__ROL8__(v24 ^ 0x665B98933272E58C, 21) ^ (__ROL8__(v24 ^ 0x665B98933272E58C, 21) << 32) ^ 0xBB57415CF335D646);
+	return mem.Read<UClass>(__ROL8__(v24 ^ 0x665B98933272E58C, 21) ^ (__ROL8__(v24 ^ 0x665B98933272E58C, 21) << 32) ^ 0xBB57415CF335D646);
 }
 
 FORCEINLINE FName UObject::GetFName() const
@@ -82,13 +88,13 @@ FORCEINLINE FName UObject::GetFName() const
 FORCEINLINE UObject UObject::GetOuter() const
 {
 	uint64 v30 = OuterPrivate;
-	return mh.Read<UObject>(__ROR8__(v30 ^ 0xE2FFCEA309ED3A2B, 30) ^ (__ROR8__(v30 ^ 0xE2FFCEA309ED3A2B, 30) << 32) ^ 0xD6AECB5A6D8252C0);
+	return mem.Read<UObject>(__ROR8__(v30 ^ 0xE2FFCEA309ED3A2B, 30) ^ (__ROR8__(v30 ^ 0xE2FFCEA309ED3A2B, 30) << 32) ^ 0xD6AECB5A6D8252C0);
 }
 
 
 UObject FUObjectItem::GetUObject()
 {
-	return mh.Read<UObject>(Object);
+	return mem.Read<UObject>(Object);
 }
 uint64 FUObjectItem::GetBaseAddress()
 {
@@ -111,7 +117,7 @@ FUObjectItem TUObjectArray::GetObjects()
 	uintptr_t v416;
 	LODWORD(v416) = (v7 + 1988483301) ^ 0x85E5D16B;
 	HIDWORD(v416) = (HIDWORD(v7) - 1081503205) ^ 0xFB75FBB5;
-	return mh.Read<FUObjectItem>(v416);
+	return mem.Read<FUObjectItem>(v416);
 }
 FUObjectItem TUObjectArray::GetObjects(int i)
 {
@@ -119,5 +125,5 @@ FUObjectItem TUObjectArray::GetObjects(int i)
 	uintptr_t v416;
 	LODWORD(v416) = (v7 + 1988483301) ^ 0x85E5D16B;
 	HIDWORD(v416) = (HIDWORD(v7) - 1081503205) ^ 0xFB75FBB5;
-	return mh.Read<FUObjectItem>(v416 + 0x18 * i);
+	return mem.Read<FUObjectItem>(v416 + 0x18 * i);
 }

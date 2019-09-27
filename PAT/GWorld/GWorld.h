@@ -1,9 +1,9 @@
 #pragma once
-#include "idah.h"
-#include "MemoryHelper.h"
-#include "PUBGLITE/AActor.hpp"
+#include "Utils/ida_defs.h"
+#include "Utils/MemoryHelper.h"
+#include "LiteSDK/AActor.hpp"
 
-extern MemoryHelper mh;
+extern MemoryHelper mem;
 template<typename T>
 uint64 GetUInt64(T x)
 {
@@ -48,7 +48,7 @@ class ULevel
 public:
 	TArray<AActor*> GetActors() const
 	{
-		return mh.Read<TArray<AActor*>>(ActorDec(m_Actors.GetAddress()));
+		return mem.Read<TArray<AActor*>>(ActorDec(m_Actors.GetAddress()));
 	}
 private:
 	char __pad0xA0[0x190];
@@ -61,7 +61,7 @@ class UWorld
 public:
 	ULevel GetLevel() const
 	{
-		return mh.Read<ULevel>(ULevelDec((this->m_pULevel)));
+		return mem.Read<ULevel>(ULevelDec((this->m_pULevel)));
 	}
 	uint64 GetGameInstance() const
 	{

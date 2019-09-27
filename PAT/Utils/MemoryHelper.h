@@ -1,7 +1,6 @@
 #pragma once
 #include<Windows.h>
-#include"idah.h"
-
+#include"ida_defs.h"
 class MemoryHelper
 {
 private:

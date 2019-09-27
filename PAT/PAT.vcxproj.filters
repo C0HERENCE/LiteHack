@@ -15,111 +15,111 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="MemoryHelper.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Lite.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="GNames.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="GObjects.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="tinyformat.h">
+    <ClCompile Include="GNames\GNames.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Utils\tinyformat.h">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Utils\MemoryHelper.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GObjects\GObjects.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GWorld\GWorld.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="idah.h">
+    <ClInclude Include="GNames\GNames.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Utils\ida_defs.h">
       <Filter>Source Files</Filter>
     </ClInclude>
-    <ClInclude Include="MemoryHelper.h">
+    <ClInclude Include="Utils\MemoryHelper.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Lite.h">
+    <ClInclude Include="GObjects\GObjects.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="PUBGLITE\AActor.hpp">
+    <ClInclude Include="GWorld\LiteSDK\AActor.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="PUBGLITE\ADroppedItem.hpp">
+    <ClInclude Include="GWorld\LiteSDK\ADroppedItem.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="PUBGLITE\APlayerCameraManager.hpp">
+    <ClInclude Include="GWorld\LiteSDK\APlayerCameraManager.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="PUBGLITE\APlayerController.hpp">
+    <ClInclude Include="GWorld\LiteSDK\APlayerController.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="PUBGLITE\ATslWeapon.hpp">
+    <ClInclude Include="GWorld\LiteSDK\ATslWeapon.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="PUBGLITE\AWeaponProcessor.hpp">
+    <ClInclude Include="GWorld\LiteSDK\AWeaponProcessor.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="PUBGLITE\FCameraCacheEntry.hpp">
+    <ClInclude Include="GWorld\LiteSDK\FCameraCacheEntry.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="PUBGLITE\FRecoilInfo.hpp">
+    <ClInclude Include="GWorld\LiteSDK\FRecoilInfo.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="PUBGLITE\FRotator.hpp">
+    <ClInclude Include="GWorld\LiteSDK\FRotator.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="PUBGLITE\FText.hpp">
+    <ClInclude Include="GWorld\LiteSDK\FText.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="PUBGLITE\FTrajectoryWeaponData.hpp">
+    <ClInclude Include="GWorld\LiteSDK\FTrajectoryWeaponData.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="PUBGLITE\FTransform.hpp">
+    <ClInclude Include="GWorld\LiteSDK\FTransform.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="PUBGLITE\FWeaponData.hpp">
+    <ClInclude Include="GWorld\LiteSDK\FWeaponData.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="PUBGLITE\FWeaponDeviationData.hpp">
+    <ClInclude Include="GWorld\LiteSDK\FWeaponDeviationData.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="PUBGLITE\FWeaponGunAnim.hpp">
+    <ClInclude Include="GWorld\LiteSDK\FWeaponGunAnim.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="PUBGLITE\FWeaponGunData.hpp">
+    <ClInclude Include="GWorld\LiteSDK\FWeaponGunData.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="PUBGLITE\TArray.hpp">
+    <ClInclude Include="GWorld\LiteSDK\TArray.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="PUBGLITE\UGameInstance.hpp">
+    <ClInclude Include="GWorld\LiteSDK\UGameInstance.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="PUBGLITE\UGameViewportClient.hpp">
+    <ClInclude Include="GWorld\LiteSDK\UGameViewportClient.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="PUBGLITE\UItem.hpp">
+    <ClInclude Include="GWorld\LiteSDK\UItem.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="PUBGLITE\ULocalPlayer.hpp">
+    <ClInclude Include="GWorld\LiteSDK\ULocalPlayer.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="PUBGLITE\USceneComponent.hpp">
+    <ClInclude Include="GWorld\LiteSDK\USceneComponent.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="PUBGLITE\USkeletalMeshComponent.hpp">
+    <ClInclude Include="GWorld\LiteSDK\USkeletalMeshComponent.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="PUBGLITE\UVehicleRiderComponent.hpp">
+    <ClInclude Include="GWorld\LiteSDK\UVehicleRiderComponent.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="GNames.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="GObjects.h">
+    <ClInclude Include="GWorld\GWorld.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

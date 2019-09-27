@@ -1,8 +1,8 @@
 #pragma once
 #include <cstdint>
 #include <type_traits>
-#include "..//MemoryHelper.h"
-extern MemoryHelper mh;
+#include "..//..//Utils/MemoryHelper.h"
+extern MemoryHelper mem;
 template<class T>
 class TArray
 {
@@ -34,8 +34,8 @@ public:
 	template<typename U = T>
 	typename std::enable_if<std::is_pointer<U>::value, typename std::remove_pointer<U>::type>::type GetValue(int32_t index) const
 	{
-		auto offset = mh.Read<uintptr_t>(m_Data + sizeof(uintptr_t) * index);
-		return mh.Read<typename std::remove_pointer<U>::type>(offset);
+		auto offset = mem.Read<uintptr_t>(m_Data + sizeof(uintptr_t) * index);
+		return mem.Read<typename std::remove_pointer<U>::type>(offset);
 	}
 private:
 	uintptr_t m_Data;

@@ -1,21 +1,16 @@
 #pragma once
-#include "MemoryHelper.h"
-#include "GNames.h"
+#include "..//Utils/MemoryHelper.h"
+#include "..////GNames/GNames.h"
 #include <iostream>
 #define off_GObjectsCount	 	                                                0x43C9C30			//up
 #define off_GObjects																0x43C9C20			//up		(ENC)
 #define off_off																			0x44
 
-extern MemoryHelper mh;
+extern MemoryHelper mem;
 extern uint64 Base;
+extern GNames NameStore;
 
 class UObject;
-class OffsetDumper
-{
-public:
-	void Dump();
-};
-
 
 class FName
 {
@@ -36,7 +31,7 @@ public:
 	FORCEINLINE FName GetFName() const;
 	FORCEINLINE UObject GetOuter() const;
 	FORCEINLINE uint64 GetNameID() const;
-//protected:
+	//protected:
 	uint64 pad1 = 0;	// 0x0000
 	uint64 pad2 = 0;	// 0x0008
 	uint64 OuterPrivate = 0;		// 0x0010
@@ -75,3 +70,13 @@ private:
 	int64 unknownMaxElements;
 	int32_t NumElements;
 };
+
+class GObjects
+{
+public:
+	GObjects();
+	GObjects(uint64);
+	void Dump();
+	TUObjectArray  ObjObjects;
+};
+

@@ -153,43 +153,43 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="GNames.cpp" />
-    <ClCompile Include="Lite.cpp" />
-    <ClCompile Include="MemoryHelper.cpp" />
-    <ClCompile Include="GObjects.cpp" />
+    <ClCompile Include="GNames\GNames.cpp" />
+    <ClCompile Include="GWorld\GWorld.cpp" />
+    <ClCompile Include="Utils\MemoryHelper.cpp" />
+    <ClCompile Include="GObjects\GObjects.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="tinyformat.h" />
+    <ClCompile Include="Utils\tinyformat.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="GNames.h" />
-    <ClInclude Include="idah.h" />
-    <ClInclude Include="Lite.h" />
-    <ClInclude Include="MemoryHelper.h" />
-    <ClInclude Include="GObjects.h" />
-    <ClInclude Include="PUBGLITE\AActor.hpp" />
-    <ClInclude Include="PUBGLITE\ADroppedItem.hpp" />
-    <ClInclude Include="PUBGLITE\APlayerCameraManager.hpp" />
-    <ClInclude Include="PUBGLITE\APlayerController.hpp" />
-    <ClInclude Include="PUBGLITE\ATslWeapon.hpp" />
-    <ClInclude Include="PUBGLITE\AWeaponProcessor.hpp" />
-    <ClInclude Include="PUBGLITE\FCameraCacheEntry.hpp" />
-    <ClInclude Include="PUBGLITE\FRecoilInfo.hpp" />
-    <ClInclude Include="PUBGLITE\FRotator.hpp" />
-    <ClInclude Include="PUBGLITE\FText.hpp" />
-    <ClInclude Include="PUBGLITE\FTrajectoryWeaponData.hpp" />
-    <ClInclude Include="PUBGLITE\FTransform.hpp" />
-    <ClInclude Include="PUBGLITE\FWeaponData.hpp" />
-    <ClInclude Include="PUBGLITE\FWeaponDeviationData.hpp" />
-    <ClInclude Include="PUBGLITE\FWeaponGunAnim.hpp" />
-    <ClInclude Include="PUBGLITE\FWeaponGunData.hpp" />
-    <ClInclude Include="PUBGLITE\TArray.hpp" />
-    <ClInclude Include="PUBGLITE\UGameInstance.hpp" />
-    <ClInclude Include="PUBGLITE\UGameViewportClient.hpp" />
-    <ClInclude Include="PUBGLITE\UItem.hpp" />
-    <ClInclude Include="PUBGLITE\ULocalPlayer.hpp" />
-    <ClInclude Include="PUBGLITE\USceneComponent.hpp" />
-    <ClInclude Include="PUBGLITE\USkeletalMeshComponent.hpp" />
-    <ClInclude Include="PUBGLITE\UVehicleRiderComponent.hpp" />
+    <ClInclude Include="GNames\GNames.h" />
+    <ClInclude Include="Utils\ida_defs.h" />
+    <ClInclude Include="GWorld\GWorld.h" />
+    <ClInclude Include="Utils\MemoryHelper.h" />
+    <ClInclude Include="GObjects\GObjects.h" />
+    <ClInclude Include="GWorld\LiteSDK\AActor.hpp" />
+    <ClInclude Include="GWorld\LiteSDK\ADroppedItem.hpp" />
+    <ClInclude Include="GWorld\LiteSDK\APlayerCameraManager.hpp" />
+    <ClInclude Include="GWorld\LiteSDK\APlayerController.hpp" />
+    <ClInclude Include="GWorld\LiteSDK\ATslWeapon.hpp" />
+    <ClInclude Include="GWorld\LiteSDK\AWeaponProcessor.hpp" />
+    <ClInclude Include="GWorld\LiteSDK\FCameraCacheEntry.hpp" />
+    <ClInclude Include="GWorld\LiteSDK\FRecoilInfo.hpp" />
+    <ClInclude Include="GWorld\LiteSDK\FRotator.hpp" />
+    <ClInclude Include="GWorld\LiteSDK\FText.hpp" />
+    <ClInclude Include="GWorld\LiteSDK\FTrajectoryWeaponData.hpp" />
+    <ClInclude Include="GWorld\LiteSDK\FTransform.hpp" />
+    <ClInclude Include="GWorld\LiteSDK\FWeaponData.hpp" />
+    <ClInclude Include="GWorld\LiteSDK\FWeaponDeviationData.hpp" />
+    <ClInclude Include="GWorld\LiteSDK\FWeaponGunAnim.hpp" />
+    <ClInclude Include="GWorld\LiteSDK\FWeaponGunData.hpp" />
+    <ClInclude Include="GWorld\LiteSDK\TArray.hpp" />
+    <ClInclude Include="GWorld\LiteSDK\UGameInstance.hpp" />
+    <ClInclude Include="GWorld\LiteSDK\UGameViewportClient.hpp" />
+    <ClInclude Include="GWorld\LiteSDK\UItem.hpp" />
+    <ClInclude Include="GWorld\LiteSDK\ULocalPlayer.hpp" />
+    <ClInclude Include="GWorld\LiteSDK\USceneComponent.hpp" />
+    <ClInclude Include="GWorld\LiteSDK\USkeletalMeshComponent.hpp" />
+    <ClInclude Include="GWorld\LiteSDK\UVehicleRiderComponent.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
