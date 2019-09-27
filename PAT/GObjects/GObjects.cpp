@@ -1,6 +1,56 @@
 #include <iostream>
 #include "GObjects.h"
 
+FUObjectItem TUObjectArray::GetObjects()
+{
+	uint64 v7 = Objects;
+	uint64 v417;
+	LODWORD(v417) = (~(~(_DWORD)v7 ^ 0x37FF03BD) + 1376963086) ^ 0x80EDC9B3;
+	HIDWORD(v417) = (~(~HIDWORD(v7) ^ 0x9C2EC6E8) + 1364021710) ^ 0x999C68DA;
+	return GameMemory.Read<FUObjectItem>(v417);
+}
+
+FUObjectItem TUObjectArray::GetObjects(int i)
+{
+	uint64 v7 = Objects;
+	uint64 v417;
+	LODWORD(v417) = (~(~(_DWORD)v7 ^ 0x37FF03BD) + 1376963086) ^ 0x80EDC9B3;
+	HIDWORD(v417) = (~(~HIDWORD(v7) ^ 0x9C2EC6E8) + 1364021710) ^ 0x999C68DA;
+	return GameMemory.Read<FUObjectItem>(v417 + 0x18 * i);
+}
+
+FORCEINLINE int32 UObject::GetInternalIndex() const
+{
+	uint32 v2 = InternalIndex;
+	int32 v9 = v2 ^ (v2 << 16) ^ 0x8B8B1C3D;
+	return v9;
+}
+
+FORCEINLINE UClass UObject::GetClass() const
+{
+	uint64 v6 = ClassPrivate;
+	uint64 v10 = __ROR8__(v6 ^ 0xE8749E34FEC7EAD7, 10) ^ (__ROR8__(v6 ^ 0xE8749E34FEC7EAD7, 10) << 32) ^ 0xE928C4267DFB45C9;
+	return GameMemory.Read<UClass>(v10);
+}
+
+FORCEINLINE UObject UObject::GetOuter() const
+{
+	uint64 v6 = OuterPrivate;
+	uint64 v10 = __ROL8__(v6 ^ 0x9259C8617E58D9CF, 1);
+	uint64 v11 = v10 ^ (v10 << 32) ^ 0xA91E9E71974BCD96;
+	return GameMemory.Read<UObject>(v11);
+}
+
+FORCEINLINE uint64 UObject::GetNameID() const
+{
+	int32 v6 = NamePrivate.ComparisonIndex;
+	int32 v10 = NamePrivate.Number;
+	int v22, v23;
+	v22 = __ROR4__(v6 ^ 0x8104231E, 4) ^ (__ROR4__(v6 ^ 0x8104231E, 4) << 16) ^ 0xA21A8104;
+	v23 = __ROR4__(v10 ^ 0x45CB3DFB, 6) ^ (__ROR4__(v10 ^ 0x45CB3DFB, 6) << 16) ^ 0x94107EC7;
+	return v23;
+}
+
 GObjects::GObjects()
 {
 
@@ -38,90 +88,4 @@ void GObjects::Dump()
 	o.close();
 	system(path.data());
 	return;
-}
-
-FORCEINLINE uint64 UObject::GetNameID() const
-{
-	uint64 v48 = NamePrivate.ComparisonIndex;
-	uint64 v45 = NamePrivate.Number;
-	uint64 a12;
-	LODWORD(a12) = __ROR4__(v48 ^ 0xD0F31505, 12) ^ (__ROR4__(v48 ^ 0xD0F31505, 12) << 16) ^ 0x52070AF0;
-	HIDWORD(a12) = __ROR4__(v45 ^ 0xAF058F7, 6) ^ (__ROR4__(v45 ^ 0xAF058F7, 6) << 16) ^ 0xC5F6D0F3;
-	return a12;
-}
-
-FORCEINLINE uint64 FName::GetComparisonIndex() const
-{
-	uint32_t v7 = ComparisonIndex;
-	uint64 Result = __ROR4__(v7 ^ 0x26B4689, 7) ^ (__ROR4__(v7 ^ 0x26B4689, 7) << 16) ^ 0xD1BB2CBB;
-	//uint64 Result = __ROR4__(v7 ^ 0x26B4689, 7) ^ (__ROR4__(v7 ^ 0x26B4689, 7) << 16) ^ 0xD1BB2CBB;
-	return Result;
-}
-
-FORCEINLINE uint64 FName::GetNumber() const
-{
-	uint32_t v11 = Number;
-	uint64 Result = __ROR4__(v11 ^ 0xBAB0E9E0, 13) ^ (__ROR4__(v11 ^ 0xBAB0E9E0, 13) << 16) ^ 0x5350BAB0;
-	return Result;
-}
-
-FORCEINLINE int32 UObject::GetInternalIndex() const
-{
-	uint32 v2 = InternalIndex;
-	int32 v9 = __ROL4__(v2 ^ 0x45053BED, 3) ^ (__ROL4__(v2 ^ 0x45053BED, 3) << 16) ^ 0xE87EAEA0;
-	return v9;
-}
-
-FORCEINLINE UClass UObject::GetClass() const
-{
-	uint64 v24 = ClassPrivate;
-	return GameMemory.Read<UClass>(__ROL8__(v24 ^ 0x665B98933272E58C, 21) ^ (__ROL8__(v24 ^ 0x665B98933272E58C, 21) << 32) ^ 0xBB57415CF335D646);
-}
-
-FORCEINLINE FName UObject::GetFName() const
-{
-	return NamePrivate;
-}
-
-FORCEINLINE UObject UObject::GetOuter() const
-{
-	uint64 v30 = OuterPrivate;
-	return GameMemory.Read<UObject>(__ROR8__(v30 ^ 0xE2FFCEA309ED3A2B, 30) ^ (__ROR8__(v30 ^ 0xE2FFCEA309ED3A2B, 30) << 32) ^ 0xD6AECB5A6D8252C0);
-}
-
-
-UObject FUObjectItem::GetUObject()
-{
-	return GameMemory.Read<UObject>(Object);
-}
-uint64 FUObjectItem::GetBaseAddress()
-{
-	return Object;
-}
-
-
-int32_t TUObjectArray::GetNumElements()
-{
-	return this->NumElements;
-}
-uint64 TUObjectArray::GetBaseAddress()
-{
-	return this->Objects;
-}
-
-FUObjectItem TUObjectArray::GetObjects()
-{
-	uint64 v7 = Objects;
-	uint64 v416;
-	LODWORD(v416) = (v7 + 1988483301) ^ 0x85E5D16B;
-	HIDWORD(v416) = (HIDWORD(v7) - 1081503205) ^ 0xFB75FBB5;
-	return GameMemory.Read<FUObjectItem>(v416);
-}
-FUObjectItem TUObjectArray::GetObjects(int i)
-{
-	uint64 v7 = Objects;
-	uint64 v416;
-	LODWORD(v416) = (v7 + 1988483301) ^ 0x85E5D16B;
-	HIDWORD(v416) = (HIDWORD(v7) - 1081503205) ^ 0xFB75FBB5;
-	return GameMemory.Read<FUObjectItem>(v416 + 0x18 * i);
 }

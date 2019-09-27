@@ -3,9 +3,9 @@
 #include "GObjects/GObjects.h"
 #include <Psapi.h>
 
-#define off_UWorld 0x43CDF38
-#define off_GNames 0x46546C0
-#define off_GObjects 0x43C9C20
+#define off_UWorld 0x4401688
+#define off_GNames 0x461C070
+#define off_GObjects 0x45052A8
 
 HANDLE GameProcessHandle = NULL;
 uint64 GameBaseAddress = 0;
@@ -27,6 +27,7 @@ int main(int argc, char** argv)
 	NameStore = GNames(GameBaseAddress + off_GNames);
 	ObjectStore = GObjects(GameBaseAddress+off_GObjects);
 	DebugInfromation(GWorld, NameStore, ObjectStore);
+	ObjectStore.Dump();
 	system("pause");
 }
 
@@ -64,5 +65,9 @@ void DebugInfromation(UWorld& GWorld,GNames& NameStore, GObjects& ObjectStore)
 {
 	std::cout << GWorld.GetLevel().GetActors().Length() << std::endl;
 	std::cout << NameStore.GetActorNameFromID(0) << std::endl;
-	std::cout << ObjectStore.ObjObjects.GetObjects(0).GetUObject().GetNameID() << std::endl;
+	std::cout << std::hex << ObjectStore.ObjObjects.GetObjects(3).GetBaseAddress() << std::dec << std::endl;
+	std::cout << ObjectStore.ObjObjects.GetObjects(3).GetUObject().GetNameID() << std::endl;
+	std::cout << ObjectStore.ObjObjects.GetObjects(3).GetUObject().GetInternalIndex() << std::endl;
+	std::cout << ObjectStore.ObjObjects.GetObjects(3).GetUObject().GetOuter().GetInternalIndex() << std::endl;
+	std::cout << ObjectStore.ObjObjects.GetObjects(3).GetUObject().GetClass().GetInternalIndex() << std::endl;
 }

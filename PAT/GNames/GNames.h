@@ -1,6 +1,9 @@
 #pragma once
-#include "../Utils/MemoryHelper.h"
 #include <string>
+#include "../Utils/MemoryHelper.h"
+
+#define off_ChunkSize 0x3FD4
+
 class GNames
 {
 public:

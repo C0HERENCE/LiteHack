@@ -4,7 +4,6 @@
 
 extern Memory GameMemory;
 
-#define off_ChunkSize 0x4178
 GNames::GNames()
 {
 
@@ -18,31 +17,27 @@ GNames::GNames(uint64 Base)
 uint64 GNames::DecryptGNames(uint64 a)
 {
 	uint64 GName =GameMemory.Read64(a);
-	uint64 v24;
-	__int64 v12; // r9
-	unsigned int v13; // edx
-	int v14; // ch^3
-	int64 v3 = GName;
-	LODWORD(v24) = (v3 + 638921045) ^ 0x157521DB;
-	HIDWORD(v24) = (HIDWORD(v3) + 1878663819) ^ 0x6B056B45;
-	v12 = GameMemory.Read64(v24) >> 32;
-	v13 = ((unsigned __int16)GameMemory.Read64(v24) ^ ((unsigned int)GameMemory.Read64(v24) >> 16) | GameMemory.Read64(v24) & 0xFFFF0000) + 779007602;
-	LODWORD(v24) = ((unsigned __int16)v13 ^ (v13 >> 16) | ((unsigned __int16)__ROR2__(HIWORD(v13), 8) << 16)) ^ 0x2E6EB672;
-	HIDWORD(v24) = ((((unsigned __int16)__ROR2__(v12 ^ WORD1(v12), 8) | ((unsigned __int16)__ROR2__(WORD1(v12), 8) << 16))
-		+ 758197682) & 0xFFFF0000 | (unsigned __int16)__ROR2__(
-		(__ROR2__(v12 ^ WORD1(v12), 8) + 11698) ^ ((((unsigned __int16)__ROR2__(v12 ^ WORD1(v12), 8) | ((unsigned int)(unsigned __int16)__ROR2__(WORD1(v12), 8) << 16)) + 758197682) >> 16),
-			8)) ^ 0xD2CED24E;
-	v14 = ((GameMemory.Read64(v24) >> 32) + 1511283285) ^ 0xA5EBA5AB;
-	LODWORD(v24) = __ROL4__(__ROL4__((GameMemory.Read64(v24) - 612692171) ^ 0x5CDC84FC, 8) + 2019062839, 8);
-	HIDWORD(v24) = (v14 ^ 0xF9D7F997) - 103286377;
-	uint64 v46;
-	__int64 v17 = v24;
-	LODWORD(v46) = __ROR4__(__ROR4__(v17, 8) - 2019062839, 8) ^ 0x87A78BC9;
-	HIDWORD(v46) = (HIDWORD(v17) + 103286377) ^ 0xF9D7F997;
-	__int64 v30; // ST68_8
-	LODWORD(v30) = (GameMemory.Read64(v46) + 0x16653905) ^ 0x65C5318B;
-	HIDWORD(v30) = ((GameMemory.Read64(v46) >> 32) + 0x5FAA723B) ^ 0x1B551B95;
-	DecryptedGNames = v30;
+	uint64 v3 = GName;
+	uint64 v19, v14, v15;
+	LODWORD(v19) = ((v3 ^ 0x3815FC42) + 492692866) ^ 0x7FB7E63C;
+	HIDWORD(v19) = ((HIDWORD(v3) ^ 0xD3E63917) + 507649730) ^ 0x26A427D5;
+	v14 = GameMemory.Read64(v19);
+	LODWORD(v19) = __ROR4__(__ROL4__(GameMemory.Read64(v19) + 600869519, 8) + 37731856, 16) ^ 0x4F6F3381;
+	HIDWORD(v19) = __ROR4__(__ROR4__(HIDWORD(v14) - 1804479112, 16) - 229465191, 8) ^ 0x311F31DF;
+	v15 = GameMemory.Read64(v19);
+	LODWORD(v19) = (((v15 & 0xFFFF0000 | (unsigned __int16)v15 ^ ((unsigned int)v15 >> 16)) + 1751697432) & 0xFFFF0000 | (unsigned __int16)((v15 ^ WORD1(v15)) - 14312) ^ ((unsigned __int64)((v15 & 0xFFFF0000 | (unsigned __int16)v15 ^ ((unsigned int)v15 >> 16)) + 1751697432) >> 16)) ^ 0x6868C818;
+	LODWORD(v15) = ((((unsigned __int16)__ROR2__(HIWORD(v15), 8) << 16) | (unsigned int)(unsigned __int16)__ROL2__(WORD2(v15) ^ HIWORD(v15), 8))
+		+ 1729586968) >> 16;
+	LODWORD(v19) = __ROR4__((__ROR4__((unsigned int)v19 ^ 0x149444AC, 8) ^ 0x14EA03BD) - 345261228, 8) ^ 0x79EA03BD;
+	HIDWORD(v19) = __ROL4__(		(__ROL4__(		(((unsigned __int16)__ROR2__(v15, 8) << 16) | (unsigned __int16)__ROL2__(			(__ROL2__(				WORD2(v15) ^ HIWORD(v15),				8)				+ 26392) ^ v15,			8)) ^ 0x743C743C,			16) ^ 0x7919C6E8)		- 321590060,		16) ^ 0xDE19C6E8;
+	uint64 v17 = v19;
+	uint64 v47, v31, v30;
+	LODWORD(v47) = __ROL4__((__ROL4__(v17 ^ 0x79EA03BD, 8) + 345261228) ^ 0x14EA03BD, 8) ^ 0x149444AC;
+	HIDWORD(v47) = __ROR4__((__ROR4__(HIDWORD(v17) ^ 0xDE19C6E8, 16) + 321590060) ^ 0x7919C6E8, 16) ^ 0xECD4ECD4;
+	v30 = GameMemory.Read64(v47 + 0x10);
+	LODWORD(v31) = __ROR4__(~__ROR4__(v30, 16) - 2124325457, 16) ^ 0x7E9EA250;
+	HIDWORD(v31) = __ROR4__(~__ROR4__(HIDWORD(v30), 8) + 5111823, 8) ^ 0x4E000E;
+	DecryptedGNames = v31;
 	return DecryptedGNames;
 }
 

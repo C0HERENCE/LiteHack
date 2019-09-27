@@ -159,6 +159,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="GNames\GNames.cpp" />
+    <ClCompile Include="GObjects\EngineClasses.cpp" />
     <ClCompile Include="GWorld\AActor.cpp" />
     <ClCompile Include="GWorld\ADroppedItem.cpp" />
     <ClCompile Include="GWorld\APlayerCameraManager.cpp" />
@@ -180,6 +181,7 @@
     <ClCompile Include="Utils\tinyformat.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="GObjects\EngineClasses.h" />
     <ClInclude Include="GNames\GNames.h" />
     <ClInclude Include="GWorld\ULevel.hpp" />
     <ClInclude Include="GWorld\UWorld.hpp" />

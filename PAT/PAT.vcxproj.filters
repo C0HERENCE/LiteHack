@@ -75,6 +75,9 @@
     <ClCompile Include="GWorld\AWeaponProcessor.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="GObjects\EngineClasses.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GNames\GNames.h">
@@ -168,6 +171,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="GWorld\ULevel.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GObjects\EngineClasses.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
