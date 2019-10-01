@@ -1,43 +1,41 @@
 #include "EngineClasses.h"
-
-FORCEINLINE uint64 FName::GetComparisonIndex() const
+int32 UObject::GetInternalIndex() const
 {
-	uint32_t v7 = ComparisonIndex;
-	uint64 Result = __ROR4__(v7 ^ 0x26B4689, 7) ^ (__ROR4__(v7 ^ 0x26B4689, 7) << 16) ^ 0xD1BB2CBB;
-	return Result;
+	uint32 v2 = InternalIndex;
+	int32 v9 = v2 ^ (v2 << 16) ^ 0x8B8B1C3D;
+	return v9;
 }
 
-FORCEINLINE uint64 FName::GetNumber() const
+uint64 UObject::GetClass() const
 {
-	uint32_t v11 = Number;
-	uint64 Result = __ROR4__(v11 ^ 0xBAB0E9E0, 13) ^ (__ROR4__(v11 ^ 0xBAB0E9E0, 13) << 16) ^ 0x5350BAB0;
-	return Result;
+	uint64 v6 = Class;
+	uint64 v10 = __ROR8__(v6 ^ 0xE8749E34FEC7EAD7, 10) ^ (__ROR8__(v6 ^ 0xE8749E34FEC7EAD7, 10) << 32) ^ 0xE928C4267DFB45C9;
+	return v10;
 }
 
-
-FORCEINLINE FName UObject::GetFName() const
+uint64 UObject::GetOuter() const
 {
-	return NamePrivate;
+	uint64 v6 = Outer;
+	uint64 v10 = __ROL8__(v6 ^ 0x9259C8617E58D9CF, 1);
+	uint64 v11 = v10 ^ (v10 << 32) ^ 0xA91E9E71974BCD96;
+	return v11;
 }
 
-
-
-UObject FUObjectItem::GetUObject()
+int FName::GetComparisonIndex() const
 {
-	return GameMemory.Read<UObject>(Object);
-}
-uint64 FUObjectItem::GetBaseAddress()
-{
-	return Object;
+	uint32_t v10 = ComparisonIndex;
+	int v23 = __ROR4__(v10 ^ 0x45CB3DFB, 6) ^ (__ROR4__(v10 ^ 0x45CB3DFB, 6) << 16) ^ 0x94107EC7;
+	return v23;
 }
 
-
-uint32 TUObjectArray::GetNumElements()
+int FName::GetNumber() const
 {
-	return this->NumElements;
-}
-uint64 TUObjectArray::GetBaseAddress()
-{
-	return this->Objects;
+	uint32_t v6 = Number;
+	int v22 = __ROR4__(v6 ^ 0x8104231E, 4) ^ (__ROR4__(v6 ^ 0x8104231E, 4) << 16) ^ 0xA21A8104;
+	return v22;
 }
 
+FName UObject::GetFName() const
+{
+	return Name;
+}

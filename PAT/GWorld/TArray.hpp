@@ -5,6 +5,8 @@ extern Memory GameMemory;
 template<class T>
 class TArray
 {
+	friend struct FString;
+
 public:
 	int Length() const
 	{
@@ -36,6 +38,16 @@ public:
 		auto offset = GameMemory.Read<uint64>(m_Data + sizeof(uint64) * index);
 		return GameMemory.Read<typename std::remove_pointer<U>::type>(offset);
 	}
+
+	T operator[](size_t i)
+	{
+		return GameMemory.Read<T>(m_Data + i * 8);
+	};
+
+	const T operator[](size_t i) const
+	{
+		return GameMemory.Read<T>(m_Data + i * 8);
+	};
 
 private:
 	uint64 m_Data;

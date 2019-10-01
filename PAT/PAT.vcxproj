@@ -158,8 +158,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="GNames\GNames.cpp" />
+    <ClCompile Include="GNames\NamesStore.cpp" />
     <ClCompile Include="GObjects\EngineClasses.cpp" />
+    <ClCompile Include="GObjects\GenericTypes.cpp" />
+    <ClCompile Include="GObjects\ObjectsStore.cpp" />
     <ClCompile Include="GWorld\AActor.cpp" />
     <ClCompile Include="GWorld\ADroppedItem.cpp" />
     <ClCompile Include="GWorld\APlayerCameraManager.cpp" />
@@ -176,19 +178,19 @@
     <ClCompile Include="GWorld\UVehicleRiderComponent.cpp" />
     <ClCompile Include="GWorld\UWorld.cpp" />
     <ClCompile Include="Utils\MemoryHelper.cpp" />
-    <ClCompile Include="GObjects\GObjects.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Utils\tinyformat.h" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GObjects\EngineClasses.h" />
-    <ClInclude Include="GNames\GNames.h" />
+    <ClInclude Include="GNames\NamesStore.h" />
+    <ClInclude Include="GObjects\GenericTypes.h" />
+    <ClInclude Include="GObjects\ObjectsStore.h" />
     <ClInclude Include="GWorld\ULevel.hpp" />
     <ClInclude Include="GWorld\UWorld.hpp" />
     <ClInclude Include="GWorld\Vector.hpp" />
     <ClInclude Include="Utils\ida_defs.h" />
     <ClInclude Include="Utils\MemoryHelper.h" />
-    <ClInclude Include="GObjects\GObjects.h" />
     <ClInclude Include="GWorld\AActor.hpp" />
     <ClInclude Include="GWorld\ADroppedItem.hpp" />
     <ClInclude Include="GWorld\APlayerCameraManager.hpp" />

@@ -18,16 +18,10 @@
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="GNames\GNames.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Utils\tinyformat.h">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Utils\MemoryHelper.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="GObjects\GObjects.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="GWorld\UWorld.cpp">
@@ -78,18 +72,21 @@
     <ClCompile Include="GObjects\EngineClasses.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="GObjects\GenericTypes.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GObjects\ObjectsStore.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GNames\NamesStore.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="GNames\GNames.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Utils\ida_defs.h">
       <Filter>Source Files</Filter>
     </ClInclude>
     <ClInclude Include="Utils\MemoryHelper.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="GObjects\GObjects.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="GWorld\AActor.hpp">
@@ -174,6 +171,15 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="GObjects\EngineClasses.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GObjects\GenericTypes.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GObjects\ObjectsStore.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GNames\NamesStore.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

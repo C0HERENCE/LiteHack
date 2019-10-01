@@ -1,22 +1,22 @@
 #pragma once
 #include "GWorld/UWorld.hpp"
-#include "GObjects/GObjects.h"
+#include "GObjects/ObjectsStore.h"
 #include <Psapi.h>
 
 #define off_UWorld 0x4401688
 #define off_GNames 0x461C070
-#define off_GObjects 0x45052A8
+#define off_GObjects 0x4505298
 
 HANDLE GameProcessHandle = NULL;
 uint64 GameBaseAddress = 0;
 
 Memory GameMemory;
 UWorld GWorld;
-GNames NameStore;
-GObjects ObjectStore;
+NamesStore GlobalNames;
+ObjectsStore GlobalObjects;
 
 int CheckEnvironment(int, char**);
-void DebugInfromation(UWorld&, GNames&, GObjects&);
+void DebugInfromation(UWorld&, NamesStore&, ObjectsStore&);
 
 
 int main(int argc, char** argv)
@@ -24,10 +24,10 @@ int main(int argc, char** argv)
 	if (CheckEnvironment(argc, argv) != 1) return -1;
 
 	GWorld = UWorld(GameBaseAddress + off_UWorld);
-	NameStore = GNames(GameBaseAddress + off_GNames);
-	ObjectStore = GObjects(GameBaseAddress+off_GObjects);
-	DebugInfromation(GWorld, NameStore, ObjectStore);
-	ObjectStore.Dump();
+	GlobalNames = NamesStore(GameBaseAddress + off_GNames);
+	GlobalObjects = ObjectsStore(GameBaseAddress+off_GObjects);
+	DebugInfromation(GWorld, GlobalNames, GlobalObjects);
+	//GlobalObjects.Dump();
 	system("pause");
 }
 
@@ -61,13 +61,32 @@ int CheckEnvironment(int argc, char** argv)
 	}
 }
 
-void DebugInfromation(UWorld& GWorld,GNames& NameStore, GObjects& ObjectStore)
+void DebugInfromation(UWorld& GWorld,NamesStore& NameStore, ObjectsStore& ObjectStore)
 {
+	std::cout << " ===============GWorld==================="<< std::endl;
+	std::cout << "Actor Count: ";
 	std::cout << GWorld.GetLevel().GetActors().Length() << std::endl;
-	std::cout << NameStore.GetActorNameFromID(0) << std::endl;
-	std::cout << std::hex << ObjectStore.ObjObjects.GetObjects(3).GetBaseAddress() << std::dec << std::endl;
-	std::cout << ObjectStore.ObjObjects.GetObjects(3).GetUObject().GetNameID() << std::endl;
-	std::cout << ObjectStore.ObjObjects.GetObjects(3).GetUObject().GetInternalIndex() << std::endl;
-	std::cout << ObjectStore.ObjObjects.GetObjects(3).GetUObject().GetOuter().GetInternalIndex() << std::endl;
-	std::cout << ObjectStore.ObjObjects.GetObjects(3).GetUObject().GetClass().GetInternalIndex() << std::endl;
+	std::cout << " ===============GNames==================" << std::endl;
+	std::cout << "GNames Addr: ";
+	std::cout << std::hex << NameStore.GetAddress() << std::dec << std::endl;
+	std::cout << "Name: ";
+	std::cout << NameStore.GetById(0) << std::endl;
+	std::cout << " ===============GObjects=================" << std::endl;
+	int i = 4;
+	std::cout << "Obj Num: ";
+	std::cout << std::dec << ObjectStore.GetObjectsNum() << std::endl;
+	std::cout << "ID: ";
+	std::cout << std::dec << ObjectStore.GetById(1).GetIndex() << std::endl;
+	std::cout << "Name: ";
+	std::cout << ObjectStore.GetById(1).GetName() << std::endl;
+	std::cout << "Outer: ";
+	std::cout << std::hex << ObjectStore.GetById(1).GetOuter().GetAddress() << std::dec<< std::endl;
+	std::cout << "Class: ";
+	std::cout << ObjectStore.GetById(1).GetClass().GetFullName() << std::endl;
+	std::cout << "Full Name: ";
+	std::cout << ObjectStore.GetById(1).GetFullName() << std::endl;
+	for (int i = 0; i < 100; i++)
+	{
+		//std::cout << ObjectStore.GetById(i).GetFullName() << std::endl;
+	}
 }
