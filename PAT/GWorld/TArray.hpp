@@ -41,12 +41,12 @@ public:
 
 	T operator[](size_t i)
 	{
-		return GameMemory.Read<T>(m_Data + i * 8);
+		return GameMemory.Read<T>(m_Data + i * sizeof(T));
 	};
 
 	const T operator[](size_t i) const
 	{
-		return GameMemory.Read<T>(m_Data + i * 8);
+		return GameMemory.Read<T>(m_Data + i * sizeof(T));
 	};
 
 private:

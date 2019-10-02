@@ -161,6 +161,7 @@
     <ClCompile Include="GNames\NamesStore.cpp" />
     <ClCompile Include="GObjects\EngineClasses.cpp" />
     <ClCompile Include="GObjects\GenericTypes.cpp" />
+    <ClCompile Include="GObjects\NameValidator.cpp" />
     <ClCompile Include="GObjects\ObjectsStore.cpp" />
     <ClCompile Include="GWorld\AActor.cpp" />
     <ClCompile Include="GWorld\ADroppedItem.cpp" />
@@ -177,6 +178,7 @@
     <ClCompile Include="GWorld\USkeletalMeshComponent.cpp" />
     <ClCompile Include="GWorld\UVehicleRiderComponent.cpp" />
     <ClCompile Include="GWorld\UWorld.cpp" />
+    <ClCompile Include="GObjects\Package.cpp" />
     <ClCompile Include="Utils\MemoryHelper.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Utils\tinyformat.h" />
@@ -184,11 +186,14 @@
   <ItemGroup>
     <ClInclude Include="GObjects\EngineClasses.h" />
     <ClInclude Include="GNames\NamesStore.h" />
+    <ClInclude Include="GObjects\FunctionFlags.h" />
     <ClInclude Include="GObjects\GenericTypes.h" />
+    <ClInclude Include="GObjects\NameValidator.h" />
     <ClInclude Include="GObjects\ObjectsStore.h" />
     <ClInclude Include="GWorld\ULevel.hpp" />
     <ClInclude Include="GWorld\UWorld.hpp" />
     <ClInclude Include="GWorld\Vector.hpp" />
+    <ClInclude Include="GObjects\Package.h" />
     <ClInclude Include="Utils\ida_defs.h" />
     <ClInclude Include="Utils\MemoryHelper.h" />
     <ClInclude Include="GWorld\AActor.hpp" />

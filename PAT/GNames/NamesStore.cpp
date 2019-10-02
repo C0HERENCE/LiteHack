@@ -17,7 +17,6 @@ NamesStore::NamesStore(uint64 Base)
 uint64 NamesStore::Initialize(uint64 a)
 {
 	uint64 GName = GameMemory.Read64(a);
-	std::cout << std::hex << GName << std::dec << std::endl;
 	uint64 v3 = GName;
 	uint64 v19, v14, v15;
 	LODWORD(v19) = ((v3 ^ 0x3815FC42) + 492692866) ^ 0x7FB7E63C;

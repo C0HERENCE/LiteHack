@@ -48,7 +48,9 @@ public:
 
 class ObjectsStore
 {
-public:
+public:	
+	void Dump();
+
 	ObjectsStore();
 
 	ObjectsStore(uint64);
@@ -61,30 +63,32 @@ public:
 
 	UEClass FindClass(const std::string& name) const;
 
-	//template<class T>
-	//size_t CountObjects(const std::string& name) const
-	//{
-	//	static std::unordered_map<std::string, size_t> cache;
+	template<typename T>
+	int CountObjects(const std::string& name) const
+	{
+		static std::unordered_map<std::string, int> cache;
 
-	//	auto it = cache.find(name);
-	//	if (it != std::end(cache))
-	//	{
-	//		return it->second;
-	//	}
+		auto it = cache.find(name);
+		if (it != std::end(cache))
+		{
+			return it->second;
+		}
 
-	//	size_t count = 0;
-	//	for (auto obj : *this)
-	//	{
-	//		if (obj.IsA<T>() && obj.GetName() == name)
-	//		{
-	//			++count;
-	//		}
-	//	}
+		size_t count = 0;
+		for (int i = 0; i < GetObjectsNum(); i++)
+		{
+			auto obj = GetById(i);
+			bool sb =  obj.IsA<T>(0);// obj.IsA<T>();
+			if (sb && obj.GetName() == name)
+			{
+				++count;
+			}
+		}
 
-	//	cache[name] = count;
+		cache[name] = count;
 
-	//	return count;
-	//}
+		return count;
+	}
 
 private:
 	FUObjectArray privateGO;

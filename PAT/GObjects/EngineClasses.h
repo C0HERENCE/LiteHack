@@ -3,6 +3,8 @@
 #include "..//GWorld/TArray.hpp"
 extern Memory GameMemory;
 
+class UObject;
+
 struct FPointer
 {
 	uintptr_t Dummy;
@@ -43,6 +45,87 @@ struct FString : public TArray<wchar_t>
 	}
 };
 
+struct FText
+{
+	char UnknownData[0x18];
+};
+
+class FScriptInterface
+{
+private:
+	UObject* ObjectPointer;
+	void* InterfacePointer;
+
+public:
+	UObject* GetObject() const
+	{
+		return ObjectPointer;
+	}
+
+	UObject*& GetObjectRef()
+	{
+		return ObjectPointer;
+	}
+
+	void* GetInterface() const
+	{
+		return ObjectPointer != nullptr ? InterfacePointer : nullptr;
+	}
+};
+
+struct FWeakObjectPtr
+{
+	int32_t ObjectIndex;
+	int32_t ObjectSerialNumber;
+};
+
+
+struct FStringAssetReference
+{
+	FString AssetLongPathname;
+};
+
+template<typename TObjectID>
+class TPersistentObjectPtr
+{
+public:
+	FWeakObjectPtr WeakPtr;
+	int32_t TagAtLastTest;
+	TObjectID ObjectID;
+};
+
+class FAssetPtr : public TPersistentObjectPtr<FStringAssetReference>
+{
+
+};
+
+struct FGuid
+{
+	uint32_t A;
+	uint32_t B;
+	uint32_t C;
+	uint32_t D;
+};
+
+struct FUniqueObjectGuid
+{
+	FGuid Guid;
+};
+
+class FLazyObjectPtr : public TPersistentObjectPtr<FUniqueObjectGuid>
+{
+
+};
+
+struct FScriptDelegate
+{
+	unsigned char UnknownData[20];
+};
+
+struct FScriptMulticastDelegate
+{
+	unsigned char UnknownData[16];
+};
 
 class UClass;
 
@@ -55,6 +138,7 @@ public:
 	int32_t ObjectFlags;
 	uint64 Outer;
 	uint64 Class;
+	uint64 unknown;
 public:
 	int32_t GetInternalIndex() const;
 	uint64 GetClass() const;
@@ -71,46 +155,73 @@ public:
 class UEnum : public UField
 {
 public:
-	FString CppType; //0x0030 
-	TArray<TPair<FName, uint64_t>> Names; //0x0040 
-	__int64 CppForm; //0x0050 
+	FString CppType;
+	TArray<TPair<FName, uint64_t>> Names; 
+	__int64 CppForm; 
+	char unknown[2][8];
 };
 
 class UStruct : public UField
 {
 public:
-	uint64 SuperField; // ustruct
-	uint64 Children;// ufield
-	int32_t PropertySize;
-	int32_t MinAlignment;
-	char pad_0x0048[0x40];
+	char unknown1[1][8]; //0x0038
+	uint32_t MinAlignment; //0x0040
+	int32_t unknown2[3]; //0x0044
+	uint64_t Children; //0x0050
+	char unknown3[4][8]; //0x0058
+	uint64_t Children2; //0x0078ufield
+	uint32_t PropertySize; //0x0080
+	uint32_t unknown4; //0x0084
+	uint64_t SuperField; //0x0088ustruct
+	uint64_t unknown5; //0x0090
 };
 
 class UScriptStruct : public UStruct
 {
 public:
-	char pad_0x0088[0x10]; //0x0088
+	char unknown[2][8]; //0x0098
+};
+
+class UFunction : public UStruct
+{
+public:
+	__int32 FunctionFlags; //0x0088
+	__int16 RepOffset; //0x008C
+	__int8 NumParms; //0x008E
+	char pad_0x008F[0x1]; //0x008F
+	__int16 ParmsSize; //0x0090
+	__int16 ReturnValueOffset; //0x0092
+	__int16 RPCId; //0x0094
+	__int16 RPCResponseId; //0x0096
+	class UProperty* FirstPropertyToInit; //0x0098
+	UFunction* EventGraphFunction; //0x00A0
+	__int32 EventGraphCallOffset; //0x00A8
+	char pad_0x00AC[0x4]; //0x00AC
+	void* Func; //0x00B0
+	uint64 pad;
 };
 
 class UClass : public UStruct
 {
 public:
-	char pad_0x0088[0x198]; //0x0088
+	int8_t unknown[58]; //0x0098
 };
 
 class UProperty : public UField
 {
 public:
-	__int32 ArrayDim; //0x0030 
-	__int32 ElementSize; //0x0034 
-	FQWord PropertyFlags; //0x0038
-	__int32 PropertySize; //0x0040 
-	char pad_0x0044[0xC]; //0x0044
-	__int32 Offset; //0x0050 
-	char pad_0x0054[0x24]; //0x0054
+	uint32_t ArrayDim; //0x0038
+	uint32_t ElementSize; //0x003C
+	FQWord PropertyFlags; //0x0040
+	uint32_t unknown1; //0x0048
+	uint32_t Offset; //0x004C
+	uint64_t FirstChildren; //0x0050
+	uint64_t NextChildren; //0x0058
+	uint32_t PropertySize; //0x0080
+	uint32_t unknown3[5]; //0x0078
 };
 
-/*
+
 class UNumericProperty : public UProperty
 {
 public:
@@ -120,7 +231,7 @@ public:
 class UByteProperty : public UNumericProperty
 {
 public:
-	UEnum* Enum;										// 0x0088 (0x04)
+	uint64 Enum;
 };
 
 class UUInt16Property : public UNumericProperty
@@ -189,7 +300,7 @@ public:
 class UObjectPropertyBase : public UProperty
 {
 public:
-	UClass* PropertyClass;
+	uint64 PropertyClass;
 };
 
 class UObjectProperty : public UObjectPropertyBase
@@ -201,13 +312,13 @@ public:
 class UClassProperty : public UObjectProperty
 {
 public:
-	UClass* MetaClass;
+	uint64 MetaClass;
 };
 
 class UInterfaceProperty : public UProperty
 {
 public:
-	UClass* InterfaceClass;
+	uint64 InterfaceClass;
 };
 
 class UWeakObjectProperty : public UObjectPropertyBase
@@ -231,7 +342,7 @@ public:
 class UAssetClassProperty : public UAssetObjectProperty
 {
 public:
-	UClass* MetaClass;
+	uint64 MetaClass;
 };
 
 class UNameProperty : public UProperty
@@ -243,7 +354,7 @@ public:
 class UStructProperty : public UProperty
 {
 public:
-	UScriptStruct* Struct;
+	uint64 Struct;
 };
 
 class UStrProperty : public UProperty
@@ -261,32 +372,31 @@ public:
 class UArrayProperty : public UProperty
 {
 public:
-	UProperty* Inner;
+	uint64 Inner;
 };
 
 class UMapProperty : public UProperty
 {
 public:
-	UProperty* KeyProp;
-	UProperty* ValueProp;
+	uint64 KeyProp;
+	uint64 ValueProp;
 };
 
 class UDelegateProperty : public UProperty
 {
 public:
-	UFunction* SignatureFunction;
+	uint64 SignatureFunction;
 };
 
 class UMulticastDelegateProperty : public UProperty
 {
 public:
-	UFunction* SignatureFunction;
+	uint64 SignatureFunction;
 };
 
 class UEnumProperty : public UProperty
 {
 public:
-	class UNumericProperty* UnderlyingProp; //0x0070
-	class UEnum* Enum; //0x0078
+	uint64 UnderlyingProp; //0x0070
+	uint64 Enum; //0x0078
 }; //Size: 0x008
-*/
