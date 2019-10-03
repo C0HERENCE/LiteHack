@@ -14,7 +14,8 @@ public:
 	Package(const UEObject& packageObj);
 	std::string GetName() const { return packageObj.GetName();}
 	void Process(std::unordered_map<uint64, bool>& processedObjects);
-	bool Save(const fs::path& path) const;
+	void Process(std::unordered_map<uint64, bool>& processedObjects,std::string className);
+	bool Save(const fs::path& path) const; 
 private:
 	UEObject packageObj;
 

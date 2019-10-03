@@ -98,15 +98,8 @@ Package::Package(const UEObject& _packageObj)
 void Package::Process(std::unordered_map<uint64, bool>& processedObjects)
 {
 	std::cout << "Processing :" << GetName() << "\n";
-	int percent = GlobalObjects.GetObjectsNum() / 100;
-	int progress = 25;
-	for (int i=0;i< GlobalObjects.GetObjectsNum();i++)
+	for (int i = 0; i < GlobalObjects.GetObjectsNum(); i++)
 	{
-		if (i==progress*percent)
-		{
-			std::cout <<"\t\t\t\tScaned "<< progress << "%\n";
-			progress += 25;
-		}
 		auto obj = GlobalObjects.GetById(i);
 		const auto package = GlobalObjects.GetById(i).GetPackageObject();
 		if (packageObj == package)
@@ -137,20 +130,63 @@ void Package::Process(std::unordered_map<uint64, bool>& processedObjects)
 	std::cout << classes.size() << " classes.\n\n\n\n";
 }
 
+void Package::Process(std::unordered_map<uint64, bool>& processedObjects,std::string className)
+{
+	std::cout << "Processing :" << GetName() << "\n";
+	for (int i = 0; i < GlobalObjects.GetObjectsNum(); i++)
+	{
+		auto obj = GlobalObjects.GetById(i);
+		const auto package = GlobalObjects.GetById(i).GetPackageObject();
+		if (packageObj == package)
+		{
+			
+			if (obj.IsA<UEEnum>())
+			{
+				GenerateEnum(obj.Cast<UEEnum>());
+			}
+			else if (obj.GetName() != "")
+			{
+				if (obj.GetName() != className)
+				{
+					continue;
+				}
+			}
+			else if (obj.IsA<UEConst>())
+			{
+				GenerateConst(obj.Cast<UEConst>());
+			}
+			else if (obj.IsA<UEClass>())
+			{
+				GeneratePrerequisites(obj, processedObjects);
+			}
+			else if (obj.IsA<UEScriptStruct>())
+			{
+				GeneratePrerequisites(obj, processedObjects);
+			}
+		}
+	}
+	std::cout << "Generate " << packageObj.GetName() << "  Finished: ";
+	std::cout << dependencies.size() << " dependencies. ";
+	std::cout << enums.size() << " enums. ";
+	std::cout << constants.size() << " constants. ";
+	std::cout << scriptStructs.size() << " scriptStructs. And ";
+	std::cout << classes.size() << " classes.\n\n\n\n";
+}
+
 bool Package::Save(const fs::path& path) const
 {
 	bool skip = true;
-	for (auto e:enums)
+	for (auto e : enums)
 		if (!e.Values.empty())
 			skip = false;
 	if (skip)
-		for (auto s :scriptStructs)
-				if (!s.Members.empty())
-					skip = false;
+		for (auto s : scriptStructs)
+			if (!s.Members.empty())
+				skip = false;
 	if (skip)
 		for (auto c : classes)
-				if (!c.Members.empty())
-					skip = false;
+			if (!c.Members.empty())
+				skip = false;
 	if (!skip)
 	{
 		SaveStructs(path);

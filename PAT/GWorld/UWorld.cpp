@@ -1,18 +1,12 @@
-#include "UWorld.hpp"
+#include "UWorld.h"
+
 UWorld::UWorld()
 {
-
+	pULevel = 0;
+	pGameInstance = 0;
 }
-UWorld::UWorld(uint64 a)
+UWorld::UWorld(uint64 address)
 {
-
-}
-ULevel UWorld::GetLevel() const
-{
-	return GameMemory.Read<ULevel>(this->m_pULevel);
-}
-
-UGameInstance UWorld::GetGameInstance() const
-{
-	return GameMemory.Read<UGameInstance>(this->m_pGameInstance);
+	pULevel = GameMemory.Read64(GameMemory.Read64(address) + off_ULevel);
+	pGameInstance = GameMemory.Read64(GameMemory.Read64(address) + off_ULevel);
 }

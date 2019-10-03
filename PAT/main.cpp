@@ -1,5 +1,5 @@
 #pragma once
-#include "GWorld/UWorld.hpp"
+#include "GWorld/UWorld.h"
 #include "GObjects/Generator.h"
 #include <Psapi.h>
 
@@ -13,6 +13,7 @@ uint64 GameBaseAddress = 0;
 Memory GameMemory;
 UWorld GWorld;
 NamesStore GlobalNames;
+
 ObjectsStore GlobalObjects;
 
 int Initialize(int, char**);
@@ -29,8 +30,11 @@ int main(int argc, char** argv)
 	DebugInfromation(GWorld, GlobalNames, GlobalObjects);
 	Generator generator;
 	fs::path outputDirectory("E:\\Desktop\\DUMP");
-	generator.Dump(outputDirectory);
-	generator.ProcessPackages(outputDirectory);
+	generator.ProcessPackages(outputDirectory,"ShadowTrackerExtra","STExtraPlayerCharacter");//STExtraPlayerCharacter > STExtraPlayerCharacter > ASTExtraBaseCharacter
+	//generator.ProcessPackages(outputDirectory, "Gameplay", "UAECharacter");// > UAECharacter
+	//generator.ProcessPackages(outputDirectory, "Engine", "Character");// > ACharacter > APawn > AActor > UObject
+	//generator.Dump(outputDirectory);
+	//generator.ProcessPackages(outputDirectory);
 	system("pause");
 }
 
@@ -67,8 +71,12 @@ int Initialize(int argc, char** argv)
 void DebugInfromation(UWorld& GWorld,NamesStore& NameStore, ObjectsStore& ObjectStore)
 {
 	std::cout << " ===============GWorld==================="<< std::endl;
+	std::cout << "Actor Address: ";
+	std::cout << std::hex <<GWorld.GetLevel().GetActors().GetAddress() <<std::dec << std::endl;
 	std::cout << "Actor Count: ";
 	std::cout << GWorld.GetLevel().GetActors().Length() << std::endl;
+	std::cout << "Actor Name: ";
+	std::cout << GlobalNames.GetById(GWorld.GetLevel().GetActors().GetValue(19).NetDriverName.GetComparisonIndex()) << std::endl;
 	std::cout << " ===============GNames==================" << std::endl;
 	std::cout << "GNames Addr: ";
 	std::cout << std::hex << NameStore.GetAddress() << std::dec << std::endl;
