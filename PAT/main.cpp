@@ -1,7 +1,6 @@
 #pragma once
 #include "GWorld/UWorld.hpp"
-#include "GObjects/ObjectsStore.h"
-#include "GObjects/Package.h"
+#include "GObjects/Generator.h"
 #include <Psapi.h>
 
 #define off_UWorld 0x4401688
@@ -16,26 +15,26 @@ UWorld GWorld;
 NamesStore GlobalNames;
 ObjectsStore GlobalObjects;
 
-int CheckEnvironment(int, char**);
+int Initialize(int, char**);
 void DebugInfromation(UWorld&, NamesStore&, ObjectsStore&);
-void ProcessPackages();
-
 
 int main(int argc, char** argv)
 {
-	if (CheckEnvironment(argc, argv) != 1) return -1;
+	if (!Initialize(argc, argv)) return 0;
 
 	GWorld = UWorld(GameBaseAddress + off_UWorld);
 	GlobalNames = NamesStore(GameBaseAddress + off_GNames);
-	GlobalObjects = ObjectsStore(GameBaseAddress+off_GObjects);
+	GlobalObjects = ObjectsStore(GameBaseAddress + off_GObjects);
 
-	ProcessPackages();
-	//DebugInfromation(GWorld, GlobalNames, GlobalObjects);
-	//GlobalObjects.Dump();
+	DebugInfromation(GWorld, GlobalNames, GlobalObjects);
+	Generator generator;
+	fs::path outputDirectory("E:\\Desktop\\DUMP");
+	generator.Dump(outputDirectory);
+	generator.ProcessPackages(outputDirectory);
 	system("pause");
 }
 
-int CheckEnvironment(int argc, char** argv)
+int Initialize(int argc, char** argv)
 {
 	if (argc != 2)
 	{
@@ -92,27 +91,5 @@ void DebugInfromation(UWorld& GWorld,NamesStore& NameStore, ObjectsStore& Object
 	for (int i = 0; i < 100; i++)
 	{
 		//std::cout << ObjectStore.GetById(i).GetFullName() << std::endl;
-	}
-}
-
-void ProcessPackages()
-{
-	std::unordered_map<uint64, bool> processedObjects;
-	std::unordered_set<uint64> packageObjects;
-	for (int i = 0; i < GlobalObjects.GetObjectsNum(); i++)
-	{
-		if(!GlobalObjects.GetById(i).IsValid()) continue;
-		processedObjects.insert({GlobalObjects.GetById(i).GetAddress(),false });
-		auto package = GlobalObjects.GetById(i).GetPackageObject();
-		if (!package.IsValid()) continue;
-		packageObjects.insert(package.GetAddress());
-	}
-	std::cout << "Package Count: " << packageObjects.size() << std::endl;
-	std::cout << "Objects Count: " << processedObjects.size() << std::endl;
-	for (auto i : packageObjects)
-	{
-		auto package = Package(UEObject(i));
-		package.Process(processedObjects);
-		package.Save();
 	}
 }

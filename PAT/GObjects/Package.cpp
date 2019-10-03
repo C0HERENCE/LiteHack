@@ -1,6 +1,82 @@
 #include "Package.h"
 #include "NameValidator.h"
-#include "../Utils/tinyformat.h"
+
+enum class FileContentType
+{
+	Structs,
+	Classes,
+	Functions,
+	FunctionParameters
+};
+
+void PrintFileHeader(std::ostream& os, const std::vector<std::string>& includes, bool isHeaderFile)
+{
+	if (isHeaderFile)
+	{
+		os << "#pragma once\n\n";
+	}
+
+	os << tfm::format("// %s (%s) SDK\n\n", "PUBG Lite", "1003")
+		<< tfm::format("#ifdef _MSC_VER\n\t#pragma pack(push, 0x%X)\n#endif\n\n", 8);
+
+	if (!includes.empty())
+	{
+		for (auto&& i : includes) { os << "#include " << i << "\n"; }
+		os << "\n";
+	}
+	std::string getnamespace = "SDK";
+	if (!getnamespace.empty())
+	{
+		os << "namespace " << getnamespace << "\n{\n";
+	}
+}
+
+void PrintFileHeader(std::ostream& os, bool isHeaderFile)
+{
+	PrintFileHeader(os, std::vector<std::string>(), isHeaderFile);
+}
+
+void PrintFileFooter(std::ostream& os)
+{
+	std::string getnamespace = "SDK";
+	if (getnamespace.empty())
+	{
+		os << "}\n\n";
+	}
+
+	os << "#ifdef _MSC_VER\n\t#pragma pack(pop)\n#endif\n";
+}
+
+void PrintSectionHeader(std::ostream& os, const char* name)
+{
+	os << "//---------------------------------------------------------------------------\n"
+		<< "//" << name << "\n"
+		<< "//---------------------------------------------------------------------------\n\n";
+}
+
+std::string GenerateFileName(FileContentType type, const Package& package)
+{
+	const char* name = "";
+	switch (type)
+	{
+	case FileContentType::Structs:
+		name = "%s_%s_structs.h";
+		break;
+	case FileContentType::Classes:
+		name = "%s_%s_classes.h";
+		break;
+	case FileContentType::Functions:
+		name = "%s_%s_functions.cpp";
+		break;
+	case FileContentType::FunctionParameters:
+		name = "%s_%s_parameters.h";
+		break;
+	default:
+		assert(false);
+	}
+
+	return tfm::format(name, "Lite", package.GetName());
+}
 
 bool ComparePropertyLess(const UEProperty& lhs, const UEProperty& rhs)
 {
@@ -21,9 +97,16 @@ Package::Package(const UEObject& _packageObj)
 
 void Package::Process(std::unordered_map<uint64, bool>& processedObjects)
 {
-	if (packageObj.GetName() != "ShadowTrackerExtra") return;
+	std::cout << "Processing :" << GetName() << "\n";
+	int percent = GlobalObjects.GetObjectsNum() / 100;
+	int progress = 25;
 	for (int i=0;i< GlobalObjects.GetObjectsNum();i++)
 	{
+		if (i==progress*percent)
+		{
+			std::cout <<"\t\t\t\tScaned "<< progress << "%\n";
+			progress += 25;
+		}
 		auto obj = GlobalObjects.GetById(i);
 		const auto package = GlobalObjects.GetById(i).GetPackageObject();
 		if (packageObj == package)
@@ -38,24 +121,105 @@ void Package::Process(std::unordered_map<uint64, bool>& processedObjects)
 			}
 			else if (obj.IsA<UEClass>())
 			{
-				//GeneratePrerequisites(obj, processedObjects);
-				//GenerateClass(obj.Cast<UEClass>());
+				GeneratePrerequisites(obj, processedObjects);
 			}
 			else if (obj.IsA<UEScriptStruct>())
 			{
-				GenerateScriptStruct(obj.Cast<UEScriptStruct>());
+				GeneratePrerequisites(obj, processedObjects);
 			}
 		}
 	}
-	std::cout << "Generate " <<packageObj.GetName() << "  Finished." << std::endl;
-	std::cout << enums.size() << " enums." << std::endl;
-	std::cout << constants.size() << " constants." << std::endl;
-	std::cout << scriptStructs.size() << " scriptStructs." << std::endl;
+	std::cout << "Generate " << packageObj.GetName() << "  Finished: ";
+	std::cout << dependencies.size() << " dependencies. ";
+	std::cout << enums.size() << " enums. ";
+	std::cout << constants.size() << " constants. ";
+	std::cout << scriptStructs.size() << " scriptStructs. And ";
+	std::cout << classes.size() << " classes.\n\n\n\n";
 }
 
-bool Package::Save() const
+bool Package::Save(const fs::path& path) const
 {
+	bool skip = true;
+	for (auto e:enums)
+		if (!e.Values.empty())
+			skip = false;
+	if (skip)
+		for (auto s :scriptStructs)
+				if (!s.Members.empty())
+					skip = false;
+	if (skip)
+		for (auto c : classes)
+				if (!c.Members.empty())
+					skip = false;
+	if (!skip)
+	{
+		SaveStructs(path);
+		SaveClasses(path);
+		std::cout << GetName() + " Save Finished." << std::endl;
+		return true;
+	}
 	return false;
+}
+
+void Package::SaveStructs(const fs::path& path) const
+{
+	std::ofstream os(path / GenerateFileName(FileContentType::Structs, *this));
+	PrintFileHeader(os, true);
+	if (!constants.empty())
+	{
+		PrintSectionHeader(os, "Constants");
+		for (auto&& c : constants) { PrintConstant(os, c); }
+
+		os << "\n";
+	}
+
+	if (!enums.empty())
+	{
+		PrintSectionHeader(os, "Enums");
+		for (auto&& e : enums) { PrintEnum(os, e); os << "\n"; }
+
+		os << "\n";
+	}
+
+	if (!scriptStructs.empty())
+	{
+		PrintSectionHeader(os, "Script Structs");
+		for (auto&& s : scriptStructs) { PrintStruct(os, s); os << "\n"; }
+	}
+
+	PrintFileFooter(os);
+}
+
+void Package::SaveClasses(const fs::path& path) const
+{
+	std::ofstream os(path / GenerateFileName(FileContentType::Classes, *this));
+
+	PrintFileHeader(os, true);
+
+	if (!classes.empty())
+	{
+		PrintSectionHeader(os, "Classes");
+		for (auto&& c : classes) { PrintClass(os, c); os << "\n"; }
+	}
+
+	PrintFileFooter(os);
+}
+
+void Package::PrintConstant(std::ostream& os, const std::pair<std::string, std::string>& c) const
+{
+	tfm::format(os, "#define CONST_%-50s %s\n", c.first, c.second);
+}
+
+void Package::PrintEnum(std::ostream& os, const Enum& e) const
+{
+	os << "// " << e.FullName << "\nenum class " << e.Name << " : uint8_t\n{\n";
+	int i = 0;
+	for (auto v : e.Values)
+	{
+		std::string name = v;
+		os << tfm::format("\t%-30s = %d,\n", name, i);
+		i++;
+	}
 }
 
 void Package::GenerateEnum(const UEEnum& enumObj)
@@ -88,17 +252,63 @@ void Package::GenerateEnum(const UEEnum& enumObj)
 			conflicts[clean]++;
 		}
 	}
-
-	std::cout << e.FullName << std::endl << "{" << std::endl;;
-	int i = 0;
-	for (auto j : e.Values)
-	{
-		std::cout << "\t" << j << " = " << i <<  ";" << std::endl;
-		i++;
-	}
-	std::cout << "}" << std::endl;
-
 	enums.emplace_back(std::move(e));
+	std::cout << "\t\tGenerated " << enums.size() << " Enums in Package "<< GetName() << ".\n";
+}
+
+void Package::PrintStruct(std::ostream& os, const ScriptStruct& ss) const
+{
+	os << "// " << ss.FullName << "\n// ";
+	if (ss.InheritedSize)
+	{
+		os << tfm::format("0x%04X (0x%04X - 0x%04X)\n", ss.Size - ss.InheritedSize, ss.Size, ss.InheritedSize);
+	}
+	else
+	{
+		os << tfm::format("0x%04X\n", ss.Size);
+	}
+
+	os << ss.NameCppFull << "\n{\n";
+
+	
+	for (auto m : ss.Members)
+	{
+		os << tfm::format("\t%-50s %-58s// 0x%04X(0x%04X)", m.Type, m.Name + ";", m.Offset, m.Size) 
+			+(!m.Comment.empty() ? " " + m.Comment : "")
+			+ (!m.FlagsString.empty() ? " (" + m.FlagsString + ")" : "");
+		os << "\n";
+	}
+	os << "};\n";
+}
+
+void Package::PrintClass(std::ostream& os, const Class& c) const
+{
+	os << "// " << c.FullName << "\n// ";
+	if (c.InheritedSize)
+	{
+		tfm::format(os, "0x%04X (0x%04X - 0x%04X)\n", c.Size - c.InheritedSize, c.Size, c.InheritedSize);
+	}
+	else
+	{
+		tfm::format(os, "0x%04X\n", c.Size);
+	}
+
+	os << c.NameCppFull << "\n{\npublic:\n";
+
+	for (auto&& m : c.Members)
+	{
+		tfm::format(os, "\t%-50s %-58s// 0x%04X(0x%04X)", m.Type, m.Name + ";", m.Offset, m.Size);
+		if (!m.Comment.empty())
+		{
+			os << " " << m.Comment;
+		}
+		if (!m.FlagsString.empty())
+		{
+			os << " (" << m.FlagsString << ")";
+		}
+		os << "\n";
+	}
+	os << "};\n\n";
 }
 
 void Package::GenerateConst(const UEConst& constObj)
@@ -111,7 +321,6 @@ void Package::GenerateConst(const UEConst& constObj)
 		return;
 	}
 	constants[name] = constObj.GetValue();
-	std::cout << constants[name] << "   " << name << std::endl;
 }
 
 void Package::GenerateMembers(const UEStruct& structObj, size_t offset, const std::vector<UEProperty>& properties, std::vector<Member>& members) const
@@ -193,7 +402,7 @@ void Package::GenerateMembers(const UEStruct& structObj, size_t offset, const st
 		else
 		{
 			const auto size = prop.GetElementSize() * prop.GetArrayDim();
-			members.emplace_back(CreatePadding(unknownDataCounter++, offset, size, "UNKNOWN PROPERTY: " + prop.GetFullName()));
+			members.emplace_back(CreatePadding(unknownDataCounter++, offset, size, "UNKNOWN PROPERTY: " + prop.GetFullName()+"|"+prop.GetName()));
 		}
 		offset = prop.GetOffset() + prop.GetElementSize() * prop.GetArrayDim();
 	}
@@ -212,6 +421,7 @@ Package::Member Package::CreatePadding(size_t id, size_t offset, size_t size, st
 	ss.Type = "unsigned char";
 	ss.Offset = offset;
 	ss.Size = size;
+	ss.Comment = std::move(reason);
 	return ss;
 }
 
@@ -225,28 +435,132 @@ Package::Member Package::CreateBitfieldPadding(size_t id, size_t offset, std::st
 	return ss;
 }
 
-void Package::GenerateScriptStruct(const UEScriptStruct& scriptStructObj)
+bool Package::AddDependency(const UEObject& package) const
 {
-	if (!scriptStructObj.IsValid())
+	if (package != packageObj)
+	{
+		dependencies.insert(package.GetAddress());
+
+		return true;
+	}
+	return false;
+}
+
+void Package::GeneratePrerequisites(const UEObject& obj, std::unordered_map<uint64, bool>& processedObjects)
+{
+	if (!obj.IsValid())
 	{
 		return;
 	}
-	const auto isClass = scriptStructObj.IsA<UEClass>();
-	const auto isScriptStruct = scriptStructObj.IsA<UEScriptStruct>();
+
+	const auto isClass = obj.IsA<UEClass>();
+	const auto isScriptStruct = obj.IsA<UEScriptStruct>();
 	if (!isClass && !isScriptStruct)
 	{
 		return;
 	}
-	const auto name = scriptStructObj.GetName();
-	if (name.find("Default__") != std::string::npos	|| name.find("<uninitialized>") != std::string::npos	|| name.find("PLACEHOLDER-CLASS") != std::string::npos)
+
+	const auto name = obj.GetName();
+	if (name.find("Default__") != std::string::npos
+		|| name.find("<uninitialized>") != std::string::npos
+		|| name.find("PLACEHOLDER-CLASS") != std::string::npos)
 	{
 		return;
 	}
-	auto classPackage = scriptStructObj.GetPackageObject();
+
+	processedObjects[obj.GetAddress()] |= false;
+
+	auto classPackage = obj.GetPackageObject();
 	if (!classPackage.IsValid())
 	{
 		return;
 	}
+	if (AddDependency(classPackage))
+	{
+		return;
+	}
+	if (processedObjects[obj.GetAddress()] == false)
+	{
+		processedObjects[obj.GetAddress()] = true;
+
+		auto outer = obj.GetOuter();
+		if (outer.IsValid() && outer != obj)
+		{
+			GeneratePrerequisites(outer, processedObjects);
+		}
+
+		auto structObj = obj.Cast<UEStruct>();
+
+		auto super = structObj.GetSuper();
+		if (super.IsValid() && super != obj)
+		{
+			GeneratePrerequisites(super, processedObjects);
+		}
+
+		GenerateMemberPrerequisites(structObj.GetChildren().Cast<UEProperty>(), processedObjects);
+
+		if (isClass)
+		{
+			GenerateClass(obj.Cast<UEClass>());
+		}
+		else
+		{
+			GenerateScriptStruct(obj.Cast<UEScriptStruct>());
+		}
+	}
+}
+
+void Package::GenerateMemberPrerequisites(const UEProperty& first, std::unordered_map<uint64, bool>& processedObjects)
+{
+	for (auto prop = first; prop.IsValid(); prop = prop.GetNext().Cast<UEProperty>())
+	{
+		const auto info = prop.GetInfo();
+		if (info.Type == UEProperty::PropertyType::Primitive)
+		{
+			if (prop.IsA<UEByteProperty>())
+			{
+				auto byteProperty = prop.Cast<UEByteProperty>();
+				if (byteProperty.IsEnum())
+				{
+					AddDependency(byteProperty.GetEnum().GetPackageObject());
+				}
+			}
+			else if (prop.IsA<UEEnumProperty>())
+			{
+				auto enumProperty = prop.Cast<UEEnumProperty>();
+				AddDependency(enumProperty.GetEnum().GetPackageObject());
+			}
+		}
+		else if (info.Type == UEProperty::PropertyType::CustomStruct)
+		{
+			GeneratePrerequisites(prop.Cast<UEStructProperty>().GetStruct(), processedObjects);
+		}
+		else if (info.Type == UEProperty::PropertyType::Container)
+		{
+			std::vector<UEProperty> innerProperties;
+			if (prop.IsA<UEArrayProperty>())
+			{
+				innerProperties.push_back(prop.Cast<UEArrayProperty>().GetInner());
+			}
+			else if (prop.IsA<UEMapProperty>())
+			{
+				auto mapProp = prop.Cast<UEMapProperty>();
+				innerProperties.push_back(mapProp.GetKeyProperty());
+				innerProperties.push_back(mapProp.GetValueProperty());
+				for (auto innerProp : innerProperties)
+				{
+					if (innerProp.GetInfo().Type == UEProperty::PropertyType::CustomStruct)
+					{
+						GeneratePrerequisites(innerProp.Cast<UEStructProperty>().GetStruct(), processedObjects);
+					}
+				}
+			}
+		}
+	}
+}
+
+void Package::GenerateScriptStruct(const UEScriptStruct& scriptStructObj)
+{
 	ScriptStruct ss;
 	ss.Name = scriptStructObj.GetName();
 	ss.FullName = scriptStructObj.GetFullName();
@@ -285,19 +599,47 @@ void Package::GenerateScriptStruct(const UEScriptStruct& scriptStructObj)
 	std::sort(std::begin(properties), std::end(properties), ComparePropertyLess);
 
 	GenerateMembers(scriptStructObj, offset, properties,ss.Members);
-
-	
-	std::cout << ss.NameCppFull << std::endl << "{" << std::endl;;
-	for (auto j : ss.Members)
-	{
-		std::cout <<"\t"<< j.Type << " " << j.Name << ";" << std::endl;
-	}
-	std::cout << "}" << std::endl;
-
 	scriptStructs.emplace_back(std::move(ss));
+	std::cout << "\t\tGenerated " << scriptStructs.size() << " Struct in Package " << GetName() << ".\n";
 }
 
 void Package::GenerateClass(const UEClass& classObj)
 {
-	
+	Class c;
+	c.Name = classObj.GetName();
+	c.FullName = classObj.GetFullName();
+	c.NameCpp = MakeValidName(classObj.GetNameCPP());
+	c.NameCppFull = "class " + c.NameCpp;
+	c.Size = classObj.GetPropertySize();
+	c.InheritedSize = 0; 
+	size_t offset = 0;
+	auto super = classObj.GetSuper();
+	if (super.IsValid() && super != classObj)
+	{
+		c.InheritedSize = offset = super.GetPropertySize();
+
+		c.NameCppFull += " : public " + MakeValidName(super.GetNameCPP());
+		std::vector<UEProperty> properties;
+		for (auto prop = classObj.GetChildren().Cast<UEProperty>(); prop.IsValid(); prop = prop.GetNext().Cast<UEProperty>())
+		{
+			if (prop.GetElementSize() > 0
+				&& !prop.IsA<UEScriptStruct>()
+				&& !prop.IsA<UEFunction>()
+				&& !prop.IsA<UEEnum>()
+				&& !prop.IsA<UEConst>()
+				&& (!super.IsValid()
+					|| (super != classObj
+						&& prop.GetOffset() >= super.GetPropertySize()
+						)
+					)
+				)
+			{
+				properties.push_back(prop);
+			}
+		}
+		std::sort(std::begin(properties), std::end(properties), ComparePropertyLess);
+		GenerateMembers(classObj, offset, properties, c.Members);
+		classes.emplace_back(std::move(c));
+		std::cout << "\t\tGenerated " << classes.size() << " Classes in Package " << GetName() << ".\n";
+	}
 }

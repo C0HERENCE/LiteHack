@@ -160,6 +160,7 @@
   <ItemGroup>
     <ClCompile Include="GNames\NamesStore.cpp" />
     <ClCompile Include="GObjects\EngineClasses.cpp" />
+    <ClCompile Include="GObjects\Generator.cpp" />
     <ClCompile Include="GObjects\GenericTypes.cpp" />
     <ClCompile Include="GObjects\NameValidator.cpp" />
     <ClCompile Include="GObjects\ObjectsStore.cpp" />
@@ -188,6 +189,7 @@
     <ClInclude Include="GNames\NamesStore.h" />
     <ClInclude Include="GObjects\FunctionFlags.h" />
     <ClInclude Include="GObjects\GenericTypes.h" />
+    <ClInclude Include="GObjects\Generator.h" />
     <ClInclude Include="GObjects\NameValidator.h" />
     <ClInclude Include="GObjects\ObjectsStore.h" />
     <ClInclude Include="GWorld\ULevel.hpp" />

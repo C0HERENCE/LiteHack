@@ -87,6 +87,9 @@
     <ClCompile Include="GObjects\NameValidator.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="GObjects\Generator.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Utils\ida_defs.h">
@@ -195,6 +198,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="GObjects\FunctionFlags.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GObjects\Generator.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -2,7 +2,6 @@
 #include <string>
 #include <vector>
 #include <array>
-
 #include "FunctionFlags.h"
 #include "EngineClasses.h"
 #include "..//GObjects/ObjectsStore.h"
@@ -352,6 +351,16 @@ public:
 };
 
 class UEObjectProperty : public UEObjectPropertyBase
+{
+public:
+	using UEObjectPropertyBase::UEObjectPropertyBase;
+
+	UEProperty::Info GetInfo() const;
+
+	static UEClass StaticClass();
+};
+
+class UEEncryptedObjectProperty : public UEObjectPropertyBase
 {
 public:
 	using UEObjectPropertyBase::UEObjectPropertyBase;

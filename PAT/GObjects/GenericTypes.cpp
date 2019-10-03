@@ -291,11 +291,11 @@ UEProperty::Info UEProperty::GetInfo() const
 		if (IsA<UELazyObjectProperty>())
 		{
 			return Cast<UELazyObjectProperty>().GetInfo();
-		}/*
-		if (IsA<UEAssetObjectProperty>())
-		{
-			return Cast<UEAssetObjectProperty>().GetInfo();
 		}
+		if (IsA<UEEncryptedObjectProperty>())
+		{
+			return Cast<UEEncryptedObjectProperty>().GetInfo();
+		}/*
 		if (IsA<UEAssetClassProperty>())
 		{
 			return Cast<UEAssetClassProperty>().GetInfo();
@@ -555,6 +555,19 @@ UEProperty::Info UEObjectProperty::GetInfo() const
 UEClass UEObjectProperty::StaticClass()
 {
 	static auto c = GlobalObjects.FindClass("Class CoreUObject.ObjectProperty");
+	return c;
+}
+//---------------------------------------------------------------------------
+//UEEncryptedObjectProperty
+//---------------------------------------------------------------------------
+UEProperty::Info UEEncryptedObjectProperty::GetInfo() const
+{
+	return Info::Create(PropertyType::Primitive, sizeof(void*), false, "class " + MakeValidName(GetPropertyClass().GetNameCPP()) + "*");
+}
+//---------------------------------------------------------------------------
+UEClass UEEncryptedObjectProperty::StaticClass()
+{
+	static auto c = GlobalObjects.FindClass("Class CoreUObject.EncryptedObjectProperty");
 	return c;
 }
 //---------------------------------------------------------------------------
