@@ -4,22 +4,22 @@
 
 int UEObject::GetIndex() const
 {
-	return GameMemory.Read<UObject>(object).GetInternalIndex();
+	return uobject.GetInternalIndex();
 }
 
 UEClass UEObject::GetClass() const
 {
-	return UEClass(GameMemory.Read<UObject>(object).GetClass());
+	return UEClass(uobject.GetClass());
 }
 
 UEObject UEObject::GetOuter() const
 {
-	return UEObject(GameMemory.Read<UObject>(object).GetOuter());
+	return UEObject(uobject.GetOuter());
 }
 
 std::string UEObject::GetName() const
 {
-	UObject uobj = GameMemory.Read<UObject>(object);
+	UObject uobj = uobject;
 	auto name = GlobalNames.GetById(uobj.GetFName().GetComparisonIndex());
 	if (uobj.GetFName().GetNumber()>0)
 	{

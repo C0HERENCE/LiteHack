@@ -51,6 +51,13 @@ public:
 		return GameMemory.Read<T>(m_Data + i * sizeof(T));
 	};
 
+	T GetById(int i)
+	{
+		//return T(GameMemory.Read64(m_Data + i * sizeof(T)));
+		std::cout <<std::hex << m_Data <<std::dec <<std::endl;
+		return T(GameMemory.Read64(m_Data + i * 8));
+	}
+
 private:
 	uint64 m_Data;
 	uint32 m_nCount;

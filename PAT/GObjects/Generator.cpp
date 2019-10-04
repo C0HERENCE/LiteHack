@@ -18,9 +18,49 @@ void Generator::Dump(const fs::path& path)
 		auto obj = GlobalObjects.GetById(i);
 		if (obj.IsValid())
 		{
-			tfm::format(o, "[%06i] %-100s 0x%x\n", obj.GetIndex(), obj.GetFullName(), obj.GetAddress());
+			std::string e = obj.GetName();
+			if (e.find("Default__") != std::string::npos
+				|| e.find("PLACEHOLDER-CLASS") != std::string::npos)
+			{
+				continue;
+			}
+			if (obj.IsA<UEFunction>())
+			{
+				continue;
+			}
+			else if (obj.IsA<UEEnum>())
+			{
+				auto e = UEEnum(obj.GetAddress()).GetNames();
+				tfm::format(o, "[0x%x]\t[%06i]\t%-100s\t%d Members: ", obj.GetAddress(), obj.GetIndex(), UEEnum(obj.GetAddress()).GetFullName(),e.size());
+				for (int i = 0; i < e.size(); i++)
+				{
+					tfm::format(o, " %s = %d, ", e[i],i);
+				}
+				tfm::format(o, "\n");
+			}
+			else if (obj.IsA<UEScriptStruct>()||obj.IsA<UEClass>())
+			{
+				UEStruct s = UEStruct(obj.GetAddress());
+				tfm::format(o, "[0x%x]\t[%06i]\t%-100s\t%s %s\n", obj.GetAddress(), obj.GetIndex(),obj.GetFullName(),s.GetNameCPP(), s.GetSuper().IsValid() ? ": " + s.GetSuper().GetNameCPP() : "" );
+			}
+			else if (obj.IsA<UEProperty>())
+			{
+				UEProperty p = UEProperty(obj.GetAddress());
+				std::string cppType = "";
+				if (obj.IsA<UEStructProperty>())
+				{
+					cppType = UEScriptStruct(GameMemory.Read<UStructProperty>(obj.GetAddress()).Struct).GetNameCPP();
+				}
+				else if (obj.IsA<UEEnumProperty>(obj.GetAddress()))
+				{
+					cppType = UEEnum(GameMemory.Read<UEnumProperty>(obj.GetAddress()).Enum).GetNameCPP();
+				}
+				tfm::format(o, "[0x%x]\t[%06i]\t[0x%04x]\t%-100s\t%s\n", obj.GetAddress(), obj.GetIndex(), p.GetOffset(), obj.GetFullName(), cppType);
+			}
 		}
 	}
+
+	return;
 	std::ofstream p(path / "NamesDump.txt");
 	tfm::format(p, "Address: 0x%x\n\n", GlobalNames.GetAddress());
 	for (int i = 0; i < GlobalObjects.GetObjectsNum(); i++)
@@ -72,9 +112,6 @@ void Generator::ProcessPackages(const fs::path& path, std::string packageName, s
 		if (!package.IsValid()) continue;
 		packageObjects.insert(package.GetAddress());
 	}
-	std::cout << "Package Count: " << packageObjects.size() << std::endl;
-	std::cout << "Objects Count: " << processedObjects.size() << std::endl;
-
 	fs::path outputDirectory(path);
 	outputDirectory /= "PUBGLite";
 	fs::create_directories(outputDirectory);

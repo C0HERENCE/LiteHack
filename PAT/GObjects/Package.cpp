@@ -139,17 +139,16 @@ void Package::Process(std::unordered_map<uint64, bool>& processedObjects,std::st
 		const auto package = GlobalObjects.GetById(i).GetPackageObject();
 		if (packageObj == package)
 		{
-			
-			if (obj.IsA<UEEnum>())
-			{
-				GenerateEnum(obj.Cast<UEEnum>());
-			}
-			else if (obj.GetName() != "")
+			if (obj.GetName() != "")
 			{
 				if (obj.GetName() != className)
 				{
 					continue;
 				}
+			}
+			if (obj.IsA<UEEnum>())
+			{
+				GenerateEnum(obj.Cast<UEEnum>());
 			}
 			else if (obj.IsA<UEConst>())
 			{
@@ -253,9 +252,10 @@ void Package::PrintEnum(std::ostream& os, const Enum& e) const
 	for (auto v : e.Values)
 	{
 		std::string name = v;
-		os << tfm::format("\t%-30s = %d,\n", name, i);
+		os << tfm::format("\t%s = %d,\n", name, i);
 		i++;
 	}
+	os << "};\n";
 }
 
 void Package::GenerateEnum(const UEEnum& enumObj)
@@ -309,7 +309,7 @@ void Package::PrintStruct(std::ostream& os, const ScriptStruct& ss) const
 	
 	for (auto m : ss.Members)
 	{
-		os << tfm::format("\t%-50s %-58s// 0x%04X(0x%04X)", m.Type, m.Name + ";", m.Offset, m.Size) 
+		os << tfm::format("\t%s %s// 0x%04X sizeof (0x%04X)", m.Type, m.Name + ";", m.Offset, m.Size) 
 			+(!m.Comment.empty() ? " " + m.Comment : "")
 			+ (!m.FlagsString.empty() ? " (" + m.FlagsString + ")" : "");
 		os << "\n";
@@ -333,7 +333,7 @@ void Package::PrintClass(std::ostream& os, const Class& c) const
 
 	for (auto&& m : c.Members)
 	{
-		tfm::format(os, "\t%-50s %-58s// 0x%04X(0x%04X)", m.Type, m.Name + ";", m.Offset, m.Size);
+		tfm::format(os, "\t%s %s// 0x%04X sizeof (0x%04X)", m.Type, m.Name + ";", m.Offset, m.Size);
 		if (!m.Comment.empty())
 		{
 			os << " " << m.Comment;

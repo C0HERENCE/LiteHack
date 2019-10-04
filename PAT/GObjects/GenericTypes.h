@@ -21,6 +21,7 @@ public:
 	UEObject(uint64 _object)
 		: object(_object)
 	{
+		uobject = GameMemory.Read<UObject>(_object);
 	}
 
 	bool IsValid() const
@@ -73,6 +74,7 @@ public:
 
 protected:
 	uint64 object;
+	UObject uobject;
 };
 
 class UEField : public UEObject
