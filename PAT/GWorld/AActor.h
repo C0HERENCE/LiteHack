@@ -3,7 +3,6 @@
 #include "Core/DummyTypes.h"
 #include "Core/EngineTypes.h"
 
-#define off_PlayerName 0x1
 class ASTExtraWeapon
 {
 	class UWeaponEntity* WeaponEntityComp;// 0x0438 sizeof (0x0008)
@@ -18,45 +17,44 @@ struct FAnimStatusKeyList
 
 class AActor : public UEObject
 {
+	using UEObject::UEObject;
 public:
-
+	FString GetPlayerName() const
+	{
+		return GameMemory.Read<FString>(base + off_PlayerName);
+	}
+	
+	float GetHealth()
+	{
+		return GameMemory.Read<float>(base + off_Health);
+	}
+	
+	bool IsWeaponFiring()
+	{
+		return GameMemory.Read<bool>(base + off_bIsWeaponFiring);
+	}
 private:
-};
+	uint64 base;
 
-class APawn : public AActor
-{
-public:
-	class AController* LastHitBy;// 0x03E8 sizeof (0x0008)
-	class AController* Controller;// 0x03F0 sizeof (0x0008)
-	class APlayerState* PlayerState;// 0x03F8 sizeof (0x0008)
-};
-
-class ACharacter : public APawn
-{
-public:
-	class USkeletalMeshComponent* Mesh;// 0x04D8 sizeof (0x0008)
-};
-
-class AUAECharacter : public ACharacter
-{
-public:
-	bool bIsAI;// 0x07E0 sizeof (0x0001)
-	int TeamID;// 0x0804 sizeof (0x0004)
-	struct FString PlayerName;// 0x0818 sizeof (0x0010)
+	uint64 off_PlayerName = 0x818;
+	uint64 off_Health = 0x1700;
+	uint64 off_bIsWeaponFiring = 0x1050;
+	//WeaponManagerComponent(UCharacterWeaponManagerComponent)
+	//WeaponManagerComponent -> CurrentWeaponReplicated(ASTExtraWeapon)
+	//WeaponManagerComponent -> CurrentWeaponReplicated -> WeaponEntityComp(UWeaponEntity)
+	//1ff1 Indoor
+	//1fe8 playercontroller
+	//804 teamid
+	//4d8 Mesh(USkeletalMeshComponent) 
+	//7d8 Mesh(USkeletalMeshComponent) -> bRecentlyRendered(bool)
+	//3f8 PlayerState(APlayerState)
+	//7e0 ai
 };
 
 
-
-class ASTExtraBaseCharacter : public AUAECharacter
+class ASTExtraBaseCharacter
 {
 public:
-	class ASTExtraPlayerState* STExtraPlayerState;// 0x08F0 sizeof (0x0008)
-	TArray<class AActor*> InventoryData;// 0x09E8 sizeof (0x0010)
-	class ASTExtraVehicleBase* LatestVehicle;// 0x0DE0 sizeof (0x0008)
-	bool bWasOnVehicle;// 0x0E08 sizeof (0x0001)
 	unsigned char bDead : 1;// 0x1238 sizeof (0x0001)
-	bool bIsWeaponFiring;// 0x1550 sizeof (0x0001)
-	struct FAnimStatusKeyList LastUpdateStatusKeyList;// 0x1660 sizeof (0x0020)
-	float Health;// 0x1700 sizeof (0x0004)
-	unsigned char bDying : 1;// 0x17C0 sizeof (0x0001)
+	unsigned char bDying : 1;// 0x17C0 sizeof (0x0001)               ²»ÊÇ ²ÐÑª
 };

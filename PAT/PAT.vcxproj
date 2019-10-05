@@ -165,12 +165,9 @@
     <ClCompile Include="GObjects\NameValidator.cpp" />
     <ClCompile Include="GObjects\ObjectsStore.cpp" />
     <ClCompile Include="GObjects\Package.cpp" />
-    <ClCompile Include="GWorld\AActor.cpp" />
-    <ClCompile Include="GWorld\ULevel.cpp" />
     <ClCompile Include="Utils\MemoryHelper.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Utils\tinyformat.h" />
-    <ClCompile Include="GWorld\UWorld.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GObjects\EngineClasses.h" />
@@ -182,11 +179,14 @@
     <ClInclude Include="GObjects\ObjectsStore.h" />
     <ClInclude Include="GObjects\Package.h" />
     <ClInclude Include="GWorld\AActor.h" />
+    <ClInclude Include="GWorld\APlayerController.h" />
     <ClInclude Include="GWorld\Core\EngineTypes.h" />
     <ClInclude Include="GWorld\Core\FVector.h" />
     <ClInclude Include="GWorld\Core\DummyTypes.h" />
     <ClInclude Include="GWorld\Core\Rotator.h" />
+    <ClInclude Include="GWorld\UGameInstance.h" />
     <ClInclude Include="GWorld\ULevel.h" />
+    <ClInclude Include="GWorld\ULocalPlayer.h" />
     <ClInclude Include="Utils\ida_defs.h" />
     <ClInclude Include="Utils\MemoryHelper.h" />
     <ClInclude Include="GWorld\UWorld.h" />

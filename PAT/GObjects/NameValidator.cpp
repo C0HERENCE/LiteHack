@@ -60,10 +60,10 @@ template<typename T>
 std::string MakeUniqueCppNameImpl(const T& t)
 {
 	std::string name;
-	if (GlobalObjects.CountObjects<T>(t.GetName()) > 1)
-	{
-		name += MakeValidName(t.GetOuter().GetName()) + "_";
-	}
+	//if (GlobalObjects.CountObjects<T>(t.GetName()) > 1)
+	//{
+	//	name += MakeValidName(t.GetOuter().GetName()) + "_";
+	//}
 	return name + MakeValidName(t.GetName());
 }
 

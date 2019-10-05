@@ -18,12 +18,7 @@ ObjectsStore GlobalObjects;
 
 int Initialize(int, char**);
 void DebugInfromation(UWorld&, NamesStore&, ObjectsStore&);
-
-std::unordered_set<std::string> gMembers =
-{"Owner","RootComponent"};
-std::unordered_set<std::string> gClasses =
-{"USceneComponent",""};
-
+void GenerateSDK();
 
 int main(int argc, char** argv)
 {
@@ -32,31 +27,10 @@ int main(int argc, char** argv)
 	GWorld = UWorld(GameBaseAddress + off_UWorld);
 	GlobalNames = NamesStore(GameBaseAddress + off_GNames);
 	GlobalObjects = ObjectsStore(GameBaseAddress + off_GObjects);
-
-
 	DebugInfromation(GWorld, GlobalNames, GlobalObjects);
-	Generator generator;
-	fs::path outputDirectory("E:\\Desktop\\DUMP");
-	generator.Dump(outputDirectory);
-	//generator.ProcessPackages(outputDirectory, "ShadowTrackerExtra", "STExtraPlayerCharacter");//STExtraPlayerCharacter > STExtraPlayerCharacter > ASTExtraBaseCharacter
-	//generator.ProcessPackages(outputDirectory, "ShadowTrackerExtra", "STExtraPlayerController");//STExtraPlayerCharacter > STExtraPlayerCharacter > ASTExtraBaseCharacter
-	//generator.ProcessPackages(outputDirectory, "ShadowTrackerExtra", "STExtraPlayerState");//STExtraPlayerCharacter > STExtraPlayerCharacter > ASTExtraBaseCharacter
-	//generator.ProcessPackages(outputDirectory, "ShadowTrackerExtra", "WeaponOwnerProxy");//STExtraPlayerCharacter > STExtraPlayerCharacter > ASTExtraBaseCharacter
-	//generator.ProcessPackages(outputDirectory, "ShadowTrackerExtra", "CharacterWeaponManagerComponent");//STExtraPlayerCharacter > STExtraPlayerCharacter > ASTExtraBaseCharacter
-	//generator.ProcessPackages(outputDirectory, "ShadowTrackerExtra", "UMoveAntiCheatComponent");//STExtraPlayerCharacter > STExtraPlayerCharacter > ASTExtraBaseCharacter
-	//generator.ProcessPackages(outputDirectory, "ShadowTrackerExtra", "STExtraWheeledVehicle");//STExtraPlayerCharacter > STExtraPlayerCharacter > ASTExtraBaseCharacter
-	//generator.ProcessPackages(outputDirectory, "ShadowTrackerExtra", "STExtraWheeledVehicle");//STExtraPlayerCharacter > STExtraPlayerCharacter > ASTExtraBaseCharacter
-	//generator.ProcessPackages(outputDirectory,"ShadowTrackerExtra","SkeletalMeshComponent");//STExtraPlayerCharacter > STExtraPlayerCharacter > ASTExtraBaseCharacter
-	//generator.ProcessPackages(outputDirectory, "ShadowTrackerExtra", "STExtraShootWeapon");//STExtraPlayerCharacter > STExtraPlayerCharacter > ASTExtraBaseCharacter
-	//generator.ProcessPackages(outputDirectory,"ShadowTrackerExtra","ETeamNumber");//STExtraPlayerCharacter > STExtraPlayerCharacter > ASTExtraBaseCharacter
-	//generator.ProcessPackages(outputDirectory, "Gameplay", "UAECharacter");// > UAECharacter
-	//generator.ProcessPackages(outputDirectory, "Engine", "Character");// > ACharacter > APawn > AActor > UObject
-	//"STExtraPlayerController", "STExtraPlayerState","WeaponOwnerProxy","CharacterWeaponManagerComponent","AnimStatusKeyList","UMoveAntiCheatComponent","STExtraWheeledVehicle","SkeletalMeshComponent","STExtraShootWeapon";
-	//"ETeamNumber";
-
-	//generator.ProcessPackages(outputDirectory);
 	system("pause");
 }
+
 
 int Initialize(int argc, char** argv)
 {
@@ -88,14 +62,50 @@ int Initialize(int argc, char** argv)
 	}
 }
 
+void GenerateSDK()
+{
+	Generator generator;
+	fs::path outputDirectory("E:\\Desktop\\DUMP");
+	generator.Dump(outputDirectory);
+	//generator.ProcessPackages(outputDirectory, "ShadowTrackerExtra", "STExtraPlayerCharacter");//STExtraPlayerCharacter > STExtraPlayerCharacter > ASTExtraBaseCharacter
+	//generator.ProcessPackages(outputDirectory, "ShadowTrackerExtra", "STExtraPlayerController");//STExtraPlayerCharacter > STExtraPlayerCharacter > ASTExtraBaseCharacter
+	//generator.ProcessPackages(outputDirectory, "ShadowTrackerExtra", "STExtraPlayerState");//STExtraPlayerCharacter > STExtraPlayerCharacter > ASTExtraBaseCharacter
+	//generator.ProcessPackages(outputDirectory, "ShadowTrackerExtra", "WeaponOwnerProxy");//STExtraPlayerCharacter > STExtraPlayerCharacter > ASTExtraBaseCharacter
+	//generator.ProcessPackages(outputDirectory, "ShadowTrackerExtra", "CharacterWeaponManagerComponent");//STExtraPlayerCharacter > STExtraPlayerCharacter > ASTExtraBaseCharacter
+	//generator.ProcessPackages(outputDirectory, "ShadowTrackerExtra", "UMoveAntiCheatComponent");//STExtraPlayerCharacter > STExtraPlayerCharacter > ASTExtraBaseCharacter
+	//generator.ProcessPackages(outputDirectory, "ShadowTrackerExtra", "STExtraWheeledVehicle");//STExtraPlayerCharacter > STExtraPlayerCharacter > ASTExtraBaseCharacter
+	//generator.ProcessPackages(outputDirectory, "ShadowTrackerExtra", "STExtraWheeledVehicle");//STExtraPlayerCharacter > STExtraPlayerCharacter > ASTExtraBaseCharacter
+	//generator.ProcessPackages(outputDirectory,"ShadowTrackerExtra","SkeletalMeshComponent");//STExtraPlayerCharacter > STExtraPlayerCharacter > ASTExtraBaseCharacter
+	//generator.ProcessPackages(outputDirectory, "ShadowTrackerExtra", "STExtraShootWeapon");//STExtraPlayerCharacter > STExtraPlayerCharacter > ASTExtraBaseCharacter
+	//generator.ProcessPackages(outputDirectory,"ShadowTrackerExtra","ETeamNumber");//STExtraPlayerCharacter > STExtraPlayerCharacter > ASTExtraBaseCharacter
+	//generator.ProcessPackages(outputDirectory, "Gameplay", "UAECharacter");// > UAECharacter
+	//generator.ProcessPackages(outputDirectory, "Engine", "Character");// > ACharacter > APawn > AActor > UObject
+	//"STExtraPlayerController", "STExtraPlayerState","WeaponOwnerProxy","CharacterWeaponManagerComponent","AnimStatusKeyList","UMoveAntiCheatComponent","STExtraWheeledVehicle","SkeletalMeshComponent","STExtraShootWeapon";
+	//"ETeamNumber";
+
+	generator.ProcessPackages(outputDirectory);
+}
+
 void DebugInfromation(UWorld& GWorld,NamesStore& NameStore, ObjectsStore& ObjectStore)
 {
 	std::cout << " ===============GWorld==================="<< std::endl;
+	std::cout << "ULevel Address: ";
+	std::cout << std::hex << GWorld.GetLevel().GetAddress() << std::dec << std::endl;
 	std::cout << "Actor Address: ";
-	std::cout << std::hex <<GWorld.GetLevel().GetActors().GetAddress() <<std::dec << std::endl;
+	std::cout << std::hex << GWorld.GetLevel().GetActors().GetAddress() << std::dec << std::endl;
 	std::cout << "Actor Count: ";
 	std::cout << GWorld.GetLevel().GetActors().Length() << std::endl;
-	std::cout << "Actor Name: ";
+	std::cout << "UGameInstance Address: ";
+	std::cout << std::hex << GWorld.GetGameInstance().GetAddress() << std::dec << std::endl;
+	std::cout << "LocalPlayer Address: ";
+	std::cout << std::hex << GWorld.GetGameInstance().GetLocalPlayer().GetAddress() << std::dec << std::endl;
+	std::cout << "APlayerController Address: ";
+	std::cout << std::hex << GWorld.GetGameInstance().GetLocalPlayer().GetPlayerController().GetAddress() << std::dec << std::endl;
+	std::cout << "LocalPawn Address: ";
+	std::cout << std::hex << GWorld.GetGameInstance().GetLocalPlayer().GetPlayerController().GetLocalPawn().GetAddress() << std::dec << std::endl;
+	std::cout << "LocalPawn FullName: ";
+	std::cout << std::hex << GWorld.GetGameInstance().GetLocalPlayer().GetPlayerController().GetLocalPawn().GetName() << std::dec << std::endl;
+	//std::cout << "Actor Name: ";
 	//std::cout << std::hex << (GWorld.GetLevel().GetActors().GetById(19).PlayerName()) <<std::dec << std::endl;
 	std::cout << " ===============GNames==================" << std::endl;
 	std::cout << "GNames Addr: ";
