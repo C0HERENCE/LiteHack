@@ -43,6 +43,8 @@ public:
 
 	UEObject GetPackageObject() const;
 
+	int GetComparisonIndex() const;
+
 	uint64 GetAddress() const;
 
 	template<typename Base>

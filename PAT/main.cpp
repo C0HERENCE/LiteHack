@@ -1,20 +1,21 @@
 #pragma once
 #include "GWorld/UWorld.h"
 #include "GObjects/Generator.h"
+#include "LiteHack/HackManager.h"
 #include <Psapi.h>
 
 #define off_UWorld 0x4401688
-#define off_GNames 0x461C070
-#define off_GObjects 0x4505298
+#define off_GNames 0x46438c0
+#define off_GObjects 0x4659e48
 
-HANDLE GameProcessHandle = NULL;
-uint64 GameBaseAddress = 0;
-
-Memory GameMemory;
+// Global Variable:
 UWorld GWorld;
+HackManager Hack;
+Memory GameMemory;
 NamesStore GlobalNames;
-
 ObjectsStore GlobalObjects;
+uint64 GameBaseAddress = 0;
+HANDLE GameProcessHandle = NULL;
 
 int Initialize(int, char**);
 void DebugInfromation(UWorld&, NamesStore&, ObjectsStore&);
@@ -22,24 +23,86 @@ void GenerateSDK();
 
 int main(int argc, char** argv)
 {
-	if (!Initialize(argc, argv)) return 0;
+	if (argc != 2)
+	{
+		std::cout << "Run from \"HLeaker.exe\"." << std::endl;
+		system("pause");
+		return 0;
+	}
+	if (!Initialize(argc, argv))
+	{
+		std::cout << "Initialize failed." << std::endl;
+		system("pause");
+		return 0;
+	}
 
-	GWorld = UWorld(GameBaseAddress + off_UWorld);
-	GlobalNames = NamesStore(GameBaseAddress + off_GNames);
-	GlobalObjects = ObjectsStore(GameBaseAddress + off_GObjects);
 	DebugInfromation(GWorld, GlobalNames, GlobalObjects);
 	system("pause");
+	ULevel Level = GWorld.CurrentLevel();
+	AActor LocalPlayer = GWorld.OwningGameInstance().LocalPlayer().PlayerController().LocalPawn();
+	Hack.Initialize();
+
+	while (1)
+	{
+		break;
+		Hack.Overlay().NewFrame();
+		if (Level.Actors().Length() >= 10000) continue;
+
+		ESPInfo info;
+		info.POV = GWorld.OwningGameInstance().LocalPlayer().PlayerController().CameraCache().MinimalViewInfo();
+		AActor NearestEnemy;
+		float NearestDistance = 0;
+
+		for (int i = 0; i < Level.Actors().Length(); i++)
+		{
+			AActor actor((uint64)Level.Actors()[i]);
+
+			if (Hack.Option().Enemy && actor.GetComparisonIndex() == LocalPlayer.GetComparisonIndex())
+			{
+				// Get enemy's statue
+				Hack.UpdateESPInfo(actor, info);
+				info.Distance = info.Location.Distance(LocalPlayer.RootComponent().Location());
+				if (info.rootScreenPos.X<0||info.rootScreenPos.X>Hack.Overlay().Width||info.rootScreenPos.Y<0||info.rootScreenPos.Y>Hack.Overlay().Height)
+				{
+					// if current not on the screen
+					if (Hack.Option().Line)	Hack.DrawGuideLine(info);
+				}
+				else
+				{
+					// if on the screen
+					if (Hack.Option().Skeleton)	Hack.DrawSkeleton(info);
+					if (Hack.Option().Health)	Hack.DrawHealthBar(info);
+					if (Hack.Option().Box)	Hack.DrawBox(info);
+				}
+				if (Hack.Option().Aimbot)
+				{
+					// Find the nearest enemy
+					if (NearestEnemy.GetAddress()==0)
+					{
+						NearestEnemy = actor;
+						NearestDistance = info.Distance;
+					}
+					else if(info.Distance<NearestDistance)
+					{
+						NearestDistance = info.Location.Distance(LocalPlayer.RootComponent().Location()) < NearestDistance;
+						NearestEnemy = actor;
+					}
+				}
+			}
+		}
+
+		if (Hack.Option().Aimbot && NearestEnemy.GetAddress() != 0)
+		{
+
+		}
+
+		Hack.Overlay().Refresh();
+	}
 }
 
 
 int Initialize(int argc, char** argv)
 {
-	if (argc != 2)
-	{
-		std::cout << "Please run \"HLeaker.exe\" first." << std::endl;
-		system("pause");
-		return 0;
-	}
 	GameProcessHandle = reinterpret_cast<void*>(atoi(argv[1]));
 	GameMemory = Memory(GameProcessHandle);
 	HMODULE hMods[512];
@@ -56,7 +119,10 @@ int Initialize(int argc, char** argv)
 				std::cout << "MoudleBase: 0x" << hMods[i] << " Process: " << szModName << std::endl;
 				lpBase = hMods[i];
 				GameBaseAddress = (uint64)lpBase;
-				return 1;
+				GWorld = UWorld(GameBaseAddress + off_UWorld);
+				GlobalNames = NamesStore(GameBaseAddress + off_GNames);
+				GlobalObjects = ObjectsStore(GameBaseAddress + off_GObjects);
+				return Hack.Initialize();
 			}
 		}
 	}
@@ -82,7 +148,6 @@ void GenerateSDK()
 	//generator.ProcessPackages(outputDirectory, "Engine", "Character");// > ACharacter > APawn > AActor > UObject
 	//"STExtraPlayerController", "STExtraPlayerState","WeaponOwnerProxy","CharacterWeaponManagerComponent","AnimStatusKeyList","UMoveAntiCheatComponent","STExtraWheeledVehicle","SkeletalMeshComponent","STExtraShootWeapon";
 	//"ETeamNumber";
-
 	generator.ProcessPackages(outputDirectory);
 }
 
@@ -90,23 +155,24 @@ void DebugInfromation(UWorld& GWorld,NamesStore& NameStore, ObjectsStore& Object
 {
 	std::cout << " ===============GWorld==================="<< std::endl;
 	std::cout << "ULevel Address: ";
-	std::cout << std::hex << GWorld.GetLevel().GetAddress() << std::dec << std::endl;
+	std::cout << std::hex << GWorld.CurrentLevel().GetAddress() << std::dec << std::endl;
 	std::cout << "Actor Address: ";
-	std::cout << std::hex << GWorld.GetLevel().GetActors().GetAddress() << std::dec << std::endl;
+	std::cout << std::hex << GWorld.CurrentLevel().Actors().GetAddress() << std::dec << std::endl;
 	std::cout << "Actor Count: ";
-	std::cout << GWorld.GetLevel().GetActors().Length() << std::endl;
+	std::cout << GWorld.CurrentLevel().Actors().Length() << std::endl;
 	std::cout << "UGameInstance Address: ";
-	std::cout << std::hex << GWorld.GetGameInstance().GetAddress() << std::dec << std::endl;
+	std::cout << std::hex << GWorld.OwningGameInstance().GetAddress() << std::dec << std::endl;
 	std::cout << "LocalPlayer Address: ";
-	std::cout << std::hex << GWorld.GetGameInstance().GetLocalPlayer().GetAddress() << std::dec << std::endl;
+	std::cout << std::hex << GWorld.OwningGameInstance().LocalPlayer().GetAddress() << std::dec << std::endl;
 	std::cout << "APlayerController Address: ";
-	std::cout << std::hex << GWorld.GetGameInstance().GetLocalPlayer().GetPlayerController().GetAddress() << std::dec << std::endl;
+	std::cout << std::hex << GWorld.OwningGameInstance().LocalPlayer().PlayerController().GetAddress() << std::dec << std::endl;
 	std::cout << "LocalPawn Address: ";
-	std::cout << std::hex << GWorld.GetGameInstance().GetLocalPlayer().GetPlayerController().GetLocalPawn().GetAddress() << std::dec << std::endl;
-	std::cout << "LocalPawn FullName: ";
-	std::cout << std::hex << GWorld.GetGameInstance().GetLocalPlayer().GetPlayerController().GetLocalPawn().GetName() << std::dec << std::endl;
-	//std::cout << "Actor Name: ";
-	//std::cout << std::hex << (GWorld.GetLevel().GetActors().GetById(19).PlayerName()) <<std::dec << std::endl;
+	std::cout << std::hex << GWorld.OwningGameInstance().LocalPlayer().PlayerController().LocalPawn().GetAddress() << std::dec << std::endl;
+	std::cout << "Mesh Adress: ";
+	std::cout << std::hex << GWorld.OwningGameInstance().LocalPlayer().PlayerController().LocalPawn().Mesh().GetAddress() << std::dec << std::endl;
+	GWorld.GameSate();
+	std::cout << std::hex << GWorld.OwningGameInstance().LocalPlayer().PlayerController().LocalPawn().Mesh().GetAddress() << std::endl;
+	std::cout << GWorld.OwningGameInstance().LocalPlayer().PlayerController().LocalPawn().Mesh().RecentlyRendered() << std::endl;
 	std::cout << " ===============GNames==================" << std::endl;
 	std::cout << "GNames Addr: ";
 	std::cout << std::hex << NameStore.GetAddress() << std::dec << std::endl;

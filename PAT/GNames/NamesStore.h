@@ -2,7 +2,7 @@
 #include <string>
 #include "../Utils/MemoryHelper.h"
 
-#define off_ChunkSize 0x3FD4
+#define off_ChunkSize 0x3E14
 
 class NamesStore
 {

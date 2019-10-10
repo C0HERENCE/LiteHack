@@ -18,8 +18,8 @@ bool ObjectsStore::Initialize(uint64 address)
 	privateGO = GameMemory.Read<FUObjectArray>(address);
 	uint64 v7 = privateGO.ObjObjects.Objects;
 	uint64 v417;
-	LODWORD(v417) = (~(~(_DWORD)v7 ^ 0x37FF03BD) + 1376963086) ^ 0x80EDC9B3;
-	HIDWORD(v417) = (~(~HIDWORD(v7) ^ 0x9C2EC6E8) + 1364021710) ^ 0x999C68DA;
+	LODWORD(v417) = (v7 + 0x56963ECA) ^ 0x56963ECA;
+	HIDWORD(v417) = (HIDWORD(v7) + 0x5589550A) ^ 0xAA76AAF6;
 	privateGO.ObjObjects.Objects = v417;
 	return true;
 }

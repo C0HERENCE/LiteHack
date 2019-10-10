@@ -138,6 +138,11 @@ std::vector<std::string> UEEnum::GetNames() const
 	return buffer;
 }
 
+int UEObject::GetComparisonIndex() const
+{
+	return uobject.GetFName().ComparisonIndex;
+}
+
 UEClass UEEnum::StaticClass()
 {
 	static auto c = GlobalObjects.FindClass("Class CoreUObject.Enum");

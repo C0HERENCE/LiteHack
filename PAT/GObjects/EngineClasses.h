@@ -189,16 +189,18 @@ struct FScriptMulticastDelegate
 
 class UClass;
 
+//HACK: Update Offset
 class UObject
 {
 private:
 	FPointer VTableObject;
-	FName Name;
-	int32_t InternalIndex;
-	int32_t ObjectFlags;
-	uint64 Outer;
 	uint64 Class;
-	uint64 unknown;
+	FName Name;
+	uint64 Outer;
+	int32_t ObjectFlags;
+	int pad;
+	int32_t InternalIndex;
+	int unknown;
 public:
 	int32_t GetInternalIndex() const;
 	uint64 GetClass() const;

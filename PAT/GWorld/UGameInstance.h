@@ -1,14 +1,12 @@
 #pragma once
 #include "ULocalPlayer.h"
 
-class UGameInstance
+class UGameInstance : public Base
 {
 public:
-	UGameInstance() :base(0) {}
+	using Base::Base;
 
-	UGameInstance(uint64 _base) :base(_base) {}
-
-	ULocalPlayer GetLocalPlayer() const
+	ULocalPlayer LocalPlayer()
 	{
 		uint64 v8 = GameMemory.Read64(base + off_ULocalPlayer), v14;
 		v8 = GameMemory.Read64(v8);
@@ -16,13 +14,6 @@ public:
 		HIDWORD(v14) = ((HIDWORD(v8) ^ 0x6449A658) - 114951770) ^ 0x1193A002;
 		return ULocalPlayer(v14);
 	}
-
-	uint64 GetAddress() const
-	{
-		return base;
-	}
 private:
-	uint64 base;
-
 	uint64 off_ULocalPlayer = 0xE0;
 };

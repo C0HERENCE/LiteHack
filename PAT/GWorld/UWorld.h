@@ -4,17 +4,20 @@
 
 extern Memory GameMemory;
 
-class UWorld
+class UWorld : public Base
 {
 public:
-	UWorld(): base(0) {}
+	UWorld()
+	{
+		base = 0;
+	}
 
 	UWorld(uint64 _base)
 	{
 		base = GameMemory.Read64(_base);
 	}
 
-	ULevel GetLevel() const
+	ULevel CurrentLevel()
 	{
 		__int64 v5 = GameMemory.Read64(base+off_ULevel);
 		__int64 v40;
@@ -23,7 +26,7 @@ public:
 		return ULevel(v40);
 	}
 
-	UGameInstance GetGameInstance() const
+	UGameInstance OwningGameInstance()
 	{
 		__int64 v5 = GameMemory.Read64(base + off_GameInstance);
 		__int64 v40;
@@ -32,15 +35,19 @@ public:
 		return UGameInstance(v40);
 	}
 
-	uint64 GetAddress() const
+	uint64 GameSate()
 	{
-		return base;
+		uint64 v1 = GameMemory.Read64(base + off_GameState),v3;
+		std::cout << std::hex << v1 << std::endl;
+		LODWORD(v3) = __ROR4__(__ROR4__(v1, 8) - 671638663, 8) ^ 0xD7F79B79;
+		HIDWORD(v3) = (HIDWORD(v1) + 1457018393) ^ 0xA927A9E7;
+		std::cout << std::hex << v3 << std::dec << std::endl;
+		return v3;
 	}
 private:
-	uint64 base;
-
 	uint64 off_ULevel = 0xA08;
 
 	uint64 off_GameInstance = 0xBA0;
-};
 
+	uint64 off_GameState = 0x130;
+};

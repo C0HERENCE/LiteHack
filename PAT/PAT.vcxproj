@@ -51,7 +51,7 @@
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>v142</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
-    <CharacterSet>Unicode</CharacterSet>
+    <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
@@ -155,6 +155,7 @@
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <UACExecutionLevel>RequireAdministrator</UACExecutionLevel>
+      <AdditionalDependencies>d3d11.lib;d3dcompiler.lib;dxgi.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -165,6 +166,13 @@
     <ClCompile Include="GObjects\NameValidator.cpp" />
     <ClCompile Include="GObjects\ObjectsStore.cpp" />
     <ClCompile Include="GObjects\Package.cpp" />
+    <ClCompile Include="LiteHack\Overlay\imgui.cpp" />
+    <ClCompile Include="LiteHack\Overlay\imgui_demo.cpp" />
+    <ClCompile Include="LiteHack\Overlay\imgui_draw.cpp" />
+    <ClCompile Include="LiteHack\Overlay\imgui_impl_dx11.cpp" />
+    <ClCompile Include="LiteHack\Overlay\imgui_impl_win32.cpp" />
+    <ClCompile Include="LiteHack\Overlay\imgui_widgets.cpp" />
+    <ClCompile Include="LiteHack\Render.cpp" />
     <ClCompile Include="Utils\MemoryHelper.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Utils\tinyformat.h" />
@@ -180,13 +188,29 @@
     <ClInclude Include="GObjects\Package.h" />
     <ClInclude Include="GWorld\AActor.h" />
     <ClInclude Include="GWorld\APlayerController.h" />
-    <ClInclude Include="GWorld\Core\EngineTypes.h" />
+    <ClInclude Include="GWorld\Base.h" />
+    <ClInclude Include="GWorld\Core\FColor.h" />
+    <ClInclude Include="GWorld\Core\FTransform.h" />
     <ClInclude Include="GWorld\Core\FVector.h" />
-    <ClInclude Include="GWorld\Core\DummyTypes.h" />
-    <ClInclude Include="GWorld\Core\Rotator.h" />
+    <ClInclude Include="GWorld\Core\FRotator.h" />
+    <ClInclude Include="GWorld\FCameraCacheEntry.h" />
     <ClInclude Include="GWorld\UGameInstance.h" />
     <ClInclude Include="GWorld\ULevel.h" />
     <ClInclude Include="GWorld\ULocalPlayer.h" />
+    <ClInclude Include="GWorld\USceneComponent.h" />
+    <ClInclude Include="GWorld\USkeletalMeshComponent.h" />
+    <ClInclude Include="GWorld\UWeaponManagerComponent.h" />
+    <ClInclude Include="LiteHack\HackManager.h" />
+    <ClInclude Include="LiteHack\Overlay\imconfig.h" />
+    <ClInclude Include="LiteHack\Overlay\imgui.h" />
+    <ClInclude Include="LiteHack\Overlay\imgui_impl_dx11.h" />
+    <ClInclude Include="LiteHack\Overlay\imgui_impl_win32.h" />
+    <ClInclude Include="LiteHack\Overlay\imgui_internal.h" />
+    <ClInclude Include="LiteHack\Overlay\imstb_rectpack.h" />
+    <ClInclude Include="LiteHack\Overlay\imstb_textedit.h" />
+    <ClInclude Include="LiteHack\Overlay\imstb_truetype.h" />
+    <ClInclude Include="LiteHack\Render.h" />
+    <ClInclude Include="LiteHack\WindowHijack.h" />
     <ClInclude Include="Utils\ida_defs.h" />
     <ClInclude Include="Utils\MemoryHelper.h" />
     <ClInclude Include="GWorld\UWorld.h" />

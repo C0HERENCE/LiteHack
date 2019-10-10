@@ -45,6 +45,27 @@
     <ClCompile Include="GObjects\Generator.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="LiteHack\Overlay\imgui.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="LiteHack\Overlay\imgui_demo.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="LiteHack\Overlay\imgui_draw.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="LiteHack\Overlay\imgui_impl_dx11.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="LiteHack\Overlay\imgui_impl_win32.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="LiteHack\Overlay\imgui_widgets.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="LiteHack\Render.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Utils\ida_defs.h">
@@ -89,15 +110,6 @@
     <ClInclude Include="GWorld\Core\FVector.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="GWorld\Core\Rotator.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="GWorld\Core\DummyTypes.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="GWorld\Core\EngineTypes.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="GWorld\UGameInstance.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -105,6 +117,63 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="GWorld\APlayerController.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GWorld\USkeletalMeshComponent.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GWorld\UWeaponManagerComponent.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GWorld\Base.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GWorld\USceneComponent.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="LiteHack\Overlay\imconfig.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="LiteHack\Overlay\imgui.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="LiteHack\Overlay\imgui_impl_dx11.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="LiteHack\Overlay\imgui_impl_win32.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="LiteHack\Overlay\imgui_internal.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="LiteHack\Overlay\imstb_rectpack.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="LiteHack\Overlay\imstb_textedit.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="LiteHack\Overlay\imstb_truetype.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="LiteHack\WindowHijack.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="LiteHack\Render.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GWorld\Core\FRotator.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GWorld\Core\FColor.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="LiteHack\HackManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GWorld\FCameraCacheEntry.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GWorld\Core\FTransform.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

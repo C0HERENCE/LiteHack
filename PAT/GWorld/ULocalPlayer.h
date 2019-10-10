@@ -1,14 +1,11 @@
 #pragma once
 #include "APlayerController.h"
 
-class ULocalPlayer
+class ULocalPlayer : public Base
 {
 public:
-	ULocalPlayer() :base(0) {}
-
-	ULocalPlayer(uint64 _base) :base(_base) {}
-
-	APlayerController GetPlayerController() const
+	using Base::Base;
+	APlayerController PlayerController() const
 	{
 		unsigned __int64 v7 = GameMemory.Read64(base + off_PlayerController);
 		unsigned __int64 v8;
@@ -23,12 +20,6 @@ public:
 		return APlayerController(v10);
 	}
 
-	uint64 GetAddress() const
-	{
-		return base;
-	}
 private:
-	uint64 base;
-
 	uint64 off_PlayerController = 0x38;
 };

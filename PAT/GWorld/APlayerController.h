@@ -1,25 +1,27 @@
 #pragma once
 #include "../Utils/MemoryHelper.h"
+#include "FCameraCacheEntry.h"
 
-class APlayerController
+class APlayerController : public Base
 {
 public:
-	APlayerController() :base(0) {}
-
-	APlayerController(uint64 _base) :base(_base) {}
-
-	AActor GetLocalPawn() const
+	using Base::Base;
+	
+	AActor LocalPawn()
 	{
 		return AActor(GameMemory.Read64(base + off_LocalPawn));
 	}
-
-	uint64 GetAddress() const
+	TArray<ASTExtraWeapon*> NowShotWeaponList()
 	{
-		return base;
+		return GameMemory.Read<TArray<ASTExtraWeapon*>>(base + off_NowShotWeaponList);
 	}
 
+	APlayerCameraManager CameraCache()
+	{
+		return APlayerCameraManager(GameMemory.Read64(base + off_CameraManager));
+	}
 private:
-	uint64 base;
-
 	uint64 off_LocalPawn = 0x1050;
+	uint64 off_NowShotWeaponList = 0xe98;
+	uint64 off_CameraManager = 0x478;
 };

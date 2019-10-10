@@ -1,13 +1,12 @@
 #pragma once
 #include "AActor.h"
 
-class ULevel
+class ULevel : public Base
 {
 public:
-	ULevel() :base(0) {}
-	ULevel(uint64 _base) :base(_base) {}
+	using Base::Base;
 
-	TArray<AActor*> GetActors() const
+	TArray<AActor*> Actors()
 	{
 		__int64 v57;
 		__int64 v11 = GameMemory.Read64(base + off_AActor);
@@ -16,12 +15,6 @@ public:
 		return GameMemory.Read<TArray<AActor*>>(v57);
 	}
 
-	uint64 GetAddress() const
-	{
-		return base;
-	}
 private:
-	uint64 base;
-
 	uint64 off_AActor = 0xA8;
 };
