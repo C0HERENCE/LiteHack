@@ -176,5 +176,8 @@
     <ClInclude Include="GWorld\Core\FTransform.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="GObjects\EngineTypes.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

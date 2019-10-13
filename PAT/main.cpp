@@ -4,8 +4,8 @@
 #include "LiteHack/HackManager.h"
 #include <Psapi.h>
 
-#define off_UWorld 0x4401688
-#define off_GNames 0x46438c0
+#define off_UWorld 0x4532298
+#define off_GNames 0x46438d0
 #define off_GObjects 0x4659e48
 
 // Global Variable:
@@ -36,11 +36,17 @@ int main(int argc, char** argv)
 		return 0;
 	}
 
-	DebugInfromation(GWorld, GlobalNames, GlobalObjects);
+	GWorld = UWorld(GameBaseAddress + off_UWorld);
+	GlobalNames = NamesStore(GameBaseAddress + off_GNames);
+	GlobalObjects = ObjectsStore(GameBaseAddress + off_GObjects);
+
+	//DebugInfromation(GWorld, GlobalNames, GlobalObjects);
+	//GlobalObjects.Dump();
+	GenerateSDK();
 	system("pause");
 	ULevel Level = GWorld.CurrentLevel();
 	AActor LocalPlayer = GWorld.OwningGameInstance().LocalPlayer().PlayerController().LocalPawn();
-	Hack.Initialize();
+	//Hack.Initialize();
 
 	while (1)
 	{
@@ -119,10 +125,7 @@ int Initialize(int argc, char** argv)
 				std::cout << "MoudleBase: 0x" << hMods[i] << " Process: " << szModName << std::endl;
 				lpBase = hMods[i];
 				GameBaseAddress = (uint64)lpBase;
-				GWorld = UWorld(GameBaseAddress + off_UWorld);
-				GlobalNames = NamesStore(GameBaseAddress + off_GNames);
-				GlobalObjects = ObjectsStore(GameBaseAddress + off_GObjects);
-				return Hack.Initialize();
+				return 1;
 			}
 		}
 	}
@@ -132,23 +135,7 @@ void GenerateSDK()
 {
 	Generator generator;
 	fs::path outputDirectory("E:\\Desktop\\DUMP");
-	generator.Dump(outputDirectory);
-	//generator.ProcessPackages(outputDirectory, "ShadowTrackerExtra", "STExtraPlayerCharacter");//STExtraPlayerCharacter > STExtraPlayerCharacter > ASTExtraBaseCharacter
-	//generator.ProcessPackages(outputDirectory, "ShadowTrackerExtra", "STExtraPlayerController");//STExtraPlayerCharacter > STExtraPlayerCharacter > ASTExtraBaseCharacter
-	//generator.ProcessPackages(outputDirectory, "ShadowTrackerExtra", "STExtraPlayerState");//STExtraPlayerCharacter > STExtraPlayerCharacter > ASTExtraBaseCharacter
-	//generator.ProcessPackages(outputDirectory, "ShadowTrackerExtra", "WeaponOwnerProxy");//STExtraPlayerCharacter > STExtraPlayerCharacter > ASTExtraBaseCharacter
-	//generator.ProcessPackages(outputDirectory, "ShadowTrackerExtra", "CharacterWeaponManagerComponent");//STExtraPlayerCharacter > STExtraPlayerCharacter > ASTExtraBaseCharacter
-	//generator.ProcessPackages(outputDirectory, "ShadowTrackerExtra", "UMoveAntiCheatComponent");//STExtraPlayerCharacter > STExtraPlayerCharacter > ASTExtraBaseCharacter
-	//generator.ProcessPackages(outputDirectory, "ShadowTrackerExtra", "STExtraWheeledVehicle");//STExtraPlayerCharacter > STExtraPlayerCharacter > ASTExtraBaseCharacter
-	//generator.ProcessPackages(outputDirectory, "ShadowTrackerExtra", "STExtraWheeledVehicle");//STExtraPlayerCharacter > STExtraPlayerCharacter > ASTExtraBaseCharacter
-	//generator.ProcessPackages(outputDirectory,"ShadowTrackerExtra","SkeletalMeshComponent");//STExtraPlayerCharacter > STExtraPlayerCharacter > ASTExtraBaseCharacter
-	//generator.ProcessPackages(outputDirectory, "ShadowTrackerExtra", "STExtraShootWeapon");//STExtraPlayerCharacter > STExtraPlayerCharacter > ASTExtraBaseCharacter
-	//generator.ProcessPackages(outputDirectory,"ShadowTrackerExtra","ETeamNumber");//STExtraPlayerCharacter > STExtraPlayerCharacter > ASTExtraBaseCharacter
-	//generator.ProcessPackages(outputDirectory, "Gameplay", "UAECharacter");// > UAECharacter
-	//generator.ProcessPackages(outputDirectory, "Engine", "Character");// > ACharacter > APawn > AActor > UObject
-	//"STExtraPlayerController", "STExtraPlayerState","WeaponOwnerProxy","CharacterWeaponManagerComponent","AnimStatusKeyList","UMoveAntiCheatComponent","STExtraWheeledVehicle","SkeletalMeshComponent","STExtraShootWeapon";
-	//"ETeamNumber";
-	generator.ProcessPackages(outputDirectory);
+	generator.DumpSDK(outputDirectory);
 }
 
 void DebugInfromation(UWorld& GWorld,NamesStore& NameStore, ObjectsStore& ObjectStore)
@@ -192,8 +179,4 @@ void DebugInfromation(UWorld& GWorld,NamesStore& NameStore, ObjectsStore& Object
 	std::cout << ObjectStore.GetById(1).GetClass().GetFullName() << std::endl;
 	std::cout << "Full Name: ";
 	std::cout << ObjectStore.GetById(1).GetFullName() << std::endl;
-	for (int i = 0; i < 100; i++)
-	{
-		//std::cout << ObjectStore.GetById(i).GetFullName() << std::endl;
-	}
 }

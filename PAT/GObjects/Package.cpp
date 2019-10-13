@@ -664,7 +664,7 @@ void Package::GenerateClass(const UEClass& classObj)
 				&& !prop.IsA<UEEnum>()
 				&& !prop.IsA<UEConst>()
 				&& (!super.IsValid()
-					|| (super != classObj
+					|| (super.GetAddress() != classObj.GetAddress()
 						&& prop.GetOffset() >= super.GetPropertySize()
 						)
 					)

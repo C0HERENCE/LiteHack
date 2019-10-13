@@ -1,207 +1,23 @@
 #pragma once
-#include "../Utils/MemoryHelper.h"
-extern Memory GameMemory;
+#include "EngineTypes.h"
 
-class UObject;
-
-template<class T>
-class TArray
-{
-	friend struct FString;
-
-public:
-	int Length() const
-	{
-		return m_nCount;
-	}
-
-	bool IsValid() const
-	{
-		if (m_nCount > m_nMax)
-			return false;
-		if (!m_Data)
-			return false;
-		return true;
-	}
-
-	bool IsValidIndex(uint32 i) const
-	{
-		return i < m_nCount;
-	}
-
-	uint64 GetAddress() const
-	{
-		return m_Data;
-	}
-
-	template<typename U = T>
-	typename std::enable_if<std::is_pointer<U>::value, typename std::remove_pointer<U>::type>::type GetValue(uint32 index) const
-	{
-		auto offset = GameMemory.Read<uint64>(m_Data + sizeof(uint64) * index);
-		return GameMemory.Read<typename std::remove_pointer<U>::type>(offset);
-	}
-
-	T operator[](size_t i)
-	{
-		return GameMemory.Read<T>(m_Data + i * sizeof(T));
-	};
-
-	const T operator[](size_t i) const
-	{
-		return GameMemory.Read<T>(m_Data + i * sizeof(T));
-	};
-
-	T GetById(int i)
-	{
-		//return T(GameMemory.Read64(m_Data + i * sizeof(T)));
-		std::cout <<std::hex << m_Data <<std::dec <<std::endl;
-		return T(GameMemory.Read64(m_Data + i * 8));
-	}
-
-private:
-	uint64 m_Data;
-	uint32 m_nCount;
-	uint32 m_nMax;
-};
-
-
-struct FPointer
-{
-	uintptr_t Dummy;
-};
-
-struct FQWord
-{
-	int A;
-	int B;
-};
-
-class FName
-{
-public:
-	int GetComparisonIndex() const;
-	int GetNumber() const;
-public:
-	uint32_t Number = 0;
-	uint32_t ComparisonIndex = 0;
-};
-
-template<typename KeyType, typename ValueType>
-class TPair
-{
-public:
-	KeyType   Key;
-	ValueType Value;
-};
-
-struct FString : public TArray<wchar_t>
-{
-	std::string ToString() const
-	{
-		int size = WideCharToMultiByte(CP_UTF8, 0, (LPCWCH)m_Data, m_nCount, nullptr, 0, nullptr, nullptr);
-		std::string str(size, 0);
-		WideCharToMultiByte(CP_UTF8, 0, (LPCWCH)m_Data, m_nCount, &str[0], size, nullptr, nullptr);
-		return str;
-	}
-};
-
-struct FText
-{
-	char UnknownData[0x18];
-};
-
-class FScriptInterface
-{
-private:
-	UObject* ObjectPointer;
-	void* InterfacePointer;
-
-public:
-	UObject* GetObject() const
-	{
-		return ObjectPointer;
-	}
-
-	UObject*& GetObjectRef()
-	{
-		return ObjectPointer;
-	}
-
-	void* GetInterface() const
-	{
-		return ObjectPointer != nullptr ? InterfacePointer : nullptr;
-	}
-};
-
-struct FWeakObjectPtr
-{
-	int32_t ObjectIndex;
-	int32_t ObjectSerialNumber;
-};
-
-
-struct FStringAssetReference
-{
-	FString AssetLongPathname;
-};
-
-template<typename TObjectID>
-class TPersistentObjectPtr
-{
-public:
-	FWeakObjectPtr WeakPtr;
-	int32_t TagAtLastTest;
-	TObjectID ObjectID;
-};
-
-class FAssetPtr : public TPersistentObjectPtr<FStringAssetReference>
-{
-
-};
-
-struct FGuid
-{
-	uint32_t A;
-	uint32_t B;
-	uint32_t C;
-	uint32_t D;
-};
-
-struct FUniqueObjectGuid
-{
-	FGuid Guid;
-};
-
-class FLazyObjectPtr : public TPersistentObjectPtr<FUniqueObjectGuid>
-{
-
-};
-
-struct FScriptDelegate
-{
-	unsigned char UnknownData[20];
-};
-
-struct FScriptMulticastDelegate
-{
-	unsigned char UnknownData[16];
-};
-
-class UClass;
-
-//HACK: Update Offset
 class UObject
 {
-private:
-	FPointer VTableObject;
-	uint64 Class;
-	FName Name;
-	uint64 Outer;
-	int32_t ObjectFlags;
-	int pad;
-	int32_t InternalIndex;
-	int unknown;
+protected:
+	uint64 base;
+	uint64 off_Name = 0xc;
+	uint64 off_Outer = 0x18;
+	uint64 off_Class = 0x20;
+	uint64 off_InternalIndex = 0x28;
 public:
+	UObject(uint64 _base)
+	{
+		base = _base;
+	}
+	UObject()
+	{
+
+	}
 	int32_t GetInternalIndex() const;
 	uint64 GetClass() const;
 	FName GetFName() const;
@@ -210,77 +26,86 @@ public:
 
 class UField : public UObject
 {
+	using UObject::UObject;
 public:
-	uint64 Next;//UField
+	uint64 Next() const
+	{
+		return GameMemory.Read64(UObject::base + 0x30);
+	}
 };
 
-class UEnum : public UField
+class UEnum : public UField, public UObject
 {
+	using UObject::UObject;
 public:
-	FString CppType;
-	TArray<TPair<FName, uint64_t>> Names; 
-	__int64 CppForm; 
-	char unknown[2][8];
+	TArray<TPair<FName, uint64_t>> Names()
+	{
+		return GameMemory.Read<TArray<TPair<FName, uint64_t>>>(UObject::base + 0x48);
+	}
 };
 
-class UStruct : public UField
+class UStruct : public UField , public UObject
 {
+	using UObject::UObject;
 public:
-	char unknown1[1][8]; //0x0038
-	uint32_t MinAlignment; //0x0040
-	int32_t unknown2[3]; //0x0044
-	uint64_t Children; //0x0050
-	char unknown3[4][8]; //0x0058
-	uint64_t Children2; //0x0078ufield
-	uint32_t PropertySize; //0x0080
-	uint32_t unknown4; //0x0084
-	uint64_t SuperField; //0x0088ustruct
-	uint64_t unknown5; //0x0090
+	uint64_t SuperField()
+	{
+		return GameMemory.Read64(UObject::base + 0x38);
+	}
+	uint32_t PropertySize()
+	{
+		return GameMemory.Read32(UObject::base + 0x68);
+	}
+	uint64_t Children()
+	{
+		return GameMemory.Read64(UObject::base + 0x80);
+	}
 };
 
 class UScriptStruct : public UStruct
 {
 public:
-	char unknown[2][8]; //0x0098
 };
 
 class UFunction : public UStruct
 {
 public:
-	__int32 FunctionFlags; //0x0088
-	__int16 RepOffset; //0x008C
-	__int8 NumParms; //0x008E
-	char pad_0x008F[0x1]; //0x008F
-	__int16 ParmsSize; //0x0090
-	__int16 ReturnValueOffset; //0x0092
-	__int16 RPCId; //0x0094
-	__int16 RPCResponseId; //0x0096
-	class UProperty* FirstPropertyToInit; //0x0098
-	UFunction* EventGraphFunction; //0x00A0
-	__int32 EventGraphCallOffset; //0x00A8
-	char pad_0x00AC[0x4]; //0x00AC
-	void* Func; //0x00B0
-	uint64 pad;
+	__int32 FunctionFlags;
 };
 
 class UClass : public UStruct
 {
 public:
-	int8_t unknown[58]; //0x0098
 };
 
-class UProperty : public UField
+class UProperty : public UField, public UObject
 {
+	using UObject::UObject;
 public:
-	uint32_t ArrayDim; //0x0038
-	uint32_t ElementSize; //0x003C
-	FQWord PropertyFlags; //0x0040
-	uint32_t unknown1; //0x0048
-	uint32_t Offset; //0x004C
-	uint64_t FirstChildren; //0x0050
-	uint64_t NextChildren; //0x0058
-	uint32_t PropertySize; //0x0080
-	uint32_t unknown3[5]; //0x0078
+	uint32_t ArrayDim()
+	{
+		return GameMemory.Read32(UObject::base + 0x38);
+	}
+	uint32_t ElementSize()
+	{
+		return GameMemory.Read32(UObject::base + 0x3c);
+	}
+	uint32_t Offset()
+	{
+		return GameMemory.Read32(UObject::base + 0x4c);
+	}
+	uint64_t FirstChildren()
+	{
+		return GameMemory.Read64(UObject::base + 0x50);
+	}
+	uint64_t NextChildren()
+	{
+		return GameMemory.Read64(UObject::base + 0x58);
+	}
+	uint32_t PropertySize()
+	{
+		return GameMemory.Read32(UObject::base + 0x80);
+	}
 };
 
 
@@ -290,10 +115,14 @@ public:
 
 };
 
-class UByteProperty : public UNumericProperty
+class UByteProperty : public UNumericProperty ,public UObject
 {
+	using UObject::UObject;
 public:
-	uint64 Enum;
+	uint64 Enum()
+	{
+		return GameMemory.Read64(UObject::base + 120);
+	}
 };
 
 class UUInt16Property : public UNumericProperty
@@ -350,19 +179,36 @@ public:
 
 };
 
-class UBoolProperty : public UProperty
+class UBoolProperty : public UProperty, public UObject
 {
+	using UObject::UObject;
 public:
-	uint8_t FieldSize;
-	uint8_t ByteOffset;
-	uint8_t ByteMask;
-	uint8_t FieldMask;
+	uint8_t FieldSize()
+	{
+		return GameMemory.Read<uint8_t>(UObject::base + 0x78);
+	}
+	uint8_t ByteOffset()
+	{
+		return GameMemory.Read<uint8_t>(UObject::base + 0x7a);
+	}
+	uint8_t ByteMask()
+	{
+		return GameMemory.Read<uint8_t>(UObject::base + 0x7c);
+	}
+	uint8_t FieldMask()
+	{
+		return GameMemory.Read<uint8_t>(UObject::base + 0x7e);
+	}
 };
 
-class UObjectPropertyBase : public UProperty
+class UObjectPropertyBase : public UProperty, public UObject
 {
+	using UObject::UObject;
 public:
-	uint64 PropertyClass;
+	uint64 PropertyClass()
+	{
+		return GameMemory.Read64(UObject::base + 0x78);
+	}
 };
 
 class UObjectProperty : public UObjectPropertyBase
@@ -371,16 +217,24 @@ public:
 
 };
 
-class UClassProperty : public UObjectProperty
+class UClassProperty : public UObjectProperty, public UObject
 {
+	using UObject::UObject;
 public:
-	uint64 MetaClass;
+	uint64 MetaClass()
+	{
+		return GameMemory.Read64(UObject::base + 0x80);
+	}
 };
 
-class UInterfaceProperty : public UProperty
+class UInterfaceProperty : public UProperty, public UObject
 {
+	using UObject::UObject;
 public:
-	uint64 InterfaceClass;
+	uint64 InterfaceClass()
+	{
+		return GameMemory.Read64(UObject::base + 0x78);
+	}
 };
 
 class UWeakObjectProperty : public UObjectPropertyBase
@@ -401,10 +255,14 @@ public:
 
 };
 
-class UAssetClassProperty : public UAssetObjectProperty
+class UAssetClassProperty : public UAssetObjectProperty, public UObject
 {
+	using UObject::UObject;
 public:
-	uint64 MetaClass;
+	uint64 MetaClass()
+	{
+		return GameMemory.Read64(UObject::base + 0x80);
+	}
 };
 
 class UNameProperty : public UProperty
@@ -413,10 +271,14 @@ public:
 
 };
 
-class UStructProperty : public UProperty
+class UStructProperty : public UProperty, public UObject
 {
+	using UObject::UObject;
 public:
-	uint64 Struct;
+	uint64 Struct()
+	{
+		return GameMemory.Read64(UObject::base + 0x78);
+	}
 };
 
 class UStrProperty : public UProperty
@@ -431,34 +293,59 @@ public:
 
 };
 
-class UArrayProperty : public UProperty
+class UArrayProperty : public UProperty, public UObject
 {
+	using UObject::UObject;
 public:
-	uint64 Inner;
+	uint64 Inner()
+	{
+		return GameMemory.Read64(UObject::base + 0x78);
+	}
 };
 
-class UMapProperty : public UProperty
+class UMapProperty : public UProperty, public UObject
 {
+	using UObject::UObject;
 public:
-	uint64 KeyProp;
-	uint64 ValueProp;
+	uint64 KeyProp()
+	{
+		return GameMemory.Read64(UObject::base + 0x78);
+	}
+	uint64 ValueProp()
+	{
+		return GameMemory.Read64(UObject::base + 0x80);
+	}
 };
 
-class UDelegateProperty : public UProperty
+class UDelegateProperty : public UProperty, public UObject
 {
+	using UObject::UObject;
 public:
-	uint64 SignatureFunction;
+	uint64 SignatureFunction()
+	{
+		return GameMemory.Read64(UObject::base + 0x78);
+	}
 };
 
 class UMulticastDelegateProperty : public UProperty
 {
 public:
-	uint64 SignatureFunction;
+	uint64 SignatureFunction()
+	{
+		return GameMemory.Read64(UObject::base + 0x78);
+	}
 };
 
-class UEnumProperty : public UProperty
+class UEnumProperty : public UProperty, public UObject
 {
+	using UObject::UObject;
 public:
-	uint64 UnderlyingProp; //0x0070
-	uint64 Enum; //0x0078
-}; //Size: 0x008
+	uint64 UnderlyingProp()
+	{
+		return GameMemory.Read64(UObject::base + 0x78);
+	}
+	uint64 Enum()
+	{
+		return GameMemory.Read64(UObject::base + 0x80);
+	}
+};

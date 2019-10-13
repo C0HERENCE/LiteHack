@@ -45,9 +45,9 @@ public:
 		return v3;
 	}
 private:
-	uint64 off_ULevel = 0xA08;
+	uint64 off_ULevel = 280;
 
-	uint64 off_GameInstance = 0xBA0;
+	uint64 off_GameInstance = 984;
 
 	uint64 off_GameState = 0x130;
 };

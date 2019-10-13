@@ -25,7 +25,6 @@ std::string UEObject::GetName() const
 	{
 		name += '_' + std::to_string(uobj.GetFName().GetNumber());
 	}
-
 	auto pos = name.rfind('/');
 	if (pos == std::string::npos)
 	{
@@ -116,7 +115,7 @@ UEClass UEObject::StaticClass()
 
 UEField UEField::GetNext() const
 {
-	return UEField(GameMemory.Read<UField>(object).Next);
+	return UEField(UField(object).Next());
 }
 
 UEClass UEField::StaticClass()
@@ -128,11 +127,11 @@ UEClass UEField::StaticClass()
 std::vector<std::string> UEEnum::GetNames() const
 {
 	std::vector<std::string> buffer;
-	auto names = GameMemory.Read<UEnum>(object).Names;
+	auto names = UEnum(object).Names();
 
 	for (auto i = 0; i < names.Length(); ++i)
 	{
-		buffer.push_back(GlobalNames.GetById(names[i].Key.ComparisonIndex));
+		buffer.push_back(GlobalNames.GetById(GameMemory.Read32(names.GetAddress()+i*0x10)));
 	}
 
 	return buffer;
@@ -140,7 +139,7 @@ std::vector<std::string> UEEnum::GetNames() const
 
 int UEObject::GetComparisonIndex() const
 {
-	return uobject.GetFName().ComparisonIndex;
+	return uobject.GetFName().GetComparisonIndex();
 }
 
 UEClass UEEnum::StaticClass()
@@ -161,17 +160,17 @@ UEClass UEConst::StaticClass()
 
 UEStruct UEStruct::GetSuper() const
 {
-	return UEStruct(GameMemory.Read<UStruct>(object).SuperField);
+	return UEStruct(UStruct(object).SuperField());
 }
 
 UEField UEStruct::GetChildren() const
 {
-	return UEField(GameMemory.Read<UStruct>(object).Children);
+	return UEField(UStruct(object).Children());
 }
 
 size_t UEStruct::GetPropertySize() const
 {
-	return GameMemory.Read<UStruct>(object).PropertySize;
+	return UStruct(object).PropertySize();
 }
 
 UEClass UEStruct::StaticClass()
@@ -210,17 +209,17 @@ UEClass UEClass::StaticClass()
 //---------------------------------------------------------------------------
 size_t UEProperty::GetArrayDim() const
 {
-	return GameMemory.Read<UProperty>(object).ArrayDim;
+	return UProperty(object).ArrayDim();
 }
 
 size_t UEProperty::GetElementSize() const
 {
-	return GameMemory.Read<UProperty>(object).ElementSize;
+	return UProperty(object).ElementSize();
 }
 
 size_t UEProperty::GetOffset() const
 {
-	return GameMemory.Read<UProperty>(object).Offset;
+	return UProperty(object).Offset();
 }
 
 UEClass UEProperty::StaticClass()
@@ -233,6 +232,30 @@ UEProperty::Info UEProperty::GetInfo() const
 {
 	if (IsValid())
 	{
+		if (IsA<UEBoolProperty>())
+		{
+			return Cast<UEBoolProperty>().GetInfo();
+		}
+		if (IsA<UEClassProperty>())
+		{
+			return Cast<UEClassProperty>().GetInfo();
+		}
+		if (IsA<UEObjectProperty>())
+		{
+			return Cast<UEObjectProperty>().GetInfo();
+		}
+		if (IsA<UEEnumProperty>())
+		{
+			return Cast<UEEnumProperty>().GetInfo();
+		}
+		if (IsA<UEIntProperty>())
+		{
+			return Cast<UEIntProperty>().GetInfo();
+		}
+		if (IsA<UEFloatProperty>())
+		{
+			return Cast<UEFloatProperty>().GetInfo();
+		}
 		if (IsA<UEByteProperty>())
 		{
 			return Cast<UEByteProperty>().GetInfo();
@@ -257,33 +280,13 @@ UEProperty::Info UEProperty::GetInfo() const
 		{
 			return Cast<UEInt16Property>().GetInfo();
 		}
-		if (IsA<UEIntProperty>())
-		{
-			return Cast<UEIntProperty>().GetInfo();
-		}
 		if (IsA<UEInt64Property>())
 		{
 			return Cast<UEInt64Property>().GetInfo();
 		}
-		if (IsA<UEFloatProperty>())
-		{
-			return Cast<UEFloatProperty>().GetInfo();
-		}
 		if (IsA<UEDoubleProperty>())
 		{
 			return Cast<UEDoubleProperty>().GetInfo();
-		}
-		if (IsA<UEBoolProperty>())
-		{
-			return Cast<UEBoolProperty>().GetInfo();
-		}
-		if (IsA<UEObjectProperty>())
-		{
-			return Cast<UEObjectProperty>().GetInfo();
-		}
-		if (IsA<UEClassProperty>())
-		{
-			return Cast<UEClassProperty>().GetInfo();
 		}
 		if (IsA<UEInterfaceProperty>())
 		{
@@ -338,10 +341,6 @@ UEProperty::Info UEProperty::GetInfo() const
 		{
 			return Cast<UEMulticastDelegateProperty>().GetInfo();
 		}
-		if (IsA<UEEnumProperty>())
-		{
-			return Cast<UEEnumProperty>().GetInfo();
-		}
 	}
 	return { PropertyType::Unknown };
 }
@@ -362,8 +361,7 @@ bool UEByteProperty::IsEnum() const
 }
 UEEnum UEByteProperty::GetEnum() const
 {
-	UEObject(object).GetAddress();
-	return UEEnum(GameMemory.Read<UByteProperty>(object).Enum);
+	return UEEnum(UByteProperty(object).Enum());
 }
 //---------------------------------------------------------------------------
 UEProperty::Info UEByteProperty::GetInfo() const
@@ -503,22 +501,22 @@ UEClass UEDoubleProperty::StaticClass()
 //---------------------------------------------------------------------------
 uint8_t UEBoolProperty::GetFieldSize() const
 {
-	return GameMemory.Read<UBoolProperty>(object).FieldSize;
+	return UBoolProperty(object).FieldSize();
 }
 //---------------------------------------------------------------------------
 uint8_t UEBoolProperty::GetByteOffset() const
 {
-	return GameMemory.Read<UBoolProperty>(object).ByteOffset;
+	return UBoolProperty(object).ByteOffset();
 }
 //---------------------------------------------------------------------------
 uint8_t UEBoolProperty::GetByteMask() const
 {
-	return GameMemory.Read<UBoolProperty>(object).ByteMask;
+	return UBoolProperty(object).ByteMask();
 }
 //---------------------------------------------------------------------------
 uint8_t UEBoolProperty::GetFieldMask() const
 {
-	return GameMemory.Read<UBoolProperty>(object).FieldMask;
+	return UBoolProperty(object).FieldMask();
 }
 //---------------------------------------------------------------------------
 UEProperty::Info UEBoolProperty::GetInfo() const
@@ -540,7 +538,7 @@ UEClass UEBoolProperty::StaticClass()
 //---------------------------------------------------------------------------
 UEClass UEObjectPropertyBase::GetPropertyClass() const
 {
-	return UEClass(GameMemory.Read<UObjectPropertyBase>(object).PropertyClass);
+	return UEClass(UObjectPropertyBase(object).PropertyClass());
 }
 //---------------------------------------------------------------------------
 UEClass UEObjectPropertyBase::StaticClass()
@@ -580,7 +578,7 @@ UEClass UEEncryptedObjectProperty::StaticClass()
 //---------------------------------------------------------------------------
 UEClass UEClassProperty::GetMetaClass() const
 {
-	return UEClass(GameMemory.Read<UClassProperty>(object).MetaClass);
+	return UEClass(UClassProperty(object).MetaClass());
 }
 //---------------------------------------------------------------------------
 UEProperty::Info UEClassProperty::GetInfo() const
@@ -598,7 +596,7 @@ UEClass UEClassProperty::StaticClass()
 //---------------------------------------------------------------------------
 UEClass UEInterfaceProperty::GetInterfaceClass() const
 {
-	return UEClass(GameMemory.Read<UInterfaceProperty>(object).InterfaceClass);
+	return UEClass(UInterfaceProperty(object).InterfaceClass());
 }
 //---------------------------------------------------------------------------
 UEProperty::Info UEInterfaceProperty::GetInfo() const
@@ -655,7 +653,7 @@ UEClass UEAssetObjectProperty::StaticClass()
 //---------------------------------------------------------------------------
 UEClass UEAssetClassProperty::GetMetaClass() const
 {
-	return UEClass(GameMemory.Read<UAssetClassProperty>(object).MetaClass);
+	return UEClass(UAssetClassProperty(object).MetaClass());
 }
 //---------------------------------------------------------------------------
 UEProperty::Info UEAssetClassProperty::GetInfo() const
@@ -686,7 +684,7 @@ UEClass UENameProperty::StaticClass()
 //---------------------------------------------------------------------------
 UEScriptStruct UEStructProperty::GetStruct() const
 {
-	return UEScriptStruct(GameMemory.Read<UStructProperty>(object).Struct);
+	return UEScriptStruct(UStructProperty(object).Struct());
 }
 //---------------------------------------------------------------------------
 UEProperty::Info UEStructProperty::GetInfo() const
@@ -730,7 +728,7 @@ UEClass UETextProperty::StaticClass()
 //---------------------------------------------------------------------------
 UEProperty UEArrayProperty::GetInner() const
 {
-	return UEProperty(GameMemory.Read<UArrayProperty>(object).Inner);
+	return UEProperty(UArrayProperty(object).Inner());
 }
 //---------------------------------------------------------------------------
 UEProperty::Info UEArrayProperty::GetInfo() const
@@ -754,12 +752,12 @@ UEClass UEArrayProperty::StaticClass()
 //---------------------------------------------------------------------------
 UEProperty UEMapProperty::GetKeyProperty() const
 {
-	return UEProperty(GameMemory.Read<UMapProperty>(object).KeyProp);
+	return UEProperty(UMapProperty(object).KeyProp());
 }
 //---------------------------------------------------------------------------
 UEProperty UEMapProperty::GetValueProperty() const
 {
-	return UEProperty(GameMemory.Read<UMapProperty>(object).ValueProp);
+	return UEProperty(UMapProperty(object).ValueProp());
 }
 //---------------------------------------------------------------------------
 UEProperty::Info UEMapProperty::GetInfo() const
@@ -784,7 +782,7 @@ UEClass UEMapProperty::StaticClass()
 //---------------------------------------------------------------------------
 UEFunction UEDelegateProperty::GetSignatureFunction() const
 {
-	return UEFunction(GameMemory.Read<UDelegateProperty>(object).SignatureFunction);
+	return UEFunction(UDelegateProperty(object).SignatureFunction());
 }
 //---------------------------------------------------------------------------
 UEProperty::Info UEDelegateProperty::GetInfo() const
@@ -802,7 +800,7 @@ UEClass UEDelegateProperty::StaticClass()
 //---------------------------------------------------------------------------
 UEFunction UEMulticastDelegateProperty::GetSignatureFunction() const
 {
-	return UEFunction(GameMemory.Read<UDelegateProperty>(object).SignatureFunction);
+	return UEFunction(UDelegateProperty(object).SignatureFunction());
 }
 //---------------------------------------------------------------------------
 UEProperty::Info UEMulticastDelegateProperty::GetInfo() const
@@ -820,12 +818,12 @@ UEClass UEMulticastDelegateProperty::StaticClass()
 //---------------------------------------------------------------------------
 UENumericProperty UEEnumProperty::GetUnderlyingProperty() const
 {
-	return UENumericProperty(GameMemory.Read<UEnumProperty>(object).UnderlyingProp);
+	return UENumericProperty(UEnumProperty(object).UnderlyingProp());
 }
 //---------------------------------------------------------------------------
 UEEnum UEEnumProperty::GetEnum() const
 {
-	return UEEnum(GameMemory.Read<UEnumProperty>(object).Enum);
+	return UEEnum(UEnumProperty(object).Enum());
 }
 //---------------------------------------------------------------------------
 UEProperty::Info UEEnumProperty::GetInfo() const

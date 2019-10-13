@@ -180,6 +180,7 @@
   <ItemGroup>
     <ClInclude Include="GObjects\EngineClasses.h" />
     <ClInclude Include="GNames\NamesStore.h" />
+    <ClInclude Include="GObjects\EngineTypes.h" />
     <ClInclude Include="GObjects\FunctionFlags.h" />
     <ClInclude Include="GObjects\GenericTypes.h" />
     <ClInclude Include="GObjects\Generator.h" />

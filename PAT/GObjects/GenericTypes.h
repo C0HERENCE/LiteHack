@@ -15,13 +15,13 @@ class UEObject
 {
 public:
 	UEObject()
-		: object(0)
 	{
+		object = 0;
 	}
 	UEObject(uint64 _object)
-		: object(_object)
 	{
-		uobject = GameMemory.Read<UObject>(_object);
+		object = _object;
+		uobject = UObject(_object);
 	}
 
 	bool IsValid() const
