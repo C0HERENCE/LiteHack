@@ -157,7 +157,7 @@
     <ClCompile Include="LiteHack\Overlay\imgui_impl_win32.cpp" />
     <ClCompile Include="LiteHack\Overlay\imgui_widgets.cpp" />
     <ClCompile Include="LiteHack\Render.cpp" />
-    <ClCompile Include="MyForm.cpp" />
+    <ClCompile Include="Main.cpp" />
     <ClCompile Include="Utils\MemoryHelper.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -196,7 +196,7 @@
     <ClInclude Include="LiteHack\Overlay\imstb_truetype.h" />
     <ClInclude Include="LiteHack\Render.h" />
     <ClInclude Include="LiteHack\WindowHijack.h" />
-    <ClInclude Include="MyForm.h">
+    <ClInclude Include="Main.h">
       <FileType>CppForm</FileType>
     </ClInclude>
     <ClInclude Include="Utils\ida_defs.h" />
@@ -204,8 +204,8 @@
     <ClInclude Include="Utils\tinyformat.h" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="MyForm.resx">
-      <DependentUpon>MyForm.h</DependentUpon>
+    <EmbeddedResource Include="Main.resx">
+      <DependentUpon>Main.h</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

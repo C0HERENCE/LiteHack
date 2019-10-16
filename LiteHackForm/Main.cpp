@@ -1,4 +1,4 @@
-#include "MyForm.h"
+#include "Main.h"
 #include "GWorld/UWorld.h"
 #include "GObjects/Generator.h"
 #include "LiteHack/HackManager.h"
@@ -18,7 +18,6 @@ ObjectsStore GlobalObjects;
 uint64 GameBaseAddress = 0;
 HANDLE GameProcessHandle = NULL;
 
-int Initialize(array<String^>^ args);
 void DebugInfromation(UWorld&, NamesStore&, ObjectsStore&);
 void GenerateSDK();
 [STAThread]
@@ -29,38 +28,12 @@ void Main(array<String^>^ args)
 		MessageBox::Show("Run from \"HLeaker.exe\"!");
 		return;
 	}
-	if (!Initialize(args))
-	{
-		MessageBox::Show("Initialize failed.");
-		return;
-	}
-	Application::EnableVisualStyles();
-	Application::SetCompatibleTextRenderingDefault(false);
-
-	LiteHackForm::MyForm form;
-	Application::Run(% form);
-}
-void LiteHackForm::MyForm::MyForm_Load(System::Object^ sender, System::EventArgs^ e)
-{
-	MessageBox::Show("");
-	GameMemory.Read32(34);
-}
-void LiteHackForm::MyForm::Button1_Click(System::Object^ sender, System::EventArgs^ e)
-{
-	GWorld = UWorld(GameBaseAddress + off_UWorld);
-	GlobalNames = NamesStore(GameBaseAddress + off_GNames);
-	GlobalObjects = ObjectsStore(GameBaseAddress + off_GObjects);
-	DebugInfromation(GWorld, GlobalNames, GlobalObjects);
-}
-
-
-int Initialize(array<String^>^ args)
-{
 	GameProcessHandle = reinterpret_cast<void*>(int::Parse(args[0]));
 	GameMemory = Memory(GameProcessHandle);
 	HMODULE hMods[512];
 	DWORD cb;
 	LPVOID lpBase = nullptr;
+	bool success = false;
 	if (EnumProcessModulesEx(GameProcessHandle, hMods, sizeof(hMods), &cb, LIST_MODULES_ALL))
 	{
 		char szModName[MAX_PATH] = { NULL };
@@ -72,10 +45,31 @@ int Initialize(array<String^>^ args)
 				std::cout << "MoudleBase: 0x" << hMods[i] << " Process: " << szModName << std::endl;
 				lpBase = hMods[i];
 				GameBaseAddress = (uint64)lpBase;
-				return 1;
+				success = true;
+				break;
 			}
 		}
 	}
+	if (!success)
+	{
+		MessageBox::Show("Initialize failed!");
+		return;
+	}
+	Application::EnableVisualStyles();
+	Application::SetCompatibleTextRenderingDefault(false);
+
+	LiteHackForm::MainForm form;
+	Application::Run(% form);
+}
+void LiteHackForm::MainForm::MyForm_Load(System::Object^ sender, System::EventArgs^ e)
+{
+	GWorld = UWorld(GameBaseAddress + off_UWorld);
+	GlobalNames = NamesStore(GameBaseAddress + off_GNames);
+	GlobalObjects = ObjectsStore(GameBaseAddress + off_GObjects);
+}
+void LiteHackForm::MainForm::Button1_Click(System::Object^ sender, System::EventArgs^ e)
+{
+	DebugInfromation(GWorld, GlobalNames, GlobalObjects);
 }
 
 void GenerateSDK()
