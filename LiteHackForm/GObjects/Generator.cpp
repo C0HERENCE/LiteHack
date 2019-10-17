@@ -3,6 +3,7 @@
 
 extern ObjectsStore GlobalObjects;
 extern NamesStore GlobalNames;
+// A fast version of IsA()
 std::string GetType(UEProperty prop)
 {
 	std::string className = prop.GetClass().GetName();
@@ -142,13 +143,13 @@ Generator::Generator()
 
 void Generator::Dump(const fs::path& path)
 {
-	std::ofstream o(path / "ObjectsDump.txt");
+	std::ofstream o(path / "ObjectsDetailsDump.txt"); 
+	tfm::format(o, "%s\n", "//By COHERENCE");
 	tfm::format(o, "Address: 0x%x\n\n", GlobalObjects.GetById(0).GetAddress());
 
 	for (int i = 0; i < GlobalObjects.GetObjectsNum(); i++)
 	{
 		auto obj = GlobalObjects.GetById(i);
-		std::cout << i << " " << obj.GetIndex() << " " <<obj.GetName() << std::endl;
 		if (obj.IsValid())
 		{
 			std::string e = obj.GetName();
@@ -163,7 +164,6 @@ void Generator::Dump(const fs::path& path)
 			}
 			else if (obj.IsA<UEEnum>())
 			{
-				std::cout <<2 << std::endl;
 				auto e = UEEnum(obj.GetAddress()).GetNames();
 				tfm::format(o, "[0x%x]\t[%06i]\t%-100s\t%d Members: ", obj.GetAddress(), obj.GetIndex(), UEEnum(obj.GetAddress()).GetFullName(), e.size());
 				for (int i = 0; i < e.size(); i++)
@@ -174,24 +174,20 @@ void Generator::Dump(const fs::path& path)
 			}
 			else if (obj.IsA<UEScriptStruct>() || obj.IsA<UEClass>())
 			{
-				std::cout << 3 << std::endl;
 				UEStruct s = UEStruct(obj.GetAddress());
 
 				tfm::format(o, "[0x%x]\t[%06i]\t%-100s\t%s %s\n", obj.GetAddress(), obj.GetIndex(), obj.GetFullName(), s.GetNameCPP(), s.GetSuper().IsValid() ? ": " + s.GetSuper().GetNameCPP() : "");
 			}
 			else if (obj.IsA<UEProperty>())
 			{
-				std::cout << 4 << std::endl;
 				UEProperty p = UEProperty(obj.GetAddress());
 				std::string cppType = "";
 				if (obj.IsA<UEStructProperty>())
 				{
-					std::cout << 5 << std::endl;
 					cppType = UEScriptStruct(UStructProperty(obj.GetAddress()).Struct()).GetNameCPP();
 				}
 				else if (obj.IsA<UEEnumProperty>())
 				{
-					std::cout << 6 << std::endl;
 					cppType = UEEnum(UEnumProperty(obj.GetAddress()).Enum()).GetNameCPP();
 				}
 				tfm::format(o, "[0x%x]\t[%06i]\t[0x%04x]\t%-100s\t%s\n", obj.GetAddress(), obj.GetIndex(), p.GetOffset(), obj.GetFullName(), cppType);
@@ -211,9 +207,9 @@ void Generator::Dump(const fs::path& path)
 
 void Generator::DumpSDK(const fs::path& path)
 {
-	std::ofstream o(path / "ObjectsSDKDump.txt");
+	std::ofstream o(path / "ObjectsSDKDump.cpp");
+	tfm::format(o, "//%s\n", "//By COHERENCE");
 	tfm::format(o, "Address: 0x%x\n\n", GlobalObjects.GetById(0).GetAddress());
-
 	for (int i = 0; i < GlobalObjects.GetObjectsNum(); i++)
 	{
 		auto obj = GlobalObjects.GetById(i);
@@ -260,7 +256,6 @@ void Generator::DumpSDK(const fs::path& path)
 							)
 						)
 					{
-						std::cout << prop.GetName() << std::endl;
 						tfm::format(o, "\t%s %s; //offset: 0x%x\t\n", GetType(prop), prop.GetName(), prop.GetOffset());
 					}
 				}
@@ -269,6 +264,9 @@ void Generator::DumpSDK(const fs::path& path)
 			else if (obj.IsA<UEProperty>())
 			{
 			}
+		}
+		else
+		{
 		}
 	}
 

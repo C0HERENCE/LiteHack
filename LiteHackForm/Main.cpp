@@ -1,25 +1,86 @@
 #include "Main.h"
-#include "GWorld/UWorld.h"
-#include "GObjects/Generator.h"
-#include "LiteHack/HackManager.h"
-#include <Psapi.h>
+
 using namespace System;
-using namespace System::Windows::Forms;
+using namespace System::Windows::Forms; 
+using namespace System::Collections::Generic;
 
 #define off_UWorld 0x4532298
 #define off_GNames 0x46438d0
 #define off_GObjects 0x4659e48
-// Global Variable:
-UWorld GWorld;
-HackManager Hack;
-Memory GameMemory;
-NamesStore GlobalNames;
-ObjectsStore GlobalObjects;
-uint64 GameBaseAddress = 0;
-HANDLE GameProcessHandle = NULL;
 
-void DebugInfromation(UWorld&, NamesStore&, ObjectsStore&);
-void GenerateSDK();
+std::string managedStrToNative(System::String^ sysstr)
+{
+	using System::IntPtr;
+	using System::Runtime::InteropServices::Marshal;
+
+	IntPtr ip = Marshal::StringToHGlobalAnsi(sysstr);
+	std::string outString = static_cast<const char*>(ip.ToPointer());
+	Marshal::FreeHGlobal(ip);
+	return outString;
+}
+void MainLoop();
+
+void MainLoop()
+{
+	while (1)
+	{
+		ULevel Level = GWorld.CurrentLevel();
+		AActor LocalPlayer = GWorld.OwningGameInstance().LocalPlayer().PlayerController().LocalPawn();
+		Hack.Overlay().NewFrame();
+		if (Level.Actors().Length() >= 10000) continue;
+
+		ESPInfo info;
+		info.POV = GWorld.OwningGameInstance().LocalPlayer().PlayerController().CameraCache().MinimalViewInfo();
+		AActor NearestEnemy;
+		float NearestDistance = 0;
+
+		for (int i = 0; i < Level.Actors().Length(); i++)
+		{
+			AActor actor((uint64)Level.Actors()[i]);
+
+			if (Hack.Option().Enemy && actor.GetComparisonIndex() == LocalPlayer.GetComparisonIndex())
+			{
+				// Get enemy's statue
+				Hack.UpdateESPInfo(actor, info);
+				info.Distance = info.Location.Distance(LocalPlayer.RootComponent().Location());
+				if (info.rootScreenPos.X<0 || info.rootScreenPos.X>Hack.Overlay().Width || info.rootScreenPos.Y<0 || info.rootScreenPos.Y>Hack.Overlay().Height)
+				{
+					// if current not on the screen
+					if (Hack.Option().Line)	Hack.DrawGuideLine(info);
+				}
+				else
+				{
+					// if on the screen
+					if (Hack.Option().Skeleton)	Hack.DrawSkeleton(info);
+					if (Hack.Option().Health)	Hack.DrawHealthBar(info);
+					if (Hack.Option().Box)	Hack.DrawBox(info);
+				}
+				if (Hack.Option().Aimbot)
+				{
+					// Find the nearest enemy
+					if (NearestEnemy.GetAddress() == 0)
+					{
+						NearestEnemy = actor;
+						NearestDistance = info.Distance;
+					}
+					else if (info.Distance < NearestDistance)
+					{
+						NearestDistance = info.Location.Distance(LocalPlayer.RootComponent().Location()) < NearestDistance;
+						NearestEnemy = actor;
+					}
+				}
+			}
+		}
+
+		if (Hack.Option().Aimbot && NearestEnemy.GetAddress() != 0)
+		{
+
+		}
+
+		Hack.Overlay().Refresh();
+	}
+}
+
 [STAThread]
 void Main(array<String^>^ args)
 {
@@ -61,63 +122,65 @@ void Main(array<String^>^ args)
 	LiteHackForm::MainForm form;
 	Application::Run(% form);
 }
+
 void LiteHackForm::MainForm::MyForm_Load(System::Object^ sender, System::EventArgs^ e)
 {
 	GWorld = UWorld(GameBaseAddress + off_UWorld);
 	GlobalNames = NamesStore(GameBaseAddress + off_GNames);
 	GlobalObjects = ObjectsStore(GameBaseAddress + off_GObjects);
-}
-void LiteHackForm::MainForm::Button1_Click(System::Object^ sender, System::EventArgs^ e)
-{
-	DebugInfromation(GWorld, GlobalNames, GlobalObjects);
+	MainLoopThread = gcnew Thread(gcnew ThreadStart(MainLoop));
 }
 
-void GenerateSDK()
+void LiteHackForm::MainForm::MainForm_FormClosing(System::Object^ sender, System::Windows::Forms::FormClosingEventArgs^ e)
 {
-	Generator generator;
-	fs::path outputDirectory("E:\\Desktop\\DUMP");
-	generator.DumpSDK(outputDirectory);
+	if (MainLoopThread->IsAlive)
+	{
+		MainLoopThread->Abort();
+		Hack.Overlay().CleanUp();
+		MessageBox::Show("See you next time");
+	}
 }
 
-void DebugInfromation(UWorld& GWorld, NamesStore& NameStore, ObjectsStore& ObjectStore)
+void LiteHackForm::MainForm::btnDebug_Click(System::Object^ sender, System::EventArgs^ e)
 {
-	std::cout << " ===============GWorld===================" << std::endl;
-	std::cout << "ULevel Address: ";
-	std::cout << std::hex << GWorld.CurrentLevel().GetAddress() << std::dec << std::endl;
-	std::cout << "Actor Address: ";
-	std::cout << std::hex << GWorld.CurrentLevel().Actors().GetAddress() << std::dec << std::endl;
-	std::cout << "Actor Count: ";
-	std::cout << GWorld.CurrentLevel().Actors().Length() << std::endl;
-	std::cout << "UGameInstance Address: ";
-	std::cout << std::hex << GWorld.OwningGameInstance().GetAddress() << std::dec << std::endl;
-	std::cout << "LocalPlayer Address: ";
-	std::cout << std::hex << GWorld.OwningGameInstance().LocalPlayer().GetAddress() << std::dec << std::endl;
-	std::cout << "APlayerController Address: ";
-	std::cout << std::hex << GWorld.OwningGameInstance().LocalPlayer().PlayerController().GetAddress() << std::dec << std::endl;
-	std::cout << "LocalPawn Address: ";
-	std::cout << std::hex << GWorld.OwningGameInstance().LocalPlayer().PlayerController().LocalPawn().GetAddress() << std::dec << std::endl;
-	std::cout << "Mesh Adress: ";
-	std::cout << std::hex << GWorld.OwningGameInstance().LocalPlayer().PlayerController().LocalPawn().Mesh().GetAddress() << std::dec << std::endl;
-	GWorld.GameSate();
-	std::cout << std::hex << GWorld.OwningGameInstance().LocalPlayer().PlayerController().LocalPawn().Mesh().GetAddress() << std::endl;
-	std::cout << GWorld.OwningGameInstance().LocalPlayer().PlayerController().LocalPawn().Mesh().RecentlyRendered() << std::endl;
-	std::cout << " ===============GNames==================" << std::endl;
-	std::cout << "GNames Addr: ";
-	std::cout << std::hex << NameStore.GetAddress() << std::dec << std::endl;
-	std::cout << "Name: ";
-	std::cout << NameStore.GetById(0) << std::endl;
-	std::cout << " ===============GObjects=================" << std::endl;
-	int i = 4;
-	std::cout << "Obj Num: ";
-	std::cout << std::dec << ObjectStore.GetObjectsNum() << std::endl;
-	std::cout << "ID: ";
-	std::cout << std::dec << ObjectStore.GetById(1).GetIndex() << std::endl;
-	std::cout << "Name: ";
-	std::cout << ObjectStore.GetById(1).GetName() << std::endl;
-	std::cout << "Outer: ";
-	std::cout << std::hex << ObjectStore.GetById(1).GetOuter().GetAddress() << std::dec << std::endl;
-	std::cout << "Class: ";
-	std::cout << ObjectStore.GetById(1).GetClass().GetFullName() << std::endl;
-	std::cout << "Full Name: ";
-	std::cout << ObjectStore.GetById(1).GetFullName() << std::endl;
+	if (int::Parse(numericUpDown1->Text) == 0)
+		DebugUObjectByID(159715);
+	else
+		DebugUObjectByID(int::Parse(numericUpDown1->Text));
+	DebugGNamesByID(159714);
+	DebugGWorld();
+}
+
+void LiteHackForm::MainForm::btnDump_Click(System::Object^ sender, System::EventArgs^ e)
+{
+	FolderBrowserDialog^ fd = gcnew FolderBrowserDialog;
+	fd->ShowNewFolderButton = true;
+	if (fd->ShowDialog() == Windows::Forms::DialogResult::OK)
+	{
+		std::cout << "ObjObjects: 0x" << std::hex << GlobalObjects.GetById(0).GetAddress() << std::endl;
+		std::cout << "NumElements: " << std::dec << GlobalObjects.GetObjectsNum() << std::endl;
+		fs::path outputDirectory(managedStrToNative(fd->SelectedPath));
+		GlobalObjects.Dump(outputDirectory.string());
+		Generator generator;
+		generator.Dump(outputDirectory);
+		generator.DumpSDK(outputDirectory);
+		MessageBox::Show("Dump Finished.");
+	}
+}
+
+void LiteHackForm::MainForm::BtnToggleHack_Click(System::Object^ sender, System::EventArgs^ e)
+{
+	if (MainLoopThread->IsAlive)
+	{
+		MainLoopThread->Abort();
+		Hack.Overlay().CleanUp();
+		MainLoopThread = gcnew Thread(gcnew ThreadStart(MainLoop));
+		button3->Text = "Start Hack";
+	}
+	else
+	{
+		Hack.Initialize();
+		MainLoopThread->Start();
+		button3->Text = "Stop Hack";
+	}
 }

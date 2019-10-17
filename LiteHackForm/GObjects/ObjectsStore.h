@@ -49,7 +49,7 @@ public:
 class ObjectsStore
 {
 public:	
-	void Dump();
+	void Dump(std::string);
 
 	ObjectsStore();
 

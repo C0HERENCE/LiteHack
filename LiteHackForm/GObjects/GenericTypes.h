@@ -35,7 +35,7 @@ public:
 
 	UEObject GetOuter() const;
 
-	std::string GetName() const;
+	std::string GetName() const;	
 
 	std::string GetFullName() const;
 
