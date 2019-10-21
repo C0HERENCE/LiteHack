@@ -1,5 +1,5 @@
 #pragma once
-#include "../Utils/MemoryHelper.h"
+#include "..//offsets_decryptions.h"
 extern Memory GameMemory;
 
 
@@ -18,8 +18,6 @@ public:
 	int GetNumber() const;
 private:
 	uint64 base;
-	uint64 off_ComparisonIndex = 0x0;
-	uint64 off_Number = 0x4;
 };
 
 template<class T>

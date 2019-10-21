@@ -28,34 +28,28 @@ public:
 	using Base::Base;
 	EWeaponType WeaponType()
 	{
-		return GameMemory.Read<EWeaponType>(base + off_WeaponType);
+		return GameMemory.Read<EWeaponType>(base + updates::off::WeaponType);
 	}
 
 	int WeaponID()
 	{
-		return GameMemory.Read32(base+off_WeaponID);
+		return GameMemory.Read32(base+ updates::off::WeaponID);
 	}
 
 	float BulletFireSpeed()
 	{
-		return GameMemory.Read<float>(base + off_bulletSpeed);
+		return GameMemory.Read<float>(base + updates::off::bulletSpeed);
 	}
 
 	bool HasAutoFireMode()
 	{
-		return GameMemory.Read<bool>(base + off_bAutoFire);
+		return GameMemory.Read<bool>(base + updates::off::bAutoFire);
 	}
 
 	int BulletNumSingleShot()
 	{
-		return GameMemory.Read<int>(base + off_bulletNumPerSlot);
+		return GameMemory.Read<int>(base + updates::off::bulletNumPerSlot);
 	}
-private:
-	uint64 off_WeaponType = 0x01E0;
-	uint64 off_WeaponID = 0x2d4;
-	uint64 off_bulletSpeed = 0x0450;
-	uint64 off_bAutoFire = 0x628;
-	uint64 off_bulletNumPerSlot = 0x3b0;
 };
 
 
@@ -65,34 +59,28 @@ public:
 	using Base::Base;
 	int WeaponAvatarID()
 	{
-		return GameMemory.Read<int>(base + off_WeaponAvatarID);
+		return GameMemory.Read<int>(base + updates::off::WeaponAvatarID);
 	}
 
 	UShootWeaponEntity WeaponEntityComp()
 	{
-		return UShootWeaponEntity(GameMemory.Read64(base + off_WeaponEntity));
+		return UShootWeaponEntity(GameMemory.Read64(base + updates::off::WeaponEntity));
 	}
 
 	int CurBulletNumInClip()
 	{
-		return GameMemory.Read32(base + off_CurBulletNum);
+		return GameMemory.Read32(base + updates::off::CurBulletNum);
 	}
 
 	EGunFireMode FireMode()
 	{
-		return GameMemory.Read<EGunFireMode>(base + off_EGunFireMode);
+		return GameMemory.Read<EGunFireMode>(base + updates::off::EGunFireMode);
 	}
 
 	int CurMaxBulletNumInOneClip()
 	{
-		return GameMemory.Read32(base + off_CurMaxBulletNum);
+		return GameMemory.Read32(base + updates::off::CurMaxBulletNum);
 	}
-private:
-	uint64 off_WeaponAvatarID = 0x3cc;
-	uint64 off_WeaponEntity = 0x438;
-	uint64 off_CurBulletNum = 0x07AC;
-	uint64 off_EGunFireMode = 0x8d1;
-	uint64 off_CurMaxBulletNum = 0x09c0;
 };
 
 class UWeaponManagerComponent : public Base
@@ -102,9 +90,6 @@ public:
 
 	ASTExtraWeapon CurrentWeapon()
 	{
-		return ASTExtraWeapon(GameMemory.Read64(base + off_currentWeapon));
+		return ASTExtraWeapon(GameMemory.Read64(base + updates::off::currentWeapon));
 	}
-
-private:
-	uint64 off_currentWeapon = 0x4e8;
 };

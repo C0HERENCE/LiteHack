@@ -5,10 +5,6 @@ class UObject
 {
 protected:
 	uint64 base;
-	uint64 off_Name = 0xc;
-	uint64 off_Outer = 0x18;
-	uint64 off_Class = 0x20;
-	uint64 off_InternalIndex = 0x28;
 public:
 	UObject(uint64 _base)
 	{
@@ -30,7 +26,7 @@ class UField : public UObject
 public:
 	uint64 Next() const
 	{
-		return GameMemory.Read64(UObject::base + 0x30);
+		return GameMemory.Read64(UObject::base + updates::off::next);//Vector
 	}
 };
 
@@ -40,7 +36,7 @@ class UEnum : public UField, public UObject
 public:
 	TArray<TPair<FName, uint64_t>> Names()
 	{
-		return GameMemory.Read<TArray<TPair<FName, uint64_t>>>(UObject::base + 0x48);
+		return GameMemory.Read<TArray<TPair<FName, uint64_t>>>(UObject::base + updates::off::names);
 	}
 };
 
@@ -50,15 +46,15 @@ class UStruct : public UField , public UObject
 public:
 	uint64_t SuperField()
 	{
-		return GameMemory.Read64(UObject::base + 0x38);
+		return GameMemory.Read64(UObject::base + updates::off::superfield);  //Engine.Pawn Engine.Actor
 	}
 	uint32_t PropertySize()
 	{
-		return GameMemory.Read32(UObject::base + 0x68);
+		return GameMemory.Read32(UObject::base + updates::off::property_size); // Vector
 	}
 	uint64_t Children()
 	{
-		return GameMemory.Read64(UObject::base + 0x80);
+		return GameMemory.Read64(UObject::base + updates::off::children); // Vector
 	}
 };
 
@@ -84,27 +80,15 @@ class UProperty : public UField, public UObject
 public:
 	uint32_t ArrayDim()
 	{
-		return GameMemory.Read32(UObject::base + 0x38);
+		return GameMemory.Read32(UObject::base + updates::off::array_dim); // Location
 	}
 	uint32_t ElementSize()
 	{
-		return GameMemory.Read32(UObject::base + 0x3c);
+		return GameMemory.Read32(UObject::base + updates::off::element_size); // Vector = 4
 	}
 	uint32_t Offset()
 	{
-		return GameMemory.Read32(UObject::base + 0x4c);
-	}
-	uint64_t FirstChildren()
-	{
-		return GameMemory.Read64(UObject::base + 0x50);
-	}
-	uint64_t NextChildren()
-	{
-		return GameMemory.Read64(UObject::base + 0x58);
-	}
-	uint32_t PropertySize()
-	{
-		return GameMemory.Read32(UObject::base + 0x80);
+		return GameMemory.Read32(UObject::base + updates::off::offset); // Vector.Z = 8
 	}
 };
 
@@ -121,7 +105,7 @@ class UByteProperty : public UNumericProperty ,public UObject
 public:
 	uint64 Enum()
 	{
-		return GameMemory.Read64(UObject::base + 120);
+		return GameMemory.Read64(UObject::base + updates::off::uproperty_size);
 	}
 };
 
@@ -185,19 +169,19 @@ class UBoolProperty : public UProperty, public UObject
 public:
 	uint8_t FieldSize()
 	{
-		return GameMemory.Read<uint8_t>(UObject::base + 0x78);
+		return GameMemory.Read<uint8_t>(UObject::base + updates::off::uproperty_size);
 	}
 	uint8_t ByteOffset()
 	{
-		return GameMemory.Read<uint8_t>(UObject::base + 0x7a);
+		return GameMemory.Read<uint8_t>(UObject::base + updates::off::uproperty_size + 0x2);
 	}
 	uint8_t ByteMask()
 	{
-		return GameMemory.Read<uint8_t>(UObject::base + 0x7c);
+		return GameMemory.Read<uint8_t>(UObject::base + updates::off::uproperty_size + 0x4);
 	}
 	uint8_t FieldMask()
 	{
-		return GameMemory.Read<uint8_t>(UObject::base + 0x7e);
+		return GameMemory.Read<uint8_t>(UObject::base + updates::off::uproperty_size + 0x6);
 	}
 };
 
@@ -207,7 +191,7 @@ class UObjectPropertyBase : public UProperty, public UObject
 public:
 	uint64 PropertyClass()
 	{
-		return GameMemory.Read64(UObject::base + 0x78);
+		return GameMemory.Read64(UObject::base + updates::off::uproperty_size);
 	}
 };
 
@@ -223,7 +207,7 @@ class UClassProperty : public UObjectProperty, public UObject
 public:
 	uint64 MetaClass()
 	{
-		return GameMemory.Read64(UObject::base + 0x80);
+		return GameMemory.Read64(UObject::base + updates::off::uproperty_size + 0x8);
 	}
 };
 
@@ -233,7 +217,7 @@ class UInterfaceProperty : public UProperty, public UObject
 public:
 	uint64 InterfaceClass()
 	{
-		return GameMemory.Read64(UObject::base + 0x78);
+		return GameMemory.Read64(UObject::base + updates::off::uproperty_size);
 	}
 };
 
@@ -261,7 +245,7 @@ class UAssetClassProperty : public UAssetObjectProperty, public UObject
 public:
 	uint64 MetaClass()
 	{
-		return GameMemory.Read64(UObject::base + 0x80);
+		return GameMemory.Read64(UObject::base + updates::off::uproperty_size + 0x8);
 	}
 };
 
@@ -277,7 +261,7 @@ class UStructProperty : public UProperty, public UObject
 public:
 	uint64 Struct()
 	{
-		return GameMemory.Read64(UObject::base + 0x78);
+		return GameMemory.Read64(UObject::base + updates::off::uproperty_size);
 	}
 };
 
@@ -299,7 +283,7 @@ class UArrayProperty : public UProperty, public UObject
 public:
 	uint64 Inner()
 	{
-		return GameMemory.Read64(UObject::base + 0x78);
+		return GameMemory.Read64(UObject::base + updates::off::uproperty_size);
 	}
 };
 
@@ -309,11 +293,11 @@ class UMapProperty : public UProperty, public UObject
 public:
 	uint64 KeyProp()
 	{
-		return GameMemory.Read64(UObject::base + 0x78);
+		return GameMemory.Read64(UObject::base + updates::off::uproperty_size);
 	}
 	uint64 ValueProp()
 	{
-		return GameMemory.Read64(UObject::base + 0x80);
+		return GameMemory.Read64(UObject::base + updates::off::uproperty_size + 0x8);
 	}
 };
 
@@ -323,7 +307,7 @@ class UDelegateProperty : public UProperty, public UObject
 public:
 	uint64 SignatureFunction()
 	{
-		return GameMemory.Read64(UObject::base + 0x78);
+		return GameMemory.Read64(UObject::base + updates::off::uproperty_size);
 	}
 };
 
@@ -332,7 +316,7 @@ class UMulticastDelegateProperty : public UProperty
 public:
 	uint64 SignatureFunction()
 	{
-		return GameMemory.Read64(UObject::base + 0x78);
+		return GameMemory.Read64(UObject::base + updates::off::uproperty_size);
 	}
 };
 
@@ -342,10 +326,10 @@ class UEnumProperty : public UProperty, public UObject
 public:
 	uint64 UnderlyingProp()
 	{
-		return GameMemory.Read64(UObject::base + 0x78);
+		return GameMemory.Read64(UObject::base + updates::off::uproperty_size);
 	}
 	uint64 Enum()
 	{
-		return GameMemory.Read64(UObject::base + 0x80);
+		return GameMemory.Read64(UObject::base + updates::off::uproperty_size+0x8);
 	}
 };

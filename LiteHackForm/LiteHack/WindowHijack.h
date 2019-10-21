@@ -24,6 +24,7 @@ HWND HiJackNotepadWindow();
 std::vector<DWORD> GetPIDs(std::wstring targetProcessName);
 std::vector<HWND> WindowsFinder(WindowsFinderParams params);
 BOOL CALLBACK EnumWindowsCallback(HWND hwnd, LPARAM lParam);
+void TerminateNotepad();
 HWND HiJackNotepadWindow()
 {
 	HWND hwndHiHjacked = NULL;
@@ -70,6 +71,19 @@ HWND HiJackNotepadWindow()
 	DwmExtendFrameIntoClientArea(hwndHiHjacked, &margins);
 	return hwndHiHjacked;
 }
+
+void TerminateNotepad()
+{
+	std::vector<DWORD> existingNotepads = GetPIDs(HJWND_PROGRAM);
+	if (!existingNotepads.empty()) {
+		for (int i(0); i < existingNotepads.size(); ++i) {
+			HANDLE hOldProcess = OpenProcess(PROCESS_TERMINATE, FALSE, existingNotepads[i]);
+			TerminateProcess(hOldProcess, 0);
+			CloseHandle(hOldProcess);
+		}
+	}
+}
+
 std::vector<DWORD> GetPIDs(std::wstring targetProcessName) {
 	std::vector<DWORD> pids;
 	if (targetProcessName == L"")

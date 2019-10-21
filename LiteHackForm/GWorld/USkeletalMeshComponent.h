@@ -1,7 +1,7 @@
 #pragma once
 #include "../Utils/MemoryHelper.h"
-#include "Base.h"
 #include "Core/FTransform.h"
+#include "Base.h"
 
 class USkeletalMeshComponent : public Base
 {
@@ -10,20 +10,16 @@ public:
 
 	bool RecentlyRendered()
 	{
-		return GameMemory.Read<bool>(base + off_bRecentlyRendered);
+		return GameMemory.Read<bool>(base + updates::off::bRecentlyRendered);
 	}
 
 	uint64 BoneArray()
 	{
-		return GameMemory.Read64(base + off_BoneArray);
+		return GameMemory.Read64(base + updates::off::BoneArray);
 	}
 
 	FTransform ComponentToWorld()
 	{
-		return GameMemory.Read<FTransform>(base + off_ComponentToWorld);
+		return GameMemory.Read<FTransform>(base + updates::off::ComponentToWorld);
 	}
-private:
-	uint64 off_bRecentlyRendered = 0x7d8;
-	uint64 off_BoneArray = 0x708;
-	uint64 off_ComponentToWorld = 0x110;
 };

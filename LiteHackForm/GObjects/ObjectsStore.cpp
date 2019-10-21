@@ -15,18 +15,14 @@ ObjectsStore::ObjectsStore(uint64 address)
 
 bool ObjectsStore::Initialize(uint64 address)
 {
-	privateGO = GameMemory.Read<FUObjectArray>(address);
-	uint64 v7 = privateGO.ObjObjects.Objects;
-	uint64 v417;
-	LODWORD(v417) = (v7 + 0x56963ECA) ^ 0x56963ECA;
-	HIDWORD(v417) = (HIDWORD(v7) + 0x5589550A) ^ 0xAA76AAF6;
-	privateGO.ObjObjects.Objects = v417;
+	_ObjObjects = GameMemory.Read<FUObjectArray>(address);
+	_ObjObjects.ObjObjects.Objects = updates::dec::objobjects(_ObjObjects.ObjObjects.Objects);
 	return true;
 }
 
 UEObject ObjectsStore::GetById(size_t id) const
 {
-	return UEObject(privateGO.ObjObjects.GetById(id).Object);
+	return UEObject(_ObjObjects.ObjObjects.GetById(id).Object);
 }
 
 UEClass ObjectsStore::FindClass(const std::string& name) const
@@ -44,15 +40,18 @@ UEClass ObjectsStore::FindClass(const std::string& name) const
 
 int ObjectsStore::GetObjectsNum() const
 {
-	return privateGO.ObjObjects.NumElements;
+	return _ObjObjects.ObjObjects.NumElements;
 }
 
 void ObjectsStore::Dump(std::string p)
 {
 	std::ofstream o;
-	std::string path = p +  "\\ObjectsDump.txt";
+	std::string path = p +  "\\ObjectsEasyDump.txt";
 	o.open(path);
-	tfm::format(o, "//%s\n", "By COHERENCE");
+	tfm::format(o, "%s\n", "By COHERENCE");
+	tfm::format(o, "Base Address: 0x%x\n\n", GetById(0).GetAddress());
+	tfm::format(o, "%s\t%s\t%s\n", "Address","InternalIndex","Class&FullName");
+	tfm::format(o, "");
 	for (int i = 0; i < GetObjectsNum(); i++)
 	{
 		auto obj = GetById(i);

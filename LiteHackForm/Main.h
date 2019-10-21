@@ -61,6 +61,40 @@ namespace LiteHackForm {
 	public:
 	private: System::Windows::Forms::DataGridViewTextBoxColumn^ dataGridViewTextBoxColumn6;
 	private: System::Windows::Forms::NumericUpDown^ numericUpDown1;
+	private: System::Windows::Forms::CheckBox^ checkBox1;
+	private: System::Windows::Forms::CheckBox^ checkBox2;
+	private: System::Windows::Forms::CheckBox^ checkBox3;
+	private: System::Windows::Forms::CheckBox^ checkBox4;
+	private: System::Windows::Forms::CheckBox^ checkBox5;
+	private: System::Windows::Forms::CheckBox^ checkBox6;
+
+
+
+
+	private: System::Windows::Forms::RadioButton^ radioButton1;
+	private: System::Windows::Forms::RadioButton^ radioButton2;
+	private: System::Windows::Forms::RadioButton^ radioButton3;
+	private: System::Windows::Forms::RadioButton^ radioButton4;
+	private: System::Windows::Forms::TrackBar^ trackBar1;
+	private: System::Windows::Forms::Label^ label1;
+	private: System::Windows::Forms::Label^ label2;
+	private: System::Windows::Forms::Label^ label3;
+	private: System::Windows::Forms::Label^ label4;
+	private: System::Windows::Forms::TrackBar^ trackBar2;
+	private: System::Windows::Forms::GroupBox^ groupBox1;
+	private: System::Windows::Forms::GroupBox^ groupBox2;
+	private: System::Windows::Forms::Label^ label5;
+	private: System::Windows::Forms::Label^ label6;
+	private: System::Windows::Forms::TrackBar^ trackBar3;
+	private: System::Windows::Forms::LinkLabel^ linkLabel2;
+	private: System::Windows::Forms::LinkLabel^ linkLabel1;
+	private: System::Windows::Forms::Panel^ panel1;
+
+	private: System::Windows::Forms::CheckBox^ checkBox7;
+	private: System::Windows::Forms::LinkLabel^ linkLabel3;
+	private: System::Windows::Forms::Button^ button4;
+	private: System::Windows::Forms::CheckBox^ checkBox8;
+
 
 	private:
 
@@ -125,6 +159,34 @@ namespace LiteHackForm {
 			this->dataGridViewTextBoxColumn5 = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
 			this->dataGridViewTextBoxColumn6 = (gcnew System::Windows::Forms::DataGridViewTextBoxColumn());
 			this->numericUpDown1 = (gcnew System::Windows::Forms::NumericUpDown());
+			this->checkBox1 = (gcnew System::Windows::Forms::CheckBox());
+			this->checkBox2 = (gcnew System::Windows::Forms::CheckBox());
+			this->checkBox3 = (gcnew System::Windows::Forms::CheckBox());
+			this->checkBox4 = (gcnew System::Windows::Forms::CheckBox());
+			this->checkBox5 = (gcnew System::Windows::Forms::CheckBox());
+			this->checkBox6 = (gcnew System::Windows::Forms::CheckBox());
+			this->radioButton1 = (gcnew System::Windows::Forms::RadioButton());
+			this->radioButton2 = (gcnew System::Windows::Forms::RadioButton());
+			this->radioButton3 = (gcnew System::Windows::Forms::RadioButton());
+			this->radioButton4 = (gcnew System::Windows::Forms::RadioButton());
+			this->trackBar1 = (gcnew System::Windows::Forms::TrackBar());
+			this->label1 = (gcnew System::Windows::Forms::Label());
+			this->label2 = (gcnew System::Windows::Forms::Label());
+			this->label3 = (gcnew System::Windows::Forms::Label());
+			this->label4 = (gcnew System::Windows::Forms::Label());
+			this->trackBar2 = (gcnew System::Windows::Forms::TrackBar());
+			this->groupBox1 = (gcnew System::Windows::Forms::GroupBox());
+			this->linkLabel3 = (gcnew System::Windows::Forms::LinkLabel());
+			this->linkLabel2 = (gcnew System::Windows::Forms::LinkLabel());
+			this->linkLabel1 = (gcnew System::Windows::Forms::LinkLabel());
+			this->groupBox2 = (gcnew System::Windows::Forms::GroupBox());
+			this->label5 = (gcnew System::Windows::Forms::Label());
+			this->label6 = (gcnew System::Windows::Forms::Label());
+			this->trackBar3 = (gcnew System::Windows::Forms::TrackBar());
+			this->panel1 = (gcnew System::Windows::Forms::Panel());
+			this->checkBox7 = (gcnew System::Windows::Forms::CheckBox());
+			this->button4 = (gcnew System::Windows::Forms::Button());
+			this->checkBox8 = (gcnew System::Windows::Forms::CheckBox());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataGridView1))->BeginInit();
 			this->tabControl1->SuspendLayout();
 			this->tabPage1->SuspendLayout();
@@ -135,11 +197,17 @@ namespace LiteHackForm {
 			this->tabPage4->SuspendLayout();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataGridView4))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->numericUpDown1))->BeginInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->trackBar1))->BeginInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->trackBar2))->BeginInit();
+			this->groupBox1->SuspendLayout();
+			this->groupBox2->SuspendLayout();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->trackBar3))->BeginInit();
+			this->panel1->SuspendLayout();
 			this->SuspendLayout();
 			// 
 			// button1
 			// 
-			this->button1->Location = System::Drawing::Point(127, 458);
+			this->button1->Location = System::Drawing::Point(489, 416);
 			this->button1->Name = L"button1";
 			this->button1->Size = System::Drawing::Size(75, 23);
 			this->button1->TabIndex = 0;
@@ -149,7 +217,7 @@ namespace LiteHackForm {
 			// 
 			// button2
 			// 
-			this->button2->Location = System::Drawing::Point(223, 458);
+			this->button2->Location = System::Drawing::Point(646, 416);
 			this->button2->Name = L"button2";
 			this->button2->Size = System::Drawing::Size(75, 23);
 			this->button2->TabIndex = 1;
@@ -159,7 +227,7 @@ namespace LiteHackForm {
 			// 
 			// button3
 			// 
-			this->button3->Location = System::Drawing::Point(333, 458);
+			this->button3->Location = System::Drawing::Point(12, 12);
 			this->button3->Name = L"button3";
 			this->button3->Size = System::Drawing::Size(75, 23);
 			this->button3->TabIndex = 2;
@@ -185,7 +253,7 @@ namespace LiteHackForm {
 			this->dataGridView1->RowHeadersVisible = false;
 			this->dataGridView1->RowTemplate->Resizable = System::Windows::Forms::DataGridViewTriState::False;
 			this->dataGridView1->SelectionMode = System::Windows::Forms::DataGridViewSelectionMode::CellSelect;
-			this->dataGridView1->Size = System::Drawing::Size(399, 408);
+			this->dataGridView1->Size = System::Drawing::Size(399, 367);
 			this->dataGridView1->TabIndex = 4;
 			// 
 			// Properties
@@ -210,10 +278,10 @@ namespace LiteHackForm {
 			this->tabControl1->Controls->Add(this->tabPage2);
 			this->tabControl1->Controls->Add(this->tabPage3);
 			this->tabControl1->Controls->Add(this->tabPage4);
-			this->tabControl1->Location = System::Drawing::Point(12, 12);
+			this->tabControl1->Location = System::Drawing::Point(336, 11);
 			this->tabControl1->Name = L"tabControl1";
 			this->tabControl1->SelectedIndex = 0;
-			this->tabControl1->Size = System::Drawing::Size(413, 440);
+			this->tabControl1->Size = System::Drawing::Size(413, 399);
 			this->tabControl1->TabIndex = 5;
 			// 
 			// tabPage1
@@ -222,7 +290,7 @@ namespace LiteHackForm {
 			this->tabPage1->Location = System::Drawing::Point(4, 22);
 			this->tabPage1->Name = L"tabPage1";
 			this->tabPage1->Padding = System::Windows::Forms::Padding(3);
-			this->tabPage1->Size = System::Drawing::Size(405, 414);
+			this->tabPage1->Size = System::Drawing::Size(405, 373);
 			this->tabPage1->TabIndex = 0;
 			this->tabPage1->Text = L"UObject";
 			this->tabPage1->UseVisualStyleBackColor = true;
@@ -233,7 +301,7 @@ namespace LiteHackForm {
 			this->tabPage2->Location = System::Drawing::Point(4, 22);
 			this->tabPage2->Name = L"tabPage2";
 			this->tabPage2->Padding = System::Windows::Forms::Padding(3);
-			this->tabPage2->Size = System::Drawing::Size(299, 442);
+			this->tabPage2->Size = System::Drawing::Size(405, 373);
 			this->tabPage2->TabIndex = 1;
 			this->tabPage2->Text = L"GNames";
 			this->tabPage2->UseVisualStyleBackColor = true;
@@ -256,7 +324,7 @@ namespace LiteHackForm {
 			this->dataGridView2->RowHeadersVisible = false;
 			this->dataGridView2->RowTemplate->Resizable = System::Windows::Forms::DataGridViewTriState::False;
 			this->dataGridView2->SelectionMode = System::Windows::Forms::DataGridViewSelectionMode::CellSelect;
-			this->dataGridView2->Size = System::Drawing::Size(293, 436);
+			this->dataGridView2->Size = System::Drawing::Size(399, 367);
 			this->dataGridView2->TabIndex = 5;
 			// 
 			// dataGridViewTextBoxColumn1
@@ -281,7 +349,7 @@ namespace LiteHackForm {
 			this->tabPage3->Location = System::Drawing::Point(4, 22);
 			this->tabPage3->Name = L"tabPage3";
 			this->tabPage3->Padding = System::Windows::Forms::Padding(3);
-			this->tabPage3->Size = System::Drawing::Size(299, 442);
+			this->tabPage3->Size = System::Drawing::Size(405, 373);
 			this->tabPage3->TabIndex = 2;
 			this->tabPage3->Text = L"GWorld";
 			this->tabPage3->UseVisualStyleBackColor = true;
@@ -304,7 +372,7 @@ namespace LiteHackForm {
 			this->dataGridView3->RowHeadersVisible = false;
 			this->dataGridView3->RowTemplate->Resizable = System::Windows::Forms::DataGridViewTriState::False;
 			this->dataGridView3->SelectionMode = System::Windows::Forms::DataGridViewSelectionMode::CellSelect;
-			this->dataGridView3->Size = System::Drawing::Size(293, 436);
+			this->dataGridView3->Size = System::Drawing::Size(399, 367);
 			this->dataGridView3->TabIndex = 5;
 			// 
 			// dataGridViewTextBoxColumn3
@@ -329,7 +397,7 @@ namespace LiteHackForm {
 			this->tabPage4->Location = System::Drawing::Point(4, 22);
 			this->tabPage4->Name = L"tabPage4";
 			this->tabPage4->Padding = System::Windows::Forms::Padding(3);
-			this->tabPage4->Size = System::Drawing::Size(299, 442);
+			this->tabPage4->Size = System::Drawing::Size(405, 373);
 			this->tabPage4->TabIndex = 3;
 			this->tabPage4->Text = L"STExtraPlayer";
 			this->tabPage4->UseVisualStyleBackColor = true;
@@ -352,7 +420,7 @@ namespace LiteHackForm {
 			this->dataGridView4->RowHeadersVisible = false;
 			this->dataGridView4->RowTemplate->Resizable = System::Windows::Forms::DataGridViewTriState::False;
 			this->dataGridView4->SelectionMode = System::Windows::Forms::DataGridViewSelectionMode::CellSelect;
-			this->dataGridView4->Size = System::Drawing::Size(293, 436);
+			this->dataGridView4->Size = System::Drawing::Size(399, 367);
 			this->dataGridView4->TabIndex = 6;
 			// 
 			// dataGridViewTextBoxColumn5
@@ -373,17 +441,363 @@ namespace LiteHackForm {
 			// 
 			// numericUpDown1
 			// 
-			this->numericUpDown1->Location = System::Drawing::Point(31, 458);
+			this->numericUpDown1->Location = System::Drawing::Point(351, 416);
 			this->numericUpDown1->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 99999999, 0, 0, 0 });
 			this->numericUpDown1->Name = L"numericUpDown1";
 			this->numericUpDown1->Size = System::Drawing::Size(75, 20);
 			this->numericUpDown1->TabIndex = 6;
 			// 
+			// checkBox1
+			// 
+			this->checkBox1->AutoSize = true;
+			this->checkBox1->Checked = true;
+			this->checkBox1->CheckState = System::Windows::Forms::CheckState::Checked;
+			this->checkBox1->Location = System::Drawing::Point(5, 6);
+			this->checkBox1->Name = L"checkBox1";
+			this->checkBox1->Size = System::Drawing::Size(79, 17);
+			this->checkBox1->TabIndex = 7;
+			this->checkBox1->Text = L"EnemyESP";
+			this->checkBox1->UseVisualStyleBackColor = true;
+			this->checkBox1->CheckedChanged += gcnew System::EventHandler(this, &MainForm::CheckBox1_CheckedChanged);
+			// 
+			// checkBox2
+			// 
+			this->checkBox2->AutoSize = true;
+			this->checkBox2->Checked = true;
+			this->checkBox2->CheckState = System::Windows::Forms::CheckState::Checked;
+			this->checkBox2->Location = System::Drawing::Point(20, 34);
+			this->checkBox2->Name = L"checkBox2";
+			this->checkBox2->Size = System::Drawing::Size(68, 17);
+			this->checkBox2->TabIndex = 8;
+			this->checkBox2->Text = L"Skeleton";
+			this->checkBox2->UseVisualStyleBackColor = true;
+			this->checkBox2->CheckedChanged += gcnew System::EventHandler(this, &MainForm::CheckBox2_CheckedChanged);
+			// 
+			// checkBox3
+			// 
+			this->checkBox3->AutoSize = true;
+			this->checkBox3->Checked = true;
+			this->checkBox3->CheckState = System::Windows::Forms::CheckState::Checked;
+			this->checkBox3->Location = System::Drawing::Point(94, 34);
+			this->checkBox3->Name = L"checkBox3";
+			this->checkBox3->Size = System::Drawing::Size(44, 17);
+			this->checkBox3->TabIndex = 9;
+			this->checkBox3->Text = L"Box";
+			this->checkBox3->UseVisualStyleBackColor = true;
+			this->checkBox3->CheckedChanged += gcnew System::EventHandler(this, &MainForm::CheckBox3_CheckedChanged);
+			// 
+			// checkBox4
+			// 
+			this->checkBox4->AutoSize = true;
+			this->checkBox4->Checked = true;
+			this->checkBox4->CheckState = System::Windows::Forms::CheckState::Checked;
+			this->checkBox4->Location = System::Drawing::Point(164, 34);
+			this->checkBox4->Name = L"checkBox4";
+			this->checkBox4->Size = System::Drawing::Size(57, 17);
+			this->checkBox4->TabIndex = 10;
+			this->checkBox4->Text = L"Health";
+			this->checkBox4->UseVisualStyleBackColor = true;
+			this->checkBox4->CheckedChanged += gcnew System::EventHandler(this, &MainForm::CheckBox4_CheckedChanged);
+			// 
+			// checkBox5
+			// 
+			this->checkBox5->AutoSize = true;
+			this->checkBox5->Checked = true;
+			this->checkBox5->CheckState = System::Windows::Forms::CheckState::Checked;
+			this->checkBox5->Location = System::Drawing::Point(237, 34);
+			this->checkBox5->Name = L"checkBox5";
+			this->checkBox5->Size = System::Drawing::Size(46, 17);
+			this->checkBox5->TabIndex = 11;
+			this->checkBox5->Text = L"Line";
+			this->checkBox5->UseVisualStyleBackColor = true;
+			this->checkBox5->CheckedChanged += gcnew System::EventHandler(this, &MainForm::CheckBox5_CheckedChanged);
+			// 
+			// checkBox6
+			// 
+			this->checkBox6->AutoSize = true;
+			this->checkBox6->Checked = true;
+			this->checkBox6->CheckState = System::Windows::Forms::CheckState::Checked;
+			this->checkBox6->Location = System::Drawing::Point(5, 183);
+			this->checkBox6->Name = L"checkBox6";
+			this->checkBox6->Size = System::Drawing::Size(58, 17);
+			this->checkBox6->TabIndex = 12;
+			this->checkBox6->Text = L"Aimbot";
+			this->checkBox6->UseVisualStyleBackColor = true;
+			this->checkBox6->CheckedChanged += gcnew System::EventHandler(this, &MainForm::CheckBox6_CheckedChanged);
+			this->checkBox6->EnabledChanged += gcnew System::EventHandler(this, &MainForm::CheckBox6_EnabledChanged);
+			// 
+			// radioButton1
+			// 
+			this->radioButton1->AutoSize = true;
+			this->radioButton1->Location = System::Drawing::Point(15, 21);
+			this->radioButton1->Name = L"radioButton1";
+			this->radioButton1->Size = System::Drawing::Size(51, 17);
+			this->radioButton1->TabIndex = 17;
+			this->radioButton1->Text = L"Head";
+			this->radioButton1->UseVisualStyleBackColor = true;
+			this->radioButton1->CheckedChanged += gcnew System::EventHandler(this, &MainForm::RadioButton1_CheckedChanged);
+			// 
+			// radioButton2
+			// 
+			this->radioButton2->AutoSize = true;
+			this->radioButton2->Location = System::Drawing::Point(89, 21);
+			this->radioButton2->Name = L"radioButton2";
+			this->radioButton2->Size = System::Drawing::Size(53, 17);
+			this->radioButton2->TabIndex = 18;
+			this->radioButton2->Text = L"Pelvis";
+			this->radioButton2->UseVisualStyleBackColor = true;
+			this->radioButton2->CheckedChanged += gcnew System::EventHandler(this, &MainForm::RadioButton2_CheckedChanged);
+			// 
+			// radioButton3
+			// 
+			this->radioButton3->AutoSize = true;
+			this->radioButton3->Location = System::Drawing::Point(159, 21);
+			this->radioButton3->Name = L"radioButton3";
+			this->radioButton3->Size = System::Drawing::Size(51, 17);
+			this->radioButton3->TabIndex = 19;
+			this->radioButton3->Text = L"Neck";
+			this->radioButton3->UseVisualStyleBackColor = true;
+			this->radioButton3->CheckedChanged += gcnew System::EventHandler(this, &MainForm::RadioButton3_CheckedChanged);
+			// 
+			// radioButton4
+			// 
+			this->radioButton4->AutoSize = true;
+			this->radioButton4->Checked = true;
+			this->radioButton4->Location = System::Drawing::Point(232, 21);
+			this->radioButton4->Name = L"radioButton4";
+			this->radioButton4->Size = System::Drawing::Size(49, 17);
+			this->radioButton4->TabIndex = 20;
+			this->radioButton4->TabStop = true;
+			this->radioButton4->Text = L"Body";
+			this->radioButton4->UseVisualStyleBackColor = true;
+			this->radioButton4->CheckedChanged += gcnew System::EventHandler(this, &MainForm::RadioButton4_CheckedChanged);
+			// 
+			// trackBar1
+			// 
+			this->trackBar1->LargeChange = 50;
+			this->trackBar1->Location = System::Drawing::Point(120, 68);
+			this->trackBar1->Maximum = 500;
+			this->trackBar1->Minimum = 50;
+			this->trackBar1->Name = L"trackBar1";
+			this->trackBar1->Size = System::Drawing::Size(101, 45);
+			this->trackBar1->SmallChange = 50;
+			this->trackBar1->TabIndex = 21;
+			this->trackBar1->TickFrequency = 50;
+			this->trackBar1->Value = 300;
+			this->trackBar1->Scroll += gcnew System::EventHandler(this, &MainForm::TrackBar1_Scroll);
+			// 
+			// label1
+			// 
+			this->label1->AutoSize = true;
+			this->label1->Location = System::Drawing::Point(17, 68);
+			this->label1->Name = L"label1";
+			this->label1->Size = System::Drawing::Size(97, 13);
+			this->label1->TabIndex = 22;
+			this->label1->Text = L"Skeleton Distance:";
+			// 
+			// label2
+			// 
+			this->label2->AutoSize = true;
+			this->label2->Location = System::Drawing::Point(234, 68);
+			this->label2->Name = L"label2";
+			this->label2->Size = System::Drawing::Size(42, 13);
+			this->label2->TabIndex = 23;
+			this->label2->Text = L"300 (m)";
+			// 
+			// label3
+			// 
+			this->label3->AutoSize = true;
+			this->label3->Location = System::Drawing::Point(229, 59);
+			this->label3->Name = L"label3";
+			this->label3->Size = System::Drawing::Size(47, 13);
+			this->label3->TabIndex = 26;
+			this->label3->Text = L"5 (steps)";
+			// 
+			// label4
+			// 
+			this->label4->AutoSize = true;
+			this->label4->Location = System::Drawing::Point(12, 59);
+			this->label4->Name = L"label4";
+			this->label4->Size = System::Drawing::Size(76, 13);
+			this->label4->TabIndex = 25;
+			this->label4->Text = L"Aimbot Speed:";
+			// 
+			// trackBar2
+			// 
+			this->trackBar2->LargeChange = 1;
+			this->trackBar2->Location = System::Drawing::Point(122, 59);
+			this->trackBar2->Minimum = 1;
+			this->trackBar2->Name = L"trackBar2";
+			this->trackBar2->Size = System::Drawing::Size(101, 45);
+			this->trackBar2->TabIndex = 24;
+			this->trackBar2->TickFrequency = 50;
+			this->trackBar2->Value = 5;
+			this->trackBar2->Scroll += gcnew System::EventHandler(this, &MainForm::TrackBar2_Scroll);
+			// 
+			// groupBox1
+			// 
+			this->groupBox1->Controls->Add(this->linkLabel3);
+			this->groupBox1->Controls->Add(this->linkLabel2);
+			this->groupBox1->Controls->Add(this->linkLabel1);
+			this->groupBox1->Controls->Add(this->checkBox2);
+			this->groupBox1->Controls->Add(this->checkBox3);
+			this->groupBox1->Controls->Add(this->checkBox4);
+			this->groupBox1->Controls->Add(this->checkBox5);
+			this->groupBox1->Controls->Add(this->label2);
+			this->groupBox1->Controls->Add(this->trackBar1);
+			this->groupBox1->Controls->Add(this->label1);
+			this->groupBox1->Location = System::Drawing::Point(14, 29);
+			this->groupBox1->Name = L"groupBox1";
+			this->groupBox1->Size = System::Drawing::Size(297, 148);
+			this->groupBox1->TabIndex = 27;
+			this->groupBox1->TabStop = false;
+			this->groupBox1->Text = L"Options";
+			// 
+			// linkLabel3
+			// 
+			this->linkLabel3->ActiveLinkColor = System::Drawing::Color::Yellow;
+			this->linkLabel3->AutoSize = true;
+			this->linkLabel3->LinkColor = System::Drawing::Color::Purple;
+			this->linkLabel3->Location = System::Drawing::Point(198, 109);
+			this->linkLabel3->Name = L"linkLabel3";
+			this->linkLabel3->Size = System::Drawing::Size(64, 13);
+			this->linkLabel3->TabIndex = 26;
+			this->linkLabel3->TabStop = true;
+			this->linkLabel3->Text = L"Visible Color";
+			this->linkLabel3->VisitedLinkColor = System::Drawing::Color::Purple;
+			this->linkLabel3->LinkClicked += gcnew System::Windows::Forms::LinkLabelLinkClickedEventHandler(this, &MainForm::LinkLabel3_LinkClicked);
+			// 
+			// linkLabel2
+			// 
+			this->linkLabel2->AutoSize = true;
+			this->linkLabel2->LinkColor = System::Drawing::Color::Blue;
+			this->linkLabel2->Location = System::Drawing::Point(117, 109);
+			this->linkLabel2->Name = L"linkLabel2";
+			this->linkLabel2->Size = System::Drawing::Size(50, 13);
+			this->linkLabel2->TabIndex = 25;
+			this->linkLabel2->TabStop = true;
+			this->linkLabel2->Text = L"Bot Color";
+			this->linkLabel2->VisitedLinkColor = System::Drawing::Color::Blue;
+			this->linkLabel2->LinkClicked += gcnew System::Windows::Forms::LinkLabelLinkClickedEventHandler(this, &MainForm::LinkLabel2_LinkClicked);
+			// 
+			// linkLabel1
+			// 
+			this->linkLabel1->AutoSize = true;
+			this->linkLabel1->LinkColor = System::Drawing::Color::Red;
+			this->linkLabel1->Location = System::Drawing::Point(17, 109);
+			this->linkLabel1->Name = L"linkLabel1";
+			this->linkLabel1->Size = System::Drawing::Size(68, 13);
+			this->linkLabel1->TabIndex = 24;
+			this->linkLabel1->TabStop = true;
+			this->linkLabel1->Text = L"Human Color";
+			this->linkLabel1->VisitedLinkColor = System::Drawing::Color::Red;
+			this->linkLabel1->LinkClicked += gcnew System::Windows::Forms::LinkLabelLinkClickedEventHandler(this, &MainForm::LinkLabel1_LinkClicked);
+			// 
+			// groupBox2
+			// 
+			this->groupBox2->Controls->Add(this->label5);
+			this->groupBox2->Controls->Add(this->label6);
+			this->groupBox2->Controls->Add(this->trackBar3);
+			this->groupBox2->Controls->Add(this->radioButton1);
+			this->groupBox2->Controls->Add(this->radioButton2);
+			this->groupBox2->Controls->Add(this->label3);
+			this->groupBox2->Controls->Add(this->radioButton3);
+			this->groupBox2->Controls->Add(this->label4);
+			this->groupBox2->Controls->Add(this->radioButton4);
+			this->groupBox2->Controls->Add(this->trackBar2);
+			this->groupBox2->Location = System::Drawing::Point(14, 206);
+			this->groupBox2->Name = L"groupBox2";
+			this->groupBox2->Size = System::Drawing::Size(297, 142);
+			this->groupBox2->TabIndex = 24;
+			this->groupBox2->TabStop = false;
+			this->groupBox2->Text = L"Options";
+			// 
+			// label5
+			// 
+			this->label5->AutoSize = true;
+			this->label5->Location = System::Drawing::Point(229, 98);
+			this->label5->Name = L"label5";
+			this->label5->Size = System::Drawing::Size(60, 13);
+			this->label5->TabIndex = 29;
+			this->label5->Text = L"250 (pixels)";
+			// 
+			// label6
+			// 
+			this->label6->AutoSize = true;
+			this->label6->Location = System::Drawing::Point(12, 98);
+			this->label6->Name = L"label6";
+			this->label6->Size = System::Drawing::Size(78, 13);
+			this->label6->TabIndex = 28;
+			this->label6->Text = L"Aimbot Radius:";
+			// 
+			// trackBar3
+			// 
+			this->trackBar3->LargeChange = 1;
+			this->trackBar3->Location = System::Drawing::Point(120, 98);
+			this->trackBar3->Maximum = 600;
+			this->trackBar3->Minimum = 50;
+			this->trackBar3->Name = L"trackBar3";
+			this->trackBar3->Size = System::Drawing::Size(101, 45);
+			this->trackBar3->TabIndex = 27;
+			this->trackBar3->TickFrequency = 50;
+			this->trackBar3->Value = 250;
+			this->trackBar3->Scroll += gcnew System::EventHandler(this, &MainForm::TrackBar3_Scroll);
+			// 
+			// panel1
+			// 
+			this->panel1->Controls->Add(this->checkBox8);
+			this->panel1->Controls->Add(this->checkBox7);
+			this->panel1->Controls->Add(this->checkBox1);
+			this->panel1->Controls->Add(this->groupBox2);
+			this->panel1->Controls->Add(this->checkBox6);
+			this->panel1->Controls->Add(this->groupBox1);
+			this->panel1->Enabled = false;
+			this->panel1->Location = System::Drawing::Point(3, 50);
+			this->panel1->Name = L"panel1";
+			this->panel1->Size = System::Drawing::Size(327, 392);
+			this->panel1->TabIndex = 28;
+			// 
+			// checkBox7
+			// 
+			this->checkBox7->AutoSize = true;
+			this->checkBox7->Checked = true;
+			this->checkBox7->CheckState = System::Windows::Forms::CheckState::Checked;
+			this->checkBox7->Location = System::Drawing::Point(5, 354);
+			this->checkBox7->Name = L"checkBox7";
+			this->checkBox7->Size = System::Drawing::Size(71, 17);
+			this->checkBox7->TabIndex = 26;
+			this->checkBox7->Text = L"Auto FPS";
+			this->checkBox7->UseVisualStyleBackColor = true;
+			this->checkBox7->CheckedChanged += gcnew System::EventHandler(this, &MainForm::CheckBox7_CheckedChanged);
+			// 
+			// button4
+			// 
+			this->button4->Location = System::Drawing::Point(239, 12);
+			this->button4->Name = L"button4";
+			this->button4->Size = System::Drawing::Size(75, 23);
+			this->button4->TabIndex = 29;
+			this->button4->Text = L"Test Mode";
+			this->button4->UseVisualStyleBackColor = true;
+			this->button4->Click += gcnew System::EventHandler(this, &MainForm::Button4_Click);
+			// 
+			// checkBox8
+			// 
+			this->checkBox8->AutoSize = true;
+			this->checkBox8->Location = System::Drawing::Point(82, 354);
+			this->checkBox8->Name = L"checkBox8";
+			this->checkBox8->Size = System::Drawing::Size(94, 17);
+			this->checkBox8->TabIndex = 28;
+			this->checkBox8->Text = L"Predict Aimbot";
+			this->checkBox8->UseVisualStyleBackColor = true;
+			this->checkBox8->CheckedChanged += gcnew System::EventHandler(this, &MainForm::CheckBox8_CheckedChanged);
+			// 
 			// MainForm
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
-			this->ClientSize = System::Drawing::Size(437, 492);
+			this->ClientSize = System::Drawing::Size(334, 446);
+			this->Controls->Add(this->button4);
+			this->Controls->Add(this->panel1);
 			this->Controls->Add(this->numericUpDown1);
 			this->Controls->Add(this->tabControl1);
 			this->Controls->Add(this->button3);
@@ -407,6 +821,15 @@ namespace LiteHackForm {
 			this->tabPage4->ResumeLayout(false);
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataGridView4))->EndInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->numericUpDown1))->EndInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->trackBar1))->EndInit();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->trackBar2))->EndInit();
+			this->groupBox1->ResumeLayout(false);
+			this->groupBox1->PerformLayout();
+			this->groupBox2->ResumeLayout(false);
+			this->groupBox2->PerformLayout();
+			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->trackBar3))->EndInit();
+			this->panel1->ResumeLayout(false);
+			this->panel1->PerformLayout();
 			this->ResumeLayout(false);
 
 		}
@@ -425,6 +848,107 @@ namespace LiteHackForm {
 	private:System::Void DebugGNamesByID(int index);
 
 	private:System::Void DebugGWorld();
+
+	private:System::Void DebugPlayer();
+
+private: System::Void CheckBox1_CheckedChanged(System::Object^ sender, System::EventArgs^ e) {
+	groupBox1->Enabled = checkBox1->Checked;
+	groupBox2->Enabled = checkBox1->Checked;
+	checkBox6->Enabled = checkBox1->Checked;
+	Hack.options.Enemy = checkBox1->Checked;
+}
+private: System::Void CheckBox2_CheckedChanged(System::Object^ sender, System::EventArgs^ e) {
+	Hack.options.Skeleton = checkBox2->Checked;
+}
+private: System::Void CheckBox3_CheckedChanged(System::Object^ sender, System::EventArgs^ e) {
+	Hack.options.Box = checkBox3->Checked;
+}
+private: System::Void CheckBox4_CheckedChanged(System::Object^ sender, System::EventArgs^ e) {
+	Hack.options.Health = checkBox4->Checked;
+}
+private: System::Void CheckBox5_CheckedChanged(System::Object^ sender, System::EventArgs^ e) {
+	Hack.options.Line = checkBox5->Checked;
+}
+private: System::Void CheckBox6_CheckedChanged(System::Object^ sender, System::EventArgs^ e) {
+	groupBox2->Enabled = checkBox6->Checked;
+	Hack.options.Aimbot = checkBox6->Checked;
+
+}
+private: System::Void RadioButton1_CheckedChanged(System::Object^ sender, System::EventArgs^ e) {
+	if (radioButton1->Checked)
+	{
+		Hack.options.aimpos = AimbotPos::Head;
+	}
+}
+private: System::Void RadioButton2_CheckedChanged(System::Object^ sender, System::EventArgs^ e) {
+	if (radioButton2->Checked){
+		Hack.options.aimpos = AimbotPos::Pelvis;
+	}
+}
+private: System::Void RadioButton3_CheckedChanged(System::Object^ sender, System::EventArgs^ e) {
+	if (radioButton3->Checked) {
+		Hack.options.aimpos = AimbotPos::Neck;
+	}
+}
+private: System::Void RadioButton4_CheckedChanged(System::Object^ sender, System::EventArgs^ e) {
+	if (radioButton4->Checked) {
+		Hack.options.aimpos = AimbotPos::Body;
+	}
+}
+private: System::Void CheckBox6_EnabledChanged(System::Object^ sender, System::EventArgs^ e) {
+	groupBox2->Enabled = checkBox6->Enabled;
+}
+private: System::Void TrackBar1_Scroll(System::Object^ sender, System::EventArgs^ e) {
+	Hack.options.maxSkeletonDistance = trackBar1->Value;
+	label2->Text = String::Format("{0:G} (m)", trackBar1->Value);
+}
+private: System::Void TrackBar2_Scroll(System::Object^ sender, System::EventArgs^ e) {
+	Hack.options.aimbotSpeed = trackBar2->Value;
+	label3->Text = String::Format("{0:G} (steps)", trackBar2->Value);
+}
+private: System::Void TrackBar3_Scroll(System::Object^ sender, System::EventArgs^ e) {
+	Hack.options.aimbotRadius = trackBar3->Value;
+	label5->Text= String::Format("{0:G} (pixels)", trackBar3->Value);
+}
+private: System::Void LinkLabel1_LinkClicked(System::Object^ sender, System::Windows::Forms::LinkLabelLinkClickedEventArgs^ e) {
+	ColorDialog^ dialog = gcnew ColorDialog();
+	auto result = dialog->ShowDialog();
+	if (result == Windows::Forms::DialogResult::OK)
+	{
+		linkLabel1->VisitedLinkColor = dialog->Color;
+		linkLabel1->LinkColor = dialog->Color;
+		Hack.options.HumanColor = FColor(dialog->Color.R, dialog->Color.G, dialog->Color.B);
+	}
+}
+private: System::Void LinkLabel2_LinkClicked(System::Object^ sender, System::Windows::Forms::LinkLabelLinkClickedEventArgs^ e) {
+	ColorDialog^ dialog = gcnew ColorDialog();
+	auto result = dialog->ShowDialog();
+	if (result == Windows::Forms::DialogResult::OK)
+	{
+		linkLabel2->VisitedLinkColor = dialog->Color;
+		linkLabel2->LinkColor = dialog->Color;
+		Hack.options.BotColor = FColor(dialog->Color.R, dialog->Color.G, dialog->Color.B);
+	}
+}
+private: System::Void CheckBox7_CheckedChanged(System::Object^ sender, System::EventArgs^ e) {
+	Hack.options.autoFPS = checkBox7->Checked;
+}
+private: System::Void LinkLabel3_LinkClicked(System::Object^ sender, System::Windows::Forms::LinkLabelLinkClickedEventArgs^ e) {
+	ColorDialog^ dialog = gcnew ColorDialog();
+	auto result = dialog->ShowDialog();
+	if (result == Windows::Forms::DialogResult::OK)
+	{
+		linkLabel3->VisitedLinkColor = dialog->Color;
+		linkLabel3->LinkColor = dialog->Color;
+		Hack.options.BotColor = FColor(dialog->Color.R, dialog->Color.G, dialog->Color.B);
+	}
+}
+private: System::Void Button4_Click(System::Object^ sender, System::EventArgs^ e) {
+	this->Width = this->Width == 770 ? 350: 770;
+}
+private: System::Void CheckBox8_CheckedChanged(System::Object^ sender, System::EventArgs^ e) {
+	Hack.options.predictaimbot = checkBox8->Checked;
+}
 };
 }
 void LiteHackForm::MainForm::DebugUObjectByID(int id)
@@ -435,7 +959,9 @@ void LiteHackForm::MainForm::DebugUObjectByID(int id)
 	dataGridView1->Rows->Add(gcnew array<String^>{"Internal Index", obj.GetIndex().ToString()});
 	dataGridView1->Rows->Add(gcnew array<String^>{"Name", gcnew String(obj.GetName().c_str())});
 	dataGridView1->Rows->Add(gcnew array<String^>{"Class", gcnew String(obj.GetClass().GetName().c_str())});
+	dataGridView1->Rows->Add(gcnew array<String^>{"Class Address", String::Format("{0:x}", obj.GetClass().GetAddress())});
 	dataGridView1->Rows->Add(gcnew array<String^>{"Outer", gcnew String(obj.GetOuter().GetName().c_str())});
+	dataGridView1->Rows->Add(gcnew array<String^>{"Outer Address", String::Format("{0:x}", obj.GetOuter().GetAddress())});
 }
 
 void LiteHackForm::MainForm::DebugGNamesByID(int id)
@@ -461,10 +987,43 @@ void LiteHackForm::MainForm::DebugGWorld()
 {
 	dataGridView3->Rows->Clear();
 	dataGridView3->Rows->Add(gcnew array<String^>{"ULevel", String::Format("{0:x}", GWorld.CurrentLevel().GetAddress())});
-	dataGridView3->Rows->Add(gcnew array<String^>{"Actor", String::Format("{0:x}", GWorld.CurrentLevel().GetAddress())});
-	dataGridView3->Rows->Add(gcnew array<String^>{"Actor Count", GWorld.CurrentLevel().Actors().GetAddress().ToString()});
+	dataGridView3->Rows->Add(gcnew array<String^>{"Actor", String::Format("{0:x}", GWorld.CurrentLevel().Actors().GetAddress())});
+	dataGridView3->Rows->Add(gcnew array<String^>{"Actor Count", GWorld.CurrentLevel().Actors().Length().ToString()});
 	dataGridView3->Rows->Add(gcnew array<String^>{"UGameInstance", String::Format("{0:x}", GWorld.OwningGameInstance().GetAddress())});
 	dataGridView3->Rows->Add(gcnew array<String^>{"LocalPlayer", String::Format("{0:x}", GWorld.OwningGameInstance().LocalPlayer().GetAddress())});
 	dataGridView3->Rows->Add(gcnew array<String^>{"APlayerController", String::Format("{0:x}", GWorld.OwningGameInstance().LocalPlayer().PlayerController().GetAddress())});
 	dataGridView3->Rows->Add(gcnew array<String^>{"LocalPawn", String::Format("{0:x}", GWorld.OwningGameInstance().LocalPlayer().PlayerController().LocalPawn().GetAddress())});
 }
+
+void LiteHackForm::MainForm::DebugPlayer()
+{
+	auto player = GWorld.OwningGameInstance().LocalPlayer().PlayerController().LocalPawn();
+	dataGridView4->Rows->Clear();
+	dataGridView4->Rows->Add(gcnew array<String^>{"APawn", String::Format("{0:x}", player.GetAddress())});
+	dataGridView4->Rows->Add(gcnew array<String^>{"Health", player.Health().ToString()});
+	dataGridView4->Rows->Add(gcnew array<String^>{"TeamID", player.TeamID().ToString()});
+	//dataGridView4->Rows->Add(gcnew array<String^>{"PlayerName", gcnew String(player.PlayerName().ToString().c_str())});
+	dataGridView4->Rows->Add(gcnew array<String^>{"Mesh", String::Format("{0:x}", player.Mesh().GetAddress())});
+	dataGridView4->Rows->Add(gcnew array<String^>{"RootComponent", String::Format("{0:x}", player.RootComponent().GetAddress())});
+	dataGridView4->Rows->Add(gcnew array<String^>{"WeaponManagerComponent", String::Format("{0:x}", player.WeaponManagerComponent().GetAddress())});
+
+	dataGridView4->Rows->Add(gcnew array<String^>{"RootComponent: ", ""});
+	dataGridView4->Rows->Add(gcnew array<String^>{"Location", player.RootComponent().Location().X.ToString() + "," + player.RootComponent().Location().Y.ToString() + "," + player.RootComponent().Location().Z.ToString() });
+	dataGridView4->Rows->Add(gcnew array<String^>{"Velocity", player.RootComponent().ComponentVelocity().X.ToString() + "," + player.RootComponent().ComponentVelocity().Y.ToString() + "," + player.RootComponent().ComponentVelocity().Z.ToString() });
+	dataGridView4->Rows->Add(gcnew array<String^>{"Visible", player.RootComponent().Visible().ToString()});
+
+	dataGridView4->Rows->Add(gcnew array<String^>{"CurrentWeapon: ", ""});
+	dataGridView4->Rows->Add(gcnew array<String^>{"CurrentWeapon", String::Format("{0:x}", player.WeaponManagerComponent().CurrentWeapon().GetAddress())});
+	dataGridView4->Rows->Add(gcnew array<String^>{"WeaponAvatarID", player.WeaponManagerComponent().CurrentWeapon().WeaponAvatarID().ToString()});
+	dataGridView4->Rows->Add(gcnew array<String^>{"CurBulletNumInClip", player.WeaponManagerComponent().CurrentWeapon().CurBulletNumInClip().ToString()});
+	dataGridView4->Rows->Add(gcnew array<String^>{"CurMaxBulletNumInOneClip", player.WeaponManagerComponent().CurrentWeapon().CurMaxBulletNumInOneClip().ToString()});
+
+	dataGridView4->Rows->Add(gcnew array<String^>{"WeaponEntityComp: ", ""});
+	//dataGridView4->Rows->Add(gcnew array<String^>{"FireMode", player.WeaponManagerComponent().CurrentWeapon().FireMode()});
+	dataGridView4->Rows->Add(gcnew array<String^>{"WeaponID", player.WeaponManagerComponent().CurrentWeapon().WeaponEntityComp().WeaponID().ToString()});
+	//dataGridView4->Rows->Add(gcnew array<String^>{"WeaponType", player.WeaponManagerComponent().CurrentWeapon().WeaponEntityComp().WeaponType().ToString()});
+	dataGridView4->Rows->Add(gcnew array<String^>{"BulletFireSpeed", player.WeaponManagerComponent().CurrentWeapon().WeaponEntityComp().BulletFireSpeed().ToString()});
+	dataGridView4->Rows->Add(gcnew array<String^>{"HasAutoFireMode", player.WeaponManagerComponent().CurrentWeapon().WeaponEntityComp().HasAutoFireMode().ToString()});
+	dataGridView4->Rows->Add(gcnew array<String^>{"BulletNumSingleShot", player.WeaponManagerComponent().CurrentWeapon().WeaponEntityComp().BulletNumSingleShot().ToString()});
+}
+

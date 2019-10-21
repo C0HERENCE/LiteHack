@@ -182,5 +182,8 @@
     <ClInclude Include="Main.h">
       <Filter>Source Files</Filter>
     </ClInclude>
+    <ClInclude Include="offsets_decryptions.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

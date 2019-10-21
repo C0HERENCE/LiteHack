@@ -19,7 +19,7 @@ class Render
 public:
 	int Initialize();
 	void CleanUp();
-	void Refresh();
+	void RefreshAndSleep(int);
 	void NewFrame();
 	void DrawLine(FVector from, FVector end, FColor color, float thickness);
 	void DrawString(FVector pos, FColor color, std::string string);
@@ -27,9 +27,8 @@ public:
 	void DrawCircle(FVector center, float radius, FColor color);
 	void DrawRectangle(FVector a, float, float, FColor color);
 	void DrawRectangleFilled(FVector a, float, float, FColor color);
-	FVector WorldToScreen(FVector WorldLocation, FMinimalViewInfo POV);
-	void DrawWorldToScreenScreenText(FVector WorldLocatoin, FMinimalViewInfo, FColor color,std::string string);
-	//void DrawSkeleton(AActor actor, FMinimalViewInfo POV, FColor color);
+	FVector WorldToScreen(FVector WorldLocation, updates::off::FMinimalViewInfo POV);
+	void DrawWorldToScreenScreenText(FVector WorldLocatoin, updates::off::FMinimalViewInfo, FColor color,std::string string);
 	int Width;
 	int Height;
 private:

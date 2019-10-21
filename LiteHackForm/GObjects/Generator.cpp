@@ -143,9 +143,11 @@ Generator::Generator()
 
 void Generator::Dump(const fs::path& path)
 {
-	std::ofstream o(path / "ObjectsDetailsDump.txt"); 
-	tfm::format(o, "%s\n", "//By COHERENCE");
-	tfm::format(o, "Address: 0x%x\n\n", GlobalObjects.GetById(0).GetAddress());
+	std::ofstream o(path / "ObjectsDetailedDump.txt"); 
+	tfm::format(o, "%s\n", "By COHERENCE");
+	tfm::format(o, "Base Address: 0x%x\n\n", GlobalObjects.GetById(0).GetAddress());
+	tfm::format(o, "%s\t%s\t%s\t%s\n", "Address","InternalIndex","Class&FullName","NameCPP:SuperClassNameCPP||Enums");
+	tfm::format(o, "");
 
 	for (int i = 0; i < GlobalObjects.GetObjectsNum(); i++)
 	{
@@ -208,8 +210,9 @@ void Generator::Dump(const fs::path& path)
 void Generator::DumpSDK(const fs::path& path)
 {
 	std::ofstream o(path / "ObjectsSDKDump.cpp");
-	tfm::format(o, "//%s\n", "//By COHERENCE");
-	tfm::format(o, "Address: 0x%x\n\n", GlobalObjects.GetById(0).GetAddress());
+	tfm::format(o, "//%s\n", "By COHERENCE");
+	tfm::format(o, "//Contains all structs&enums's child classes,names&offsets.\n");
+	tfm::format(o, "\n");
 	for (int i = 0; i < GlobalObjects.GetObjectsNum(); i++)
 	{
 		auto obj = GlobalObjects.GetById(i);

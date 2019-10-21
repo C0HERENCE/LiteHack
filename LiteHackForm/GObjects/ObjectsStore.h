@@ -91,5 +91,5 @@ public:
 	}
 
 private:
-	FUObjectArray privateGO;
+	FUObjectArray _ObjObjects;
 };

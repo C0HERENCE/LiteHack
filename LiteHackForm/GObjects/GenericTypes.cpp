@@ -131,7 +131,7 @@ std::vector<std::string> UEEnum::GetNames() const
 
 	for (auto i = 0; i < names.Length(); ++i)
 	{
-		buffer.push_back(GlobalNames.GetById(GameMemory.Read32(names.GetAddress()+i*0x10)));
+		buffer.push_back(GlobalNames.GetById(GameMemory.Read32(names.GetAddress()+i*0x10 + 0x4)));
 	}
 
 	return buffer;

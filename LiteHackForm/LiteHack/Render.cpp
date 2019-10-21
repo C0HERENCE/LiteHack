@@ -37,7 +37,7 @@ int Render::Initialize()
 	SetWindowPos(hwnd, HWND_TOPMOST, 0, 0, Width, Height, SWP_SHOWWINDOW);
 	ImGui::CreateContext();
 	ImGuiIO& io = ImGui::GetIO(); (void)io;
-	io.Fonts->AddFontFromFileTTF("C:\\Windows\\Fonts\\msyh.ttc", 15.0f, NULL, io.Fonts->GetGlyphRangesChineseSimplifiedCommon());
+	io.Fonts->AddFontFromFileTTF("C:\\Windows\\Fonts\\msyh.ttc", 22.5f, NULL, io.Fonts->GetGlyphRangesChineseSimplifiedCommon());
 	ImGui_ImplWin32_Init(hwnd);
 	ImGui_ImplDX11_Init(g_pd3dDevice, g_pd3dDeviceContext);
 	return 1;
@@ -50,16 +50,17 @@ void Render::CleanUp()
 	ImGui::DestroyContext();
 	CleanupDeviceD3D();
 	::DestroyWindow(hwnd);
+	TerminateNotepad();
 }
 
-void Render::Refresh()
+void Render::RefreshAndSleep(int sleep=16)
 {
 	ImGui::Render();
 	g_pd3dDeviceContext->OMSetRenderTargets(1, &g_mainRenderTargetView, NULL);
 	g_pd3dDeviceContext->ClearRenderTargetView(g_mainRenderTargetView, (float*)& clear_color);
 	ImGui_ImplDX11_RenderDrawData(ImGui::GetDrawData());
 	g_pSwapChain->Present(1, 0);
-	Sleep(16);
+	Sleep(sleep);
 }
 
 void Render::NewFrame()
@@ -106,7 +107,7 @@ void Render::DrawRectangleFilled(FVector a, float h, float w, FColor color)
 	ImGui::GetOverlayDrawList()->AddRectFilled(ImVec2(a.X, a.Y), ImVec2(a.X + w, a.Y + h), _color);
 }
 
-FVector Render::WorldToScreen(FVector WorldLocation, FMinimalViewInfo POV)
+FVector Render::WorldToScreen(FVector WorldLocation, updates::off::FMinimalViewInfo POV)
 {
 	FVector Screenlocation = FVector(0, 0, 0);
 	FRotator Rotation = POV.Rotation;
@@ -124,7 +125,7 @@ FVector Render::WorldToScreen(FVector WorldLocation, FMinimalViewInfo POV)
 	return Screenlocation;
 }
 
-void Render::DrawWorldToScreenScreenText(FVector WorldLocation, FMinimalViewInfo POV,FColor color,std::string string)
+void Render::DrawWorldToScreenScreenText(FVector WorldLocation, updates::off::FMinimalViewInfo POV,FColor color,std::string string)
 {
 	FVector ScreenPos = WorldToScreen(WorldLocation,POV);
 	DrawString(ScreenPos, color, string);

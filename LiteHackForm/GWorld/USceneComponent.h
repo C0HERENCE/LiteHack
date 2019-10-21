@@ -1,6 +1,6 @@
 #pragma once
-#include "Base.h"
 #include "./Core/FVector.h"
+#include "Base.h"
 
 class USceneComponent : public Base
 {
@@ -9,21 +9,16 @@ public:
 
 	FVector ComponentVelocity()
 	{
-		return GameMemory.Read<FVector>(base+off_Velocity);
+		return GameMemory.Read<FVector>(base+updates::off::Velocity);
 	}
 
 	FVector Location()
 	{
-		return  GameMemory.Read<FVector>(base + off_Location);
+		return  GameMemory.Read<FVector>(base + updates::off::Location);
 	}
 
 	bool Visible()
 	{
-		return  GameMemory.Read<bool>(base + off_Visible);
+		return  GameMemory.Read<bool>(base + updates::off::Visible);
 	}
-private:
-	uint64 off_ComponentToWorld = 0x110;
-	uint64 off_Location = 0x120;
-	uint64 off_Velocity = 0x238;
-	uint64 off_Visible = 0x1f1;
 };

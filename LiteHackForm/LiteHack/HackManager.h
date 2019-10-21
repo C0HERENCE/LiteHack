@@ -7,6 +7,14 @@ std::list<int> rightleg = { 1,56,57,58 };
 std::list<int> leftleg = { 1,60,61,62 };
 std::list<std::list<int>> part = { rightarm,leftarm,upper,rightleg,leftleg };
 
+enum AimbotPos
+{
+	Head = 11,
+	Neck = 5,
+	Body = 3,
+	Pelvis = 1,
+};
+
 struct ESPOption
 {
 	bool Enemy;
@@ -16,10 +24,17 @@ struct ESPOption
 	bool Line;
 
 	bool Aimbot;
+	AimbotPos aimpos;
 	float maxSkeletonDistance;
+	int aimbotSpeed;
+	float aimbotRadius;
+	bool predictaimbot;
 
 	FColor HumanColor;
 	FColor BotColor;
+	FColor VisibleColor;
+
+	bool autoFPS;
 };
 
 struct ESPInfo
@@ -34,13 +49,15 @@ struct ESPInfo
 
 	FVector headScreenPos;
 	FVector rootScreenPos;
+	FVector aimScreenPos;
 
 	FVector Location;
 	float Distance;
 
+	bool visible;
 	bool isAI;
 	float health;
-	FMinimalViewInfo POV;
+	updates::off::FMinimalViewInfo POV;
 };
 
 class HackManager
@@ -48,15 +65,6 @@ class HackManager
 public:
 	int Initialize()
 	{
-		options.Enemy = true;
-		options.Box = true;
-		options.Line = true;
-		options.Health = true;
-		options.Skeleton = true;
-		options.Aimbot = true;
-		options.HumanColor = FColor(255, 0, 0);
-		options.BotColor = FColor(0, 0, 255);
-		options.maxSkeletonDistance = 100;
 		return overlay.Initialize();
 	}
 
@@ -69,22 +77,24 @@ public:
 		return options;
 	}
 
-	void UpdateESPInfo(AActor actor,ESPInfo& info)
+	void UpdateESPInfo(AActor& actor,ESPInfo& info)
 	{
 		info.actor = actor;
-		info.headpos = GetBoneWithRotation(info.actor, 11);
-		info.rootpos = GetBoneWithRotation(info.actor, 0);
-		info.neckpos = GetBoneWithRotation(info.actor, 5);
-		info.pelvispos = GetBoneWithRotation(info.actor, 1);
+		info.Location = actor.RootComponent().Location();
+		info.isAI = actor.IsAI();
+		info.visible = actor.Mesh().RecentlyRendered();
+		if (info.visible) info.color = options.VisibleColor; else info.color = info.isAI ? options.BotColor : options.HumanColor;
+		info.headpos = GetBoneWithRotation(actor, 11);
+		info.rootpos = GetBoneWithRotation(actor, 0);
 		info.headScreenPos = overlay.WorldToScreen(info.headpos, info.POV);
 		info.rootScreenPos = overlay.WorldToScreen(info.rootpos, info.POV);
-		info.isAI = actor.IsAI();
+		info.neckpos = GetBoneWithRotation(actor, 5);
+		info.pelvispos = GetBoneWithRotation(actor, 1);
 		info.health = actor.Health();
-		info.color = info.isAI ? options.BotColor : options.HumanColor;
-		info.Location = actor.RootComponent().Location();
+		info.aimScreenPos = overlay.WorldToScreen(GetBoneWithRotation(actor, options.aimpos),info.POV);
 	}
 
-	FVector GetBoneWithRotation(AActor actor, int id)
+	FVector GetBoneWithRotation(AActor& actor, int id)
 	{
 		auto mesh = actor.Mesh();
 		auto arrybone = mesh.BoneArray();
@@ -95,13 +105,13 @@ public:
 		return FVector(Matrix._41, Matrix._42, Matrix._43);
 	}
 
-	void DrawSkeleton(ESPInfo info)
+	void DrawSkeleton(ESPInfo& info)
 	{
 		if (info.Distance > options.maxSkeletonDistance) return;
 		FVector previous(0, 0, 0);
 		FVector current, p1, c1;
-		float headradius = info.headScreenPos.Y - overlay.WorldToScreen(info.neckpos, info.POV).Y;
-		overlay.DrawCircle(info.headScreenPos, headradius, info.color);
+		//float headradius = info.headScreenPos.Y - overlay.WorldToScreen(info.neckpos, info.POV).Y;
+		//overlay.DrawCircle(info.headScreenPos, headradius, info.color);
 
 		for (auto a : part)
 		{
@@ -123,7 +133,7 @@ public:
 	}
 
 
-	void DrawBox(ESPInfo info)
+	void DrawBox(ESPInfo& info)
 	{
 		float boxheight = info.headScreenPos.Y - info.rootScreenPos.Y;
 		if (boxheight > -50.f)return;
@@ -131,32 +141,32 @@ public:
 		overlay.DrawRectangle(info.rootScreenPos - FVector(0.5 * boxwidth, 0, 0), boxheight, boxwidth, info.color);
 	}
 
-	void DrawHealthBar(ESPInfo info)
+	void DrawHealthBar(ESPInfo& info)
 	{
-		FColor color = info.isAI ? options.BotColor : options.HumanColor;
-		FMinimalViewInfo cameracache = info.POV;
+		FColor color = info.color;
+		updates::off:: FMinimalViewInfo cameracache = info.POV;
 		float barwidth = (info.rootScreenPos.Y - info.headScreenPos.Y) / 1.7f;
 		float boxheight = (info.rootScreenPos.Y - info.headScreenPos.Y);
 		float barheight = 10;
 		if (barwidth < 30.f)return;
 		float healthwidth = info.health / 100.f * barwidth;
-		overlay.DrawRectangleFilled(info.rootScreenPos - FVector(0.5 * barwidth, boxheight, 0), barheight, barwidth, FColor(0, 255, 0, 255));
-		overlay.DrawRectangleFilled(info.rootScreenPos - FVector(0.5 * barwidth, boxheight, 0), barheight, healthwidth, color);
+		overlay.DrawRectangleFilled(info.rootScreenPos - FVector(0.5 * barwidth, boxheight, 0), barheight, barwidth, color);
+		overlay.DrawRectangleFilled(info.rootScreenPos - FVector(0.5 * barwidth, boxheight, 0), barheight, healthwidth, FColor(0, 255, 0, 255));
 	}
 
-	void DrawGuideLine(ESPInfo info)
+	void DrawGuideLine(ESPInfo& info)
 	{
-		FColor color = info.isAI ? options.BotColor : options.HumanColor;
+		FColor color = info.color;
 		overlay.DrawLine(info.rootScreenPos, FVector(0.5 * overlay.Width, 0, 0), color, 1.0f);
 	}
 
-	void DrawInformation(ESPInfo info,std::string text)
+	void DrawInformation(ESPInfo& info,std::string text)
 	{
 		float barwidth = (info.rootScreenPos.Y - info.headScreenPos.Y) / 1.7f;
 		overlay.DrawString(info.rootScreenPos - FVector(0.5 * barwidth, 0, 0), info.color, text);
 	}
 
-private:
+
 	Render overlay;
 	ESPOption options;
 };

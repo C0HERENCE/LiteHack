@@ -1,5 +1,5 @@
 #pragma once
-#include "..//Utils/MemoryHelper.h"
+#include "..//offsets_decryptions.h"
 
 class Base
 {
