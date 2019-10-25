@@ -22,4 +22,9 @@ public:
 	{
 		return GameMemory.Read<FTransform>(base + updates::off::ComponentToWorld);
 	}
+
+	float LastRenderedTime()
+	{
+		return GameMemory.Read<float>(base + updates::off::LastRenderedTime);
+	}
 };

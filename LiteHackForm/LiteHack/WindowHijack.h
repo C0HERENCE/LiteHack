@@ -50,9 +50,8 @@ HWND HiJackNotepadWindow()
 	params.satisfyAllCriteria = true;
 	std::vector<HWND> hwnds;
 	int attempt = 0;
-	while (hwndHiHjacked == NULL || attempt > 500) {
+	while (hwndHiHjacked == NULL || attempt > 5000) {
 		Sleep(100);
-
 		hwnds = WindowsFinder(params);
 		if (hwnds.size() > 1)
 			return hwndHiHjacked;
@@ -65,8 +64,6 @@ HWND HiJackNotepadWindow()
 	SetMenu(hwndHiHjacked, NULL);
 	SetWindowLongPtr(hwndHiHjacked, GWL_STYLE, WS_VISIBLE);
 	SetWindowLongPtr(hwndHiHjacked, GWL_EXSTYLE, WS_EX_TOPMOST | WS_EX_LAYERED | WS_EX_TRANSPARENT);
-	//SetWindowLongPtr(hwndHiHjacked, GWL_EXSTYLE, WS_EX_TOPMOST | WS_EX_LAYERED );
-	//SetWindowLongPtr(hwndHiHjacked, GWL_EXSTYLE, WS_EX_TOPMOST | WS_EX_TRANSPARENT);
 	MARGINS margins = { -1 };
 	DwmExtendFrameIntoClientArea(hwndHiHjacked, &margins);
 	return hwndHiHjacked;

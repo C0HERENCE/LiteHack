@@ -72,7 +72,7 @@ public:
 		return T(GameMemory.Read64(m_Data + i * 8));
 	}
 
-private:
+protected:
 	uint64 m_Data;
 	uint32 m_nCount;
 	uint32 m_nMax;
@@ -102,10 +102,11 @@ struct FString : public TArray<wchar_t>
 {
 	std::string ToString() const
 	{
-		int size = WideCharToMultiByte(CP_UTF8, 0, (LPCWCH)m_Data, m_nCount, nullptr, 0, nullptr, nullptr);
-		std::string str(size, 0);
-		WideCharToMultiByte(CP_UTF8, 0, (LPCWCH)m_Data, m_nCount, &str[0], size, nullptr, nullptr);
-		return str;
+		wchar_t Name[64];
+		GameMemory.ReadWString(m_Data, Name, m_nCount * sizeof(wchar_t));
+		char text[60];
+		sprintf_s(text, "%ls", Name);
+		return text;
 	}
 };
 

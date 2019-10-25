@@ -185,5 +185,8 @@
     <ClInclude Include="offsets_decryptions.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="GWorld\UBackpackComponent.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

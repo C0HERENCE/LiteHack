@@ -94,6 +94,8 @@ namespace LiteHackForm {
 	private: System::Windows::Forms::LinkLabel^ linkLabel3;
 	private: System::Windows::Forms::Button^ button4;
 	private: System::Windows::Forms::CheckBox^ checkBox8;
+	private: System::Windows::Forms::Button^ button5;
+	private: System::Windows::Forms::TextBox^ textBox1;
 
 
 	private:
@@ -184,9 +186,11 @@ namespace LiteHackForm {
 			this->label6 = (gcnew System::Windows::Forms::Label());
 			this->trackBar3 = (gcnew System::Windows::Forms::TrackBar());
 			this->panel1 = (gcnew System::Windows::Forms::Panel());
+			this->checkBox8 = (gcnew System::Windows::Forms::CheckBox());
 			this->checkBox7 = (gcnew System::Windows::Forms::CheckBox());
 			this->button4 = (gcnew System::Windows::Forms::Button());
-			this->checkBox8 = (gcnew System::Windows::Forms::CheckBox());
+			this->button5 = (gcnew System::Windows::Forms::Button());
+			this->textBox1 = (gcnew System::Windows::Forms::TextBox());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->dataGridView1))->BeginInit();
 			this->tabControl1->SuspendLayout();
 			this->tabPage1->SuspendLayout();
@@ -207,17 +211,17 @@ namespace LiteHackForm {
 			// 
 			// button1
 			// 
-			this->button1->Location = System::Drawing::Point(489, 416);
+			this->button1->Location = System::Drawing::Point(408, 413);
 			this->button1->Name = L"button1";
-			this->button1->Size = System::Drawing::Size(75, 23);
+			this->button1->Size = System::Drawing::Size(66, 23);
 			this->button1->TabIndex = 0;
-			this->button1->Text = L"Debug Info";
+			this->button1->Text = L"DebugID";
 			this->button1->UseVisualStyleBackColor = true;
 			this->button1->Click += gcnew System::EventHandler(this, &MainForm::btnDebug_Click);
 			// 
 			// button2
 			// 
-			this->button2->Location = System::Drawing::Point(646, 416);
+			this->button2->Location = System::Drawing::Point(667, 416);
 			this->button2->Name = L"button2";
 			this->button2->Size = System::Drawing::Size(75, 23);
 			this->button2->TabIndex = 1;
@@ -444,7 +448,7 @@ namespace LiteHackForm {
 			this->numericUpDown1->Location = System::Drawing::Point(351, 416);
 			this->numericUpDown1->Maximum = System::Decimal(gcnew cli::array< System::Int32 >(4) { 99999999, 0, 0, 0 });
 			this->numericUpDown1->Name = L"numericUpDown1";
-			this->numericUpDown1->Size = System::Drawing::Size(75, 20);
+			this->numericUpDown1->Size = System::Drawing::Size(51, 20);
 			this->numericUpDown1->TabIndex = 6;
 			// 
 			// checkBox1
@@ -757,6 +761,17 @@ namespace LiteHackForm {
 			this->panel1->Size = System::Drawing::Size(327, 392);
 			this->panel1->TabIndex = 28;
 			// 
+			// checkBox8
+			// 
+			this->checkBox8->AutoSize = true;
+			this->checkBox8->Location = System::Drawing::Point(82, 354);
+			this->checkBox8->Name = L"checkBox8";
+			this->checkBox8->Size = System::Drawing::Size(94, 17);
+			this->checkBox8->TabIndex = 28;
+			this->checkBox8->Text = L"Predict Aimbot";
+			this->checkBox8->UseVisualStyleBackColor = true;
+			this->checkBox8->CheckedChanged += gcnew System::EventHandler(this, &MainForm::CheckBox8_CheckedChanged);
+			// 
 			// checkBox7
 			// 
 			this->checkBox7->AutoSize = true;
@@ -780,22 +795,30 @@ namespace LiteHackForm {
 			this->button4->UseVisualStyleBackColor = true;
 			this->button4->Click += gcnew System::EventHandler(this, &MainForm::Button4_Click);
 			// 
-			// checkBox8
+			// button5
 			// 
-			this->checkBox8->AutoSize = true;
-			this->checkBox8->Location = System::Drawing::Point(82, 354);
-			this->checkBox8->Name = L"checkBox8";
-			this->checkBox8->Size = System::Drawing::Size(94, 17);
-			this->checkBox8->TabIndex = 28;
-			this->checkBox8->Text = L"Predict Aimbot";
-			this->checkBox8->UseVisualStyleBackColor = true;
-			this->checkBox8->CheckedChanged += gcnew System::EventHandler(this, &MainForm::CheckBox8_CheckedChanged);
+			this->button5->Location = System::Drawing::Point(595, 416);
+			this->button5->Name = L"button5";
+			this->button5->Size = System::Drawing::Size(66, 23);
+			this->button5->TabIndex = 30;
+			this->button5->Text = L"DebugAddress";
+			this->button5->UseVisualStyleBackColor = true;
+			this->button5->Click += gcnew System::EventHandler(this, &MainForm::Button5_Click);
+			// 
+			// textBox1
+			// 
+			this->textBox1->Location = System::Drawing::Point(489, 416);
+			this->textBox1->Name = L"textBox1";
+			this->textBox1->Size = System::Drawing::Size(100, 20);
+			this->textBox1->TabIndex = 31;
 			// 
 			// MainForm
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
-			this->ClientSize = System::Drawing::Size(334, 446);
+			this->ClientSize = System::Drawing::Size(747, 446);
+			this->Controls->Add(this->textBox1);
+			this->Controls->Add(this->button5);
 			this->Controls->Add(this->button4);
 			this->Controls->Add(this->panel1);
 			this->Controls->Add(this->numericUpDown1);
@@ -831,6 +854,7 @@ namespace LiteHackForm {
 			this->panel1->ResumeLayout(false);
 			this->panel1->PerformLayout();
 			this->ResumeLayout(false);
+			this->PerformLayout();
 
 		}
 #pragma endregion
@@ -949,6 +973,7 @@ private: System::Void Button4_Click(System::Object^ sender, System::EventArgs^ e
 private: System::Void CheckBox8_CheckedChanged(System::Object^ sender, System::EventArgs^ e) {
 	Hack.options.predictaimbot = checkBox8->Checked;
 }
+private: System::Void Button5_Click(System::Object^ sender, System::EventArgs^ e);
 };
 }
 void LiteHackForm::MainForm::DebugUObjectByID(int id)
@@ -1002,7 +1027,7 @@ void LiteHackForm::MainForm::DebugPlayer()
 	dataGridView4->Rows->Add(gcnew array<String^>{"APawn", String::Format("{0:x}", player.GetAddress())});
 	dataGridView4->Rows->Add(gcnew array<String^>{"Health", player.Health().ToString()});
 	dataGridView4->Rows->Add(gcnew array<String^>{"TeamID", player.TeamID().ToString()});
-	//dataGridView4->Rows->Add(gcnew array<String^>{"PlayerName", gcnew String(player.PlayerName().ToString().c_str())});
+	dataGridView4->Rows->Add(gcnew array<String^>{"PlayerName", gcnew String(player.PlayerName().ToString().c_str())});
 	dataGridView4->Rows->Add(gcnew array<String^>{"Mesh", String::Format("{0:x}", player.Mesh().GetAddress())});
 	dataGridView4->Rows->Add(gcnew array<String^>{"RootComponent", String::Format("{0:x}", player.RootComponent().GetAddress())});
 	dataGridView4->Rows->Add(gcnew array<String^>{"WeaponManagerComponent", String::Format("{0:x}", player.WeaponManagerComponent().GetAddress())});

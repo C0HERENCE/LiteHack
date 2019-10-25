@@ -60,4 +60,9 @@ public:
 	{
 		return GameMemory.Read<bool>(base + updates::off::Indoor);
 	}
+
+	uint32_t PlayerKey()
+	{
+		return GameMemory.Read32(base + updates::off::PlayerKey);
+	}
 };

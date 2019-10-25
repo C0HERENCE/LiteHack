@@ -50,12 +50,15 @@ struct ESPInfo
 	FVector headScreenPos;
 	FVector rootScreenPos;
 	FVector aimScreenPos;
+	std::string PlayerName;
 
 	FVector Location;
 	float Distance;
 
 	bool visible;
+	float LastRenderedTime;
 	bool isAI;
+	bool isFiring;
 	float health;
 	updates::off::FMinimalViewInfo POV;
 };
@@ -82,8 +85,6 @@ public:
 		info.actor = actor;
 		info.Location = actor.RootComponent().Location();
 		info.isAI = actor.IsAI();
-		info.visible = actor.Mesh().RecentlyRendered();
-		if (info.visible) info.color = options.VisibleColor; else info.color = info.isAI ? options.BotColor : options.HumanColor;
 		info.headpos = GetBoneWithRotation(actor, 11);
 		info.rootpos = GetBoneWithRotation(actor, 0);
 		info.headScreenPos = overlay.WorldToScreen(info.headpos, info.POV);
@@ -92,6 +93,9 @@ public:
 		info.pelvispos = GetBoneWithRotation(actor, 1);
 		info.health = actor.Health();
 		info.aimScreenPos = overlay.WorldToScreen(GetBoneWithRotation(actor, options.aimpos),info.POV);
+		info.LastRenderedTime = actor.Mesh().LastRenderedTime();
+		info.PlayerName = actor.PlayerName().ToString();
+		info.isFiring = actor.IsWeaponFiring();
 	}
 
 	FVector GetBoneWithRotation(AActor& actor, int id)

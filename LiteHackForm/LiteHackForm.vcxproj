@@ -180,6 +180,7 @@
     <ClInclude Include="GWorld\Core\FTransform.h" />
     <ClInclude Include="GWorld\Core\FVector.h" />
     <ClInclude Include="GWorld\FCameraCacheEntry.h" />
+    <ClInclude Include="GWorld\UBackpackComponent.h" />
     <ClInclude Include="GWorld\UGameInstance.h" />
     <ClInclude Include="GWorld\ULevel.h" />
     <ClInclude Include="GWorld\ULocalPlayer.h" />

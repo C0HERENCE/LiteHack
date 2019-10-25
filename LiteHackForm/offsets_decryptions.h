@@ -51,6 +51,7 @@ namespace updates
 		static const uint64 NowShotWeaponList = 0x1af8;
 		static const uint64 CameraManager = 0x460;
 		static const uint64 CameraCache = 0x9B0;
+		static const uint64 BackpackComponent = 0x10e0;
 		struct FMinimalViewInfo
 		{
 			float FOV;
@@ -70,6 +71,7 @@ namespace updates
 		static const uint64 isAI = 0x819;
 		static const uint64 Mesh = 0x470;
 		static const uint64 WeaponManager = 0x17a8;
+		static const uint64 PlayerKey = 0x7f8;
 		// USceneComponent
 		static const uint64 Location = 0x130;
 		static const uint64 Velocity = 0x1A8;
@@ -78,6 +80,7 @@ namespace updates
 		static const uint64 bRecentlyRendered = 0x7d8;
 		static const uint64 BoneArray = 0x708;
 		static const uint64 ComponentToWorld = 0x220;
+		static const uint64 LastRenderedTime = 0x318;
 		//UWeaponManagerComponent
 		static const uint64 currentWeapon = 0x4e0;
 		//ASTExtraWeapon
