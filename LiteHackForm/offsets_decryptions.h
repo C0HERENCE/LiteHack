@@ -207,6 +207,11 @@ namespace updates
 
 			return v16;
 		}
+
+		static void CacheGNames()
+		{
+
+		}
 	};
 
 }

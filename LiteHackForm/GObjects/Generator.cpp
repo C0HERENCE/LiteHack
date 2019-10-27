@@ -197,10 +197,9 @@ void Generator::Dump(const fs::path& path)
 		}
 	}
 
-	return;
 	std::ofstream p(path / "NamesDump.txt");
 	tfm::format(p, "Address: 0x%x\n\n", GlobalNames.GetAddress());
-	for (int i = 0; i < GlobalObjects.GetObjectsNum(); i++)
+	for (int i = 0; i < 300000; i++)
 	{
 		auto name = GlobalNames.GetById(i);
 		tfm::format(p, "[%06i] %s\n", i, name);

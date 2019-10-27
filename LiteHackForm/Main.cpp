@@ -73,10 +73,11 @@ void MainLoop()
 		for (int i = 0; i < ActorArray.Length(); i++)
 		{
 			AActor actor((uint64)ActorArray[i]);
-			//if (GlobalNames.GetById(UObject(actor.GetAddress()).GetFName().GetComparisonIndex()) != "BP_PlayerRifleBulletImpact_C")
+			int NameID = UObject(actor.GetAddress()).GetFName().GetComparisonIndex();
+			//if (GlobalNames.GetById(NameID) != "BP_PlayerRifleBulletImpact_C")
 			//{
-			//	std::cout << GlobalNames.GetById(UObject(actor.GetAddress()).GetFName().GetComparisonIndex()) << "  "<< std::hex << actor.GetAddress() << std::endl;
-			//}
+			//	std::cout << GlobalNames.GetById(NameID) << "  "<< std::hex << actor.GetAddress() << " " << std::dec << NameID << std::endl;
+			//} 
 			if (Hack.Option().Enemy && actor.GetComparisonIndex() == playerobjid &&actor.TeamID()!= myteam&&actor.Health()>0)
 			{
 				// Get enemy's statue
@@ -98,7 +99,7 @@ void MainLoop()
 					if (Hack.Option().Box)	Hack.DrawBox(info);
 					std::string text;
 					text += std::to_string((int)info.Distance) + " m\n";
-					text += info.PlayerName + "\n";
+					text += "[" + std::to_string(actor.TeamID()) + "] " + info.PlayerName + "\n";
 					text += info.isFiring ? "FIRING\n" : "";
 					Hack.DrawInformation(info, text);
 				}
@@ -115,6 +116,26 @@ void MainLoop()
 						}
 					}
 				}
+			}
+			else if (NameID == 142870)  //BP_AirDropBox_C  [142870] 
+			{
+				AActor actor((uint64)ActorArray[i]);
+				auto loc = actor.RootComponent().Location();
+				auto POV = GWorld.OwningGameInstance().LocalPlayer().PlayerController().CameraCache().MinimalViewInfo();
+				info.Distance = loc.Distance(LocalPlayer.RootComponent().Location()) / 100.f;
+				std::string text;
+				text += std::to_string((int)info.Distance) + " m\n";
+				Hack.DrawInformation(Hack.overlay.WorldToScreen(loc,POV), "Airdrop \n"+text);
+			}
+			else if (NameID == 143308 || NameID == 143309)
+			{
+				AActor actor((uint64)ActorArray[i]);
+				auto loc = actor.RootComponent().Location();
+				auto POV = GWorld.OwningGameInstance().LocalPlayer().PlayerController().CameraCache().MinimalViewInfo();
+				info.Distance = loc.Distance(LocalPlayer.RootComponent().Location()) / 100.f;
+				std::string text;
+				text += std::to_string((int)info.Distance) + " m\n";
+				Hack.DrawInformation(Hack.overlay.WorldToScreen(loc, POV), "Motor \n" + text);
 			}
 		}
 		

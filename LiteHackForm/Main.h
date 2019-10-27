@@ -661,40 +661,42 @@ namespace LiteHackForm {
 			// 
 			this->linkLabel3->ActiveLinkColor = System::Drawing::Color::Yellow;
 			this->linkLabel3->AutoSize = true;
-			this->linkLabel3->LinkColor = System::Drawing::Color::Purple;
+			this->linkLabel3->LinkColor = System::Drawing::Color::Red;
 			this->linkLabel3->Location = System::Drawing::Point(198, 109);
 			this->linkLabel3->Name = L"linkLabel3";
 			this->linkLabel3->Size = System::Drawing::Size(64, 13);
 			this->linkLabel3->TabIndex = 26;
 			this->linkLabel3->TabStop = true;
 			this->linkLabel3->Text = L"Visible Color";
-			this->linkLabel3->VisitedLinkColor = System::Drawing::Color::Purple;
+			this->linkLabel3->VisitedLinkColor = System::Drawing::Color::Red;
 			this->linkLabel3->LinkClicked += gcnew System::Windows::Forms::LinkLabelLinkClickedEventHandler(this, &MainForm::LinkLabel3_LinkClicked);
 			// 
 			// linkLabel2
 			// 
 			this->linkLabel2->AutoSize = true;
-			this->linkLabel2->LinkColor = System::Drawing::Color::Blue;
+			this->linkLabel2->LinkColor = System::Drawing::Color::DodgerBlue;
 			this->linkLabel2->Location = System::Drawing::Point(117, 109);
 			this->linkLabel2->Name = L"linkLabel2";
 			this->linkLabel2->Size = System::Drawing::Size(50, 13);
 			this->linkLabel2->TabIndex = 25;
 			this->linkLabel2->TabStop = true;
 			this->linkLabel2->Text = L"Bot Color";
-			this->linkLabel2->VisitedLinkColor = System::Drawing::Color::Blue;
+			this->linkLabel2->VisitedLinkColor = System::Drawing::Color::DodgerBlue;
 			this->linkLabel2->LinkClicked += gcnew System::Windows::Forms::LinkLabelLinkClickedEventHandler(this, &MainForm::LinkLabel2_LinkClicked);
 			// 
 			// linkLabel1
 			// 
 			this->linkLabel1->AutoSize = true;
-			this->linkLabel1->LinkColor = System::Drawing::Color::Red;
+			this->linkLabel1->LinkColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(128)), static_cast<System::Int32>(static_cast<System::Byte>(128)),
+				static_cast<System::Int32>(static_cast<System::Byte>(255)));
 			this->linkLabel1->Location = System::Drawing::Point(17, 109);
 			this->linkLabel1->Name = L"linkLabel1";
 			this->linkLabel1->Size = System::Drawing::Size(68, 13);
 			this->linkLabel1->TabIndex = 24;
 			this->linkLabel1->TabStop = true;
 			this->linkLabel1->Text = L"Human Color";
-			this->linkLabel1->VisitedLinkColor = System::Drawing::Color::Red;
+			this->linkLabel1->VisitedLinkColor = System::Drawing::Color::FromArgb(static_cast<System::Int32>(static_cast<System::Byte>(128)),
+				static_cast<System::Int32>(static_cast<System::Byte>(128)), static_cast<System::Int32>(static_cast<System::Byte>(255)));
 			this->linkLabel1->LinkClicked += gcnew System::Windows::Forms::LinkLabelLinkClickedEventHandler(this, &MainForm::LinkLabel1_LinkClicked);
 			// 
 			// groupBox2

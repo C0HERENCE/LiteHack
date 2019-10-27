@@ -170,6 +170,10 @@ public:
 		overlay.DrawString(info.rootScreenPos - FVector(0.5 * barwidth, 0, 0), info.color, text);
 	}
 
+	void DrawInformation(FVector loc,std::string text)
+	{
+		overlay.DrawString(loc, FColor(255, 255, 0), text);
+	}
 
 	Render overlay;
 	ESPOption options;
