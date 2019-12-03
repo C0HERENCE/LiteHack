@@ -24,6 +24,7 @@ void Main(array<String^>^ args)
 	//	Application::Exit();
 	//	return;
 	//}
+	Application::Run(Global::MainForm);
 	if (!Global::GMemory->Init())
 	{
 		MessageBox::Show("Can't Read GameMemory");
@@ -32,12 +33,12 @@ void Main(array<String^>^ args)
 	}
 	#endif
 
-	Application::Run(Global::MainForm);
 }
 System::Void LiteHack::MainUI::MainUI_Load(System::Object^ sender, System::EventArgs^ e)
 {
+	Image^ img = Image::FromFile("Images/Ammunition/Item_Ammo_9mm_C.png");
+	pictureBox1->Image = img;
 }
-#include <iostream>
 System::Void LiteHack::MainUI::btnToggleHack(System::Object^ sender, System::EventArgs^ e)
 {
 	if (Global::MainLoopThread->IsAlive)

@@ -140,10 +140,8 @@ UShootWeaponEntity^ ASTExtraWeapon::WeaponEntityComp()
 // FWeaponAttachmentData
 void FWeaponAttachmentData::SetZero()
 {
-	//System::Console::WriteLine(Global::GMemory->Read<float>(base_address + Off::RecoilMultiplierVertical));
 	uint64_t add = base_address;
 	uint64_t add2 = Global::GMemory->Read<uint64_t>(add);
-	//System::Console::WriteLine(Global::GMemory->Read<float>(add2 + Off::RecoilMultiplierVertical));
 	Global::GMemory->Write<float>(add2 + Off::AnimationKickMultiplier, 0.f);
 	Global::GMemory->Write<float>(add2 + Off::RecoilMultiplierVertical, 0.f);
 	Global::GMemory->Write<float>(add2 + Off::MultipleFiringBulletsSpread, 0.f);

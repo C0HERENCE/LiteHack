@@ -112,6 +112,7 @@
       <AdditionalDependencies>d3d11.lib;d3dcompiler.lib;dxgi.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <SubSystem>Console</SubSystem>
       <EntryPointSymbol>Main</EntryPointSymbol>
+      <EmbedManagedResourceFile>Mainform.resx;%(EmbedManagedResourceFile)</EmbedManagedResourceFile>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -135,6 +136,7 @@
       <AdditionalDependencies>d3d11.lib;d3dcompiler.lib;dxgi.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <EntryPointSymbol>Main</EntryPointSymbol>
       <SubSystem>Console</SubSystem>
+      <EmbedManagedResourceFile>MainForm.resx;%(EmbedManagedResourceFile)</EmbedManagedResourceFile>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -196,7 +198,157 @@
   <ItemGroup>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.h</DependentUpon>
+      <DeploymentContent>true</DeploymentContent>
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</DeploymentContent>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="Images\Ammunition\Item_Ammo_12Guage_C.png" />
+    <Image Include="Images\Ammunition\Item_Ammo_300Magnum_C.png" />
+    <Image Include="Images\Ammunition\Item_Ammo_45ACP_C.png" />
+    <Image Include="Images\Ammunition\Item_Ammo_556mm_C.png" />
+    <Image Include="Images\Ammunition\Item_Ammo_762mm_C.png" />
+    <Image Include="Images\Ammunition\Item_Ammo_9mm_C.png" />
+    <Image Include="Images\Ammunition\Item_Ammo_Bolt_C.png" />
+    <Image Include="Images\Attachment\Item_Attach_Weapon_Lower_AngledForeGrip_C.png" />
+    <Image Include="Images\Attachment\Item_Attach_Weapon_Lower_Foregrip_C.png" />
+    <Image Include="Images\Attachment\Item_Attach_Weapon_Lower_HalfGrip_C.png" />
+    <Image Include="Images\Attachment\Item_Attach_Weapon_Lower_LaserPointer_C.png" />
+    <Image Include="Images\Attachment\Item_Attach_Weapon_Lower_LightweightForeGrip_C.png" />
+    <Image Include="Images\Attachment\Item_Attach_Weapon_Lower_QuickDraw_Large_Crossbow_C.png" />
+    <Image Include="Images\Attachment\Item_Attach_Weapon_Lower_ThumbGrip_C.png" />
+    <Image Include="Images\Attachment\Item_Attach_Weapon_Magazine_ExtendedQuickDraw_Large_C.png" />
+    <Image Include="Images\Attachment\Item_Attach_Weapon_Magazine_ExtendedQuickDraw_Medium_C.png" />
+    <Image Include="Images\Attachment\Item_Attach_Weapon_Magazine_ExtendedQuickDraw_Small_C.png" />
+    <Image Include="Images\Attachment\Item_Attach_Weapon_Magazine_ExtendedQuickDraw_SniperRifle_C.png" />
+    <Image Include="Images\Attachment\Item_Attach_Weapon_Magazine_Extended_Large_C.png" />
+    <Image Include="Images\Attachment\Item_Attach_Weapon_Magazine_Extended_Medium_C.png" />
+    <Image Include="Images\Attachment\Item_Attach_Weapon_Magazine_Extended_Small_C.png" />
+    <Image Include="Images\Attachment\Item_Attach_Weapon_Magazine_Extended_SniperRifle_C.png" />
+    <Image Include="Images\Attachment\Item_Attach_Weapon_Magazine_QuickDraw_Large_C.png" />
+    <Image Include="Images\Attachment\Item_Attach_Weapon_Magazine_QuickDraw_Medium_C.png" />
+    <Image Include="Images\Attachment\Item_Attach_Weapon_Magazine_QuickDraw_Small_C.png" />
+    <Image Include="Images\Attachment\Item_Attach_Weapon_Magazine_QuickDraw_SniperRifle_C.png" />
+    <Image Include="Images\Attachment\Item_Attach_Weapon_Muzzle_Choke_C.png" />
+    <Image Include="Images\Attachment\Item_Attach_Weapon_Muzzle_Compensator_Large_C.png" />
+    <Image Include="Images\Attachment\Item_Attach_Weapon_Muzzle_Compensator_Medium_C.png" />
+    <Image Include="Images\Attachment\Item_Attach_Weapon_Muzzle_Compensator_SniperRifle_C.png" />
+    <Image Include="Images\Attachment\Item_Attach_Weapon_Muzzle_Duckbill_C.png" />
+    <Image Include="Images\Attachment\Item_Attach_Weapon_Muzzle_FlashHider_Large_C.png" />
+    <Image Include="Images\Attachment\Item_Attach_Weapon_Muzzle_FlashHider_Medium_C.png" />
+    <Image Include="Images\Attachment\Item_Attach_Weapon_Muzzle_FlashHider_SniperRifle_C.png" />
+    <Image Include="Images\Attachment\Item_Attach_Weapon_Muzzle_Suppressor_Large_C.png" />
+    <Image Include="Images\Attachment\Item_Attach_Weapon_Muzzle_Suppressor_Medium_C.png" />
+    <Image Include="Images\Attachment\Item_Attach_Weapon_Muzzle_Suppressor_Small_C.png" />
+    <Image Include="Images\Attachment\Item_Attach_Weapon_Muzzle_Suppressor_SniperRifle_C.png" />
+    <Image Include="Images\Attachment\Item_Attach_Weapon_SideRail_DotSight_RMR_C.png" />
+    <Image Include="Images\Attachment\Item_Attach_Weapon_Stock_AR_Composite_C.png" />
+    <Image Include="Images\Attachment\Item_Attach_Weapon_Stock_Shotgun_BulletLoops_C.png" />
+    <Image Include="Images\Attachment\Item_Attach_Weapon_Stock_SniperRifle_BulletLoops_C.png" />
+    <Image Include="Images\Attachment\Item_Attach_Weapon_Stock_SniperRifle_CheekPad_C.png" />
+    <Image Include="Images\Attachment\Item_Attach_Weapon_Stock_UZI_C.png" />
+    <Image Include="Images\Attachment\Item_Attach_Weapon_Upper_ACOG_01_C.png" />
+    <Image Include="Images\Attachment\Item_Attach_Weapon_Upper_Aimpoint_C.png" />
+    <Image Include="Images\Attachment\Item_Attach_Weapon_Upper_CQBSS_C.png" />
+    <Image Include="Images\Attachment\Item_Attach_Weapon_Upper_DotSight_01_C.png" />
+    <Image Include="Images\Attachment\Item_Attach_Weapon_Upper_Holosight_C.png" />
+    <Image Include="Images\Attachment\Item_Attach_Weapon_Upper_PM2_01_C.png" />
+    <Image Include="Images\Attachment\Item_Attach_Weapon_Upper_Scope3x_C.png" />
+    <Image Include="Images\Attachment\Item_Attach_Weapon_Upper_Scope6x_C.png" />
+    <Image Include="Images\Equipment\Backpack\Item_Back_C_02_Lv3_C.png" />
+    <Image Include="Images\Equipment\Backpack\Item_Back_E_02_Lv1_C.png" />
+    <Image Include="Images\Equipment\Backpack\Item_Back_F_02_Lv2_C.png" />
+    <Image Include="Images\Equipment\Headgear\Item_Head_E_01_Lv1_C.png" />
+    <Image Include="Images\Equipment\Headgear\Item_Head_F_02_Lv2_C.png" />
+    <Image Include="Images\Equipment\Headgear\Item_Head_G_01_Lv3_C.png" />
+    <Image Include="Images\Equipment\Jacket\Item_Ghillie_01_C.png" />
+    <Image Include="Images\Equipment\Throwable\Item_Weapon_FlashBang_C.png" />
+    <Image Include="Images\Equipment\Throwable\Item_Weapon_Grenade_C.png" />
+    <Image Include="Images\Equipment\Throwable\Item_Weapon_Molotov_C.png" />
+    <Image Include="Images\Equipment\Throwable\Item_Weapon_SmokeBomb_C.png" />
+    <Image Include="Images\Equipment\Vest\Item_Armor_C_01_Lv3_C.png" />
+    <Image Include="Images\Equipment\Vest\Item_Armor_D_01_Lv2_C.png" />
+    <Image Include="Images\Equipment\Vest\Item_Armor_E_01_Lv1_C.png" />
+    <Image Include="Images\Use\Boost\Item_Boost_AdrenalineSyringe_C.png" />
+    <Image Include="Images\Use\Boost\Item_Boost_EnergyDrink_C.png" />
+    <Image Include="Images\Use\Boost\Item_Boost_PainKiller_C.png" />
+    <Image Include="Images\Use\Fuel\Item_JerryCan_C.png" />
+    <Image Include="Images\Use\Heal\Item_Heal_Bandage_C.png" />
+    <Image Include="Images\Use\Heal\Item_Heal_FirstAid_C.png" />
+    <Image Include="Images\Use\Heal\Item_Heal_MedKit_C.png" />
+    <Image Include="Images\Vehicles\AquaRail_A_00_C.png" />
+    <Image Include="Images\Vehicles\Boat_PG117_C.png" />
+    <Image Include="Images\Vehicles\BP_BRDM_C.png" />
+    <Image Include="Images\Vehicles\BP_Mirado_A_00_C.png" />
+    <Image Include="Images\Vehicles\BP_Mirado_Open_00_C.png" />
+    <Image Include="Images\Vehicles\BP_Motorbike_00_C.png" />
+    <Image Include="Images\Vehicles\BP_Motorbike_00_Desert_C.png" />
+    <Image Include="Images\Vehicles\BP_Motorbike_00_SideCar_C.png" />
+    <Image Include="Images\Vehicles\BP_Motorbike_00_SideCar_Desert_C.png" />
+    <Image Include="Images\Vehicles\BP_M_Rony_A_00_C.png" />
+    <Image Include="Images\Vehicles\BP_Niva_00_C.png" />
+    <Image Include="Images\Vehicles\BP_PickupTruck_A_00_C.png" />
+    <Image Include="Images\Vehicles\BP_PickupTruck_B_00_C.png" />
+    <Image Include="Images\Vehicles\BP_Scooter_00_A_C.png" />
+    <Image Include="Images\Vehicles\BP_Snowbike_00_C.png" />
+    <Image Include="Images\Vehicles\BP_Snowmobile_00_C.png" />
+    <Image Include="Images\Vehicles\BP_TukTukTuk_A_00_C.png" />
+    <Image Include="Images\Vehicles\BP_Van_A_00_C.png" />
+    <Image Include="Images\Vehicles\Buggy_A_00_C.png" />
+    <Image Include="Images\Vehicles\Dacia_A_00_v2_C.png" />
+    <Image Include="Images\Vehicles\Dacia_A_00_v2_snow_C.png" />
+    <Image Include="Images\Vehicles\DummyTransportAircraft_C.png" />
+    <Image Include="Images\Vehicles\ParachutePlayer_C.png" />
+    <Image Include="Images\Vehicles\PG117_A_00_C.png" />
+    <Image Include="Images\Vehicles\Uaz_A_00_C.png" />
+    <Image Include="Images\Vehicles\Uaz_B_00_C.png" />
+    <Image Include="Images\Vehicles\Uaz_C_00_C.png" />
+    <Image Include="Images\Weapon\Handgun\Item_Weapon_DesertEagle_C.png" />
+    <Image Include="Images\Weapon\Handgun\Item_Weapon_FlareGun_C.png" />
+    <Image Include="Images\Weapon\Handgun\Item_Weapon_G18_C.png" />
+    <Image Include="Images\Weapon\Handgun\Item_Weapon_M1911_C.png" />
+    <Image Include="Images\Weapon\Handgun\Item_Weapon_M9_C.png" />
+    <Image Include="Images\Weapon\Handgun\Item_Weapon_NagantM1895_C.png" />
+    <Image Include="Images\Weapon\Handgun\Item_Weapon_Rhino_C.png" />
+    <Image Include="Images\Weapon\Handgun\Item_Weapon_Sawnoff_C.png" />
+    <Image Include="Images\Weapon\Handgun\Item_Weapon_vz61Skorpion_C.png" />
+    <Image Include="Images\Weapon\Main\Item_Weapon_AK47_C.png" />
+    <Image Include="Images\Weapon\Main\Item_Weapon_AUG_C.png" />
+    <Image Include="Images\Weapon\Main\Item_Weapon_AWM_C.png" />
+    <Image Include="Images\Weapon\Main\Item_Weapon_Berreta686_C.png" />
+    <Image Include="Images\Weapon\Main\Item_Weapon_BerylM762_C.png" />
+    <Image Include="Images\Weapon\Main\Item_Weapon_BizonPP19_C.png" />
+    <Image Include="Images\Weapon\Main\Item_Weapon_Crossbow_C.png" />
+    <Image Include="Images\Weapon\Main\Item_Weapon_DP12_C.png" />
+    <Image Include="Images\Weapon\Main\Item_Weapon_DP28_C.png" />
+    <Image Include="Images\Weapon\Main\Item_Weapon_FNFal_C.png" />
+    <Image Include="Images\Weapon\Main\Item_Weapon_G36C_C.png" />
+    <Image Include="Images\Weapon\Main\Item_Weapon_Groza_C.png" />
+    <Image Include="Images\Weapon\Main\Item_Weapon_HK416_C.png" />
+    <Image Include="Images\Weapon\Main\Item_Weapon_Kar98k_C.png" />
+    <Image Include="Images\Weapon\Main\Item_Weapon_M16A4_C.png" />
+    <Image Include="Images\Weapon\Main\Item_Weapon_M249_C.png" />
+    <Image Include="Images\Weapon\Main\Item_Weapon_M24_C.png" />
+    <Image Include="Images\Weapon\Main\Item_Weapon_Mini14_C.png" />
+    <Image Include="Images\Weapon\Main\Item_Weapon_Mk14_C.png" />
+    <Image Include="Images\Weapon\Main\Item_Weapon_Mk47Mutant_C.png" />
+    <Image Include="Images\Weapon\Main\Item_Weapon_MP5K_C.png" />
+    <Image Include="Images\Weapon\Main\Item_Weapon_QBU88_C.png" />
+    <Image Include="Images\Weapon\Main\Item_Weapon_QBZ95_C.png" />
+    <Image Include="Images\Weapon\Main\Item_Weapon_Saiga12_C.png" />
+    <Image Include="Images\Weapon\Main\Item_Weapon_SCAR-L_C.png" />
+    <Image Include="Images\Weapon\Main\Item_Weapon_SKS_C.png" />
+    <Image Include="Images\Weapon\Main\Item_Weapon_Thompson_C.png" />
+    <Image Include="Images\Weapon\Main\Item_Weapon_UMP_C.png" />
+    <Image Include="Images\Weapon\Main\Item_Weapon_UZI_C.png" />
+    <Image Include="Images\Weapon\Main\Item_Weapon_Vector_C.png" />
+    <Image Include="Images\Weapon\Main\Item_Weapon_VSS_C.png" />
+    <Image Include="Images\Weapon\Main\Item_Weapon_Win1894_C.png" />
+    <Image Include="Images\Weapon\Main\Item_Weapon_Winchester_C.png" />
+    <Image Include="Images\Weapon\Melee\Item_Weapon_Cowbar_C.png" />
+    <Image Include="Images\Weapon\Melee\Item_Weapon_Machete_C.png" />
+    <Image Include="Images\Weapon\Melee\Item_Weapon_Pan_C.png" />
+    <Image Include="Images\Weapon\Melee\Item_Weapon_Sickle_C.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
