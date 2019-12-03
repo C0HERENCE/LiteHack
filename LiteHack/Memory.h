@@ -56,7 +56,7 @@ public:
 	uint64_t Read64(const uint64_t& w_read);
 
 	template<typename T>
-	bool Write(T what, const uint64_t& w_write)
+	bool Write(const uint64_t& w_write, T what)
 	{
 		return KernelWrite<T>(what, w_write, PROTO_MESSAGE::PROTO_NORMAL_WRITE);
 	}

@@ -5,71 +5,85 @@
       <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
       <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
     </Filter>
-    <Filter Include="Header Files">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;hm;inl;inc;ipp;xsd</Extensions>
+    <Filter Include="Source Files\Functional">
+      <UniqueIdentifier>{7354328f-3fb0-467b-a811-a75bb7565c07}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\Memory">
-      <UniqueIdentifier>{7517ee4a-b9d9-42a6-8e28-106e26307e9f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\GWorld">
-      <UniqueIdentifier>{317c3628-ce44-4f67-87c7-9d56db1071dc}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\GNames">
+    <Filter Include="Source Files\GNames">
       <UniqueIdentifier>{ab62335d-42d2-44c9-bb61-e06a0a873f9e}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\Overlay">
+    <Filter Include="Source Files\GWorld">
+      <UniqueIdentifier>{317c3628-ce44-4f67-87c7-9d56db1071dc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Memory">
+      <UniqueIdentifier>{7517ee4a-b9d9-42a6-8e28-106e26307e9f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Overlay">
       <UniqueIdentifier>{df06f1da-a211-4b4e-b144-8493e696f702}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\Overlay\ImGUI">
+    <Filter Include="Source Files\Overlay\ImGUI">
       <UniqueIdentifier>{1b1115d6-2430-413d-975d-0553485638a0}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\Functional">
-      <UniqueIdentifier>{7354328f-3fb0-467b-a811-a75bb7565c07}</UniqueIdentifier>
+    <Filter Include="Source Files\Main">
+      <UniqueIdentifier>{4db29faf-8f9f-4796-b321-e0e3ca8e49dc}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Memory.cpp">
-      <Filter>Header Files\Memory</Filter>
+      <Filter>Source Files\Memory</Filter>
     </ClCompile>
     <ClCompile Include="Names.cpp">
-      <Filter>Header Files\GNames</Filter>
-    </ClCompile>
-    <ClCompile Include="MainForm.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\GNames</Filter>
     </ClCompile>
     <ClCompile Include="imgui.cpp">
-      <Filter>Header Files\Overlay\ImGUI</Filter>
+      <Filter>Source Files\Overlay\ImGUI</Filter>
     </ClCompile>
     <ClCompile Include="imgui_demo.cpp">
-      <Filter>Header Files\Overlay\ImGUI</Filter>
+      <Filter>Source Files\Overlay\ImGUI</Filter>
     </ClCompile>
     <ClCompile Include="imgui_draw.cpp">
-      <Filter>Header Files\Overlay\ImGUI</Filter>
+      <Filter>Source Files\Overlay\ImGUI</Filter>
     </ClCompile>
     <ClCompile Include="imgui_impl_dx11.cpp">
-      <Filter>Header Files\Overlay\ImGUI</Filter>
+      <Filter>Source Files\Overlay\ImGUI</Filter>
     </ClCompile>
     <ClCompile Include="imgui_impl_win32.cpp">
-      <Filter>Header Files\Overlay\ImGUI</Filter>
+      <Filter>Source Files\Overlay\ImGUI</Filter>
     </ClCompile>
     <ClCompile Include="imgui_widgets.cpp">
-      <Filter>Header Files\Overlay\ImGUI</Filter>
+      <Filter>Source Files\Overlay\ImGUI</Filter>
     </ClCompile>
     <ClCompile Include="Overlay.cpp">
-      <Filter>Header Files\Overlay</Filter>
+      <Filter>Source Files\Overlay</Filter>
     </ClCompile>
     <ClCompile Include="GWorld.cpp">
-      <Filter>Header Files\GWorld</Filter>
+      <Filter>Source Files\GWorld</Filter>
     </ClCompile>
     <ClCompile Include="Renderer.cpp">
-      <Filter>Header Files\Functional</Filter>
+      <Filter>Source Files\Overlay</Filter>
+    </ClCompile>
+    <ClCompile Include="Aimbot.cpp">
+      <Filter>Source Files\Functional</Filter>
+    </ClCompile>
+    <ClCompile Include="Commons.cpp">
+      <Filter>Source Files\Functional</Filter>
+    </ClCompile>
+    <ClCompile Include="EnemyESP.cpp">
+      <Filter>Source Files\Functional</Filter>
+    </ClCompile>
+    <ClCompile Include="ItemsESP.cpp">
+      <Filter>Source Files\Functional</Filter>
+    </ClCompile>
+    <ClCompile Include="VehiclesESP.cpp">
+      <Filter>Source Files\Functional</Filter>
     </ClCompile>
     <ClCompile Include="MainLoop.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Main</Filter>
+    </ClCompile>
+    <ClCompile Include="MainForm.cpp">
+      <Filter>Source Files\Main</Filter>
     </ClCompile>
     <ClCompile Include="Updates.cpp">
-      <Filter>Header Files</Filter>
+      <Filter>Source Files\Main</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -77,58 +91,73 @@
       <Filter>Source Files</Filter>
     </ClInclude>
     <ClInclude Include="Memory.h">
-      <Filter>Header Files\Memory</Filter>
+      <Filter>Source Files\Memory</Filter>
     </ClInclude>
     <ClInclude Include="Names.h">
-      <Filter>Header Files\GNames</Filter>
+      <Filter>Source Files\GNames</Filter>
     </ClInclude>
     <ClInclude Include="imconfig.h">
-      <Filter>Header Files\Overlay\ImGUI</Filter>
+      <Filter>Source Files\Overlay\ImGUI</Filter>
     </ClInclude>
     <ClInclude Include="imgui.h">
-      <Filter>Header Files\Overlay\ImGUI</Filter>
+      <Filter>Source Files\Overlay\ImGUI</Filter>
     </ClInclude>
     <ClInclude Include="imgui_impl_dx11.h">
-      <Filter>Header Files\Overlay\ImGUI</Filter>
+      <Filter>Source Files\Overlay\ImGUI</Filter>
     </ClInclude>
     <ClInclude Include="imgui_impl_win32.h">
-      <Filter>Header Files\Overlay\ImGUI</Filter>
+      <Filter>Source Files\Overlay\ImGUI</Filter>
     </ClInclude>
     <ClInclude Include="imgui_internal.h">
-      <Filter>Header Files\Overlay\ImGUI</Filter>
+      <Filter>Source Files\Overlay\ImGUI</Filter>
     </ClInclude>
     <ClInclude Include="imstb_rectpack.h">
-      <Filter>Header Files\Overlay\ImGUI</Filter>
+      <Filter>Source Files\Overlay\ImGUI</Filter>
     </ClInclude>
     <ClInclude Include="imstb_textedit.h">
-      <Filter>Header Files\Overlay\ImGUI</Filter>
+      <Filter>Source Files\Overlay\ImGUI</Filter>
     </ClInclude>
     <ClInclude Include="imstb_truetype.h">
-      <Filter>Header Files\Overlay\ImGUI</Filter>
+      <Filter>Source Files\Overlay\ImGUI</Filter>
     </ClInclude>
     <ClInclude Include="Overlay.h">
-      <Filter>Header Files\Overlay</Filter>
+      <Filter>Source Files\Overlay</Filter>
     </ClInclude>
     <ClInclude Include="WindowHijack.h">
-      <Filter>Header Files\Overlay</Filter>
+      <Filter>Source Files\Overlay</Filter>
     </ClInclude>
     <ClInclude Include="GWorld.h">
-      <Filter>Header Files\GWorld</Filter>
+      <Filter>Source Files\GWorld</Filter>
     </ClInclude>
     <ClInclude Include="Core.h">
-      <Filter>Header Files\GWorld</Filter>
+      <Filter>Source Files\GWorld</Filter>
     </ClInclude>
     <ClInclude Include="Renderer.h">
-      <Filter>Header Files\Functional</Filter>
+      <Filter>Source Files\Overlay</Filter>
     </ClInclude>
-    <ClInclude Include="IDA.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="Aimbot.h">
+      <Filter>Source Files\Functional</Filter>
+    </ClInclude>
+    <ClInclude Include="Commons.h">
+      <Filter>Source Files\Functional</Filter>
+    </ClInclude>
+    <ClInclude Include="EnemyESP.h">
+      <Filter>Source Files\Functional</Filter>
+    </ClInclude>
+    <ClInclude Include="ItemsESP.h">
+      <Filter>Source Files\Functional</Filter>
+    </ClInclude>
+    <ClInclude Include="VehiclesESP.h">
+      <Filter>Source Files\Functional</Filter>
     </ClInclude>
     <ClInclude Include="Updates.h">
-      <Filter>Header Files</Filter>
+      <Filter>Source Files\Main</Filter>
+    </ClInclude>
+    <ClInclude Include="IDA.h">
+      <Filter>Source Files\Main</Filter>
     </ClInclude>
     <ClInclude Include="Global.h">
-      <Filter>Header Files</Filter>
+      <Filter>Source Files\Main</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

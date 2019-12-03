@@ -37,7 +37,7 @@ namespace LiteHack {
 		}
 	private: System::Windows::Forms::Button^ button1;
 	public: System::Windows::Forms::CheckBox^ btnDeveloperMode;
-	private: System::Windows::Forms::PictureBox^ pictureBox1;
+
 	public:
 	private:
 
@@ -59,13 +59,11 @@ namespace LiteHack {
 		{
 			this->button1 = (gcnew System::Windows::Forms::Button());
 			this->btnDeveloperMode = (gcnew System::Windows::Forms::CheckBox());
-			this->pictureBox1 = (gcnew System::Windows::Forms::PictureBox());
-			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox1))->BeginInit();
 			this->SuspendLayout();
 			// 
 			// button1
 			// 
-			this->button1->Location = System::Drawing::Point(41, 160);
+			this->button1->Location = System::Drawing::Point(235, 563);
 			this->button1->Name = L"button1";
 			this->button1->Size = System::Drawing::Size(75, 23);
 			this->button1->TabIndex = 0;
@@ -76,27 +74,18 @@ namespace LiteHack {
 			// btnDeveloperMode
 			// 
 			this->btnDeveloperMode->AutoSize = true;
-			this->btnDeveloperMode->Location = System::Drawing::Point(169, 164);
+			this->btnDeveloperMode->Location = System::Drawing::Point(363, 567);
 			this->btnDeveloperMode->Name = L"btnDeveloperMode";
 			this->btnDeveloperMode->Size = System::Drawing::Size(73, 17);
 			this->btnDeveloperMode->TabIndex = 1;
 			this->btnDeveloperMode->Text = L"DevMode";
 			this->btnDeveloperMode->UseVisualStyleBackColor = true;
 			// 
-			// pictureBox1
-			// 
-			this->pictureBox1->Location = System::Drawing::Point(73, 32);
-			this->pictureBox1->Name = L"pictureBox1";
-			this->pictureBox1->Size = System::Drawing::Size(100, 50);
-			this->pictureBox1->TabIndex = 2;
-			this->pictureBox1->TabStop = false;
-			// 
 			// MainUI
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
-			this->ClientSize = System::Drawing::Size(284, 261);
-			this->Controls->Add(this->pictureBox1);
+			this->ClientSize = System::Drawing::Size(644, 619);
 			this->Controls->Add(this->btnDeveloperMode);
 			this->Controls->Add(this->button1);
 			this->Name = L"MainUI";
@@ -104,7 +93,6 @@ namespace LiteHack {
 			this->Text = L"MainForm";
 			this->FormClosing += gcnew System::Windows::Forms::FormClosingEventHandler(this, &MainUI::MainUI_FormClosing);
 			this->Load += gcnew System::EventHandler(this, &MainUI::MainUI_Load);
-			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox1))->EndInit();
 			this->ResumeLayout(false);
 			this->PerformLayout();
 

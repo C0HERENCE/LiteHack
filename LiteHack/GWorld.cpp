@@ -26,13 +26,9 @@ TArray<uint64_t> ULevel::Actors()
 // AActor
 int AActor::ComparisonIndex()
 {
-	return Dec::ObjID(ReadOffset<int>(Off::ObjID));
+	return Dec::ObjID(ReadOffset<int>(Off::ComparisonIndex));
 }
 
-UWeaponManagerComponent^ AActor::WeaponManagerComponent()
-{
-	return gcnew UWeaponManagerComponent(ReadOffset<uint64_t>(Off::WeaponManager));
-}
 USkeletalMeshComponent^ AActor::Mesh()
 {
 	return gcnew USkeletalMeshComponent(Dec::pawn(ReadOffset<uint64_t>(Off::Mesh)));
@@ -43,57 +39,63 @@ USceneComponent^ AActor::RootComponent()
 	return gcnew USceneComponent(Dec::pawn(ReadOffset<uint64_t>(Off::RootComponent)));
 }
 
-APlayerController^ AActor::STPlayerController()
+// STExtraPlayer
+UWeaponManagerComponent^ ASTExtraPlayerCharacter::WeaponManagerComponent()
+{
+	return gcnew UWeaponManagerComponent(ReadOffset<uint64_t>(Off::WeaponManager));
+}
+
+APlayerController^ ASTExtraPlayerCharacter::STPlayerController()
 {
 	return gcnew APlayerController(ReadOffset<uint64_t>(Off::STPlayerController));
 }
 
-FString AActor::PlayerName()
+FString ASTExtraPlayerCharacter::PlayerName()
 {
 	return ReadOffset<FString>(Off::PlayerName);
 }
 
-float AActor::Health()
+float ASTExtraPlayerCharacter::Health()
 {
 	return ReadOffset<float>(Off::Health);
 }
 
-bool AActor::IsWeaponFiring()
+bool ASTExtraPlayerCharacter::IsWeaponFiring()
 {
 	return ReadOffset<bool>(Off::bIsWeaponFiring);
 }
 
-bool AActor::IsAI()
+bool ASTExtraPlayerCharacter::IsAI()
 {
 	return ReadOffset<bool>(Off::isAI);
 }
 
-int AActor::TeamID()
+int ASTExtraPlayerCharacter::TeamID()
 {
 	return ReadOffset<int>(Off::teamID);
 }
 
-uint32_t AActor::PlayerKey()
+uint32_t ASTExtraPlayerCharacter::PlayerKey()
 {
 	return ReadOffset<uint32_t>(Off::PlayerKey);
 }
 
-int AActor::SpectatedCount()
+int ASTExtraPlayerCharacter::SpectatedCount()
 {
 	return ReadOffset<int>(Off::SpectatedCount);
 }
 
-AActor^ AActor::CurrentVehicle()
+ASTExtraWheeledVehicle^ ASTExtraPlayerCharacter::CurrentVehicle()
 {
-	return gcnew AActor(ReadOffset<uint64_t>(Off::CurrentVehicle));
+	return gcnew ASTExtraWheeledVehicle(ReadOffset<uint64_t>(Off::CurrentVehicle));
 }
 
-int AActor::VehicleSeatIdx()
+int ASTExtraPlayerCharacter::VehicleSeatIdx()
 {
 	return ReadOffset<int>(Off::VehicleSeatIdx);
 }
 
-uint8_t AActor::HealthStatus()
+uint8_t ASTExtraPlayerCharacter::HealthStatus()
 {
 	return ReadOffset<uint8_t>(Off::HealthStatus);
 }
@@ -138,10 +140,14 @@ UShootWeaponEntity^ ASTExtraWeapon::WeaponEntityComp()
 // FWeaponAttachmentData
 void FWeaponAttachmentData::SetZero()
 {
-	Global::GMemory->Write<float>(base_address + Off::AnimationKickMultiplier, 0.f);
-	Global::GMemory->Write<float>(base_address + Off::RecoilMultiplierVertical, 0.f);
-	Global::GMemory->Write<float>(base_address + Off::MultipleFiringBulletsSpread, 0.f);
-	Global::GMemory->Write<float>(base_address + Off::SwayMultiplier, 0.f);
+	//System::Console::WriteLine(Global::GMemory->Read<float>(base_address + Off::RecoilMultiplierVertical));
+	uint64_t add = base_address;
+	uint64_t add2 = Global::GMemory->Read<uint64_t>(add);
+	//System::Console::WriteLine(Global::GMemory->Read<float>(add2 + Off::RecoilMultiplierVertical));
+	Global::GMemory->Write<float>(add2 + Off::AnimationKickMultiplier, 0.f);
+	Global::GMemory->Write<float>(add2 + Off::RecoilMultiplierVertical, 0.f);
+	Global::GMemory->Write<float>(add2 + Off::MultipleFiringBulletsSpread, 0.f);
+	Global::GMemory->Write<float>(add2 + Off::SwayMultiplier, 0.f);
 }
 
 TArray<uint64_t> UShootWeaponEntity::ArrTslWeaponAttachmentData()
@@ -172,9 +178,9 @@ APlayerController^ ULocalPlayer::PlayerController()
 }
 
 // APlayerController
-AActor^ APlayerController::LocalPawn()
+ASTExtraPlayerCharacter^ APlayerController::LocalPawn()
 {
-	return gcnew AActor(ReadOffset<uint64_t>(Off::local_pawn));
+	return gcnew ASTExtraPlayerCharacter(ReadOffset<uint64_t>(Off::local_pawn));
 }
 
 APlayerCameraManager^ APlayerController::CameraCache()

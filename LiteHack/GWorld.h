@@ -28,6 +28,11 @@ public:
 		return Global::GMemory->Read<T>(base_address + offset);
 	}
 
+	template <typename T>
+	T^ CastTo()
+	{
+		return gcnew T(base_address);
+	}
 protected:
 	uint64_t base_address;
 };
@@ -42,13 +47,13 @@ private:
 
 };
 
-ref class AActor;
+ref class ASTExtraPlayerCharacter;
 ref class APlayerController : public Base
 {
 public:
 	APlayerController(uint64_t address) : Base(address) {}
 
-	AActor^ LocalPawn();
+	ASTExtraPlayerCharacter^ LocalPawn();
 
 	APlayerCameraManager^ CameraCache();
 private:
@@ -148,38 +153,63 @@ public:
 	AActor() : Base() {}
 
 	AActor(uint64_t address) : Base(address) {}
-	
-	int ComparisonIndex();
 
-	UWeaponManagerComponent^ WeaponManagerComponent();
+	int ComparisonIndex();
 
 	USkeletalMeshComponent^ Mesh();
 
 	USceneComponent^ RootComponent();
+};
 
-	APlayerController^ STPlayerController();
-
-	FString PlayerName();
-
-	float Health();
-
-	bool IsWeaponFiring();
-
+ref class ASTExtraWheeledVehicle;
+ref class ASTExtraPlayerCharacter : public AActor
+{
+public:
 	bool IsAI();
 
 	int TeamID();
+
+	float Health();
+
+	FString PlayerName();
 
 	uint32_t PlayerKey();
 
 	int SpectatedCount();
 
-	AActor^ CurrentVehicle();
-
 	int VehicleSeatIdx();
 
+	bool IsWeaponFiring();
+
 	uint8_t HealthStatus();
+
+	APlayerController^ STPlayerController();
+
+	ASTExtraWheeledVehicle^ CurrentVehicle();
+
+	UWeaponManagerComponent^ WeaponManagerComponent();
+
+	ASTExtraPlayerCharacter() : AActor() {}
+
+	ASTExtraPlayerCharacter(uint64_t address) : AActor(address) {}
 private:
 
+};
+
+ref class ASTExtraWheeledVehicle : public AActor
+{
+public:
+	ASTExtraWheeledVehicle() : AActor() {}
+
+	ASTExtraWheeledVehicle(uint64_t address) : AActor(address) {}
+};
+
+ref class APickUpWrapperActor : public AActor
+{
+public:
+	APickUpWrapperActor() : AActor() {}
+
+	APickUpWrapperActor(uint64_t address) : AActor(address) {}
 };
 
 ref class ULevel : public Base

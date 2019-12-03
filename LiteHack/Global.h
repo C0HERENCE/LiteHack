@@ -25,7 +25,7 @@ public:
 	static bool aimbot = true;
 	static int aimbot_speed = 5;
 	static int aimbot_part = 1;
-	static int aimbot_radius = 500;
+	static float aimbot_radius = 500;
 
 	//
 	static bool item = false;
@@ -44,8 +44,6 @@ public:
 	static System::Threading::Thread^ MainLoopThread = gcnew System::Threading::Thread(gcnew System::Threading::ThreadStart(MainLoop));
 	static Options^ Option = gcnew Options;
 };
-
-
 
 namespace Settings
 {
