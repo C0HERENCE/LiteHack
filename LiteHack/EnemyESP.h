@@ -4,7 +4,7 @@
 
 #define TextWidth 150
 #define TextHeight 18.5
-#define TextAboveHead 20
+#define TextAboveHead 50
 #define HealthHeight 10
 #define BGColor FGRAY_DARKGRAY
 #define TextColor FYELLOW_LIGHTGOLDENRODYELLOW

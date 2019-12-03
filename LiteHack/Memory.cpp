@@ -24,7 +24,6 @@ int Memory::Init()
 	{
 		return FALSE;
 	}
-	System::Console::WriteLine(System::String::Format("{0:x}", GameBase));
 	return TRUE;
 }
 

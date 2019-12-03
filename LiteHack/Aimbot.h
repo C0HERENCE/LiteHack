@@ -1,7 +1,7 @@
 #pragma once
 #include "Commons.h"
 
-void NoRecoil(ASTExtraPlayerCharacter^ local_pawn);
+void NoRecoil(UShootWeaponEntity^ weaponcomp);
 
 void AimAtPos(float x, float y);
 

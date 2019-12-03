@@ -76,17 +76,6 @@ void MainLoop()
 
 
 		auto weapon = local_pawn->WeaponManagerComponent()->CurrentWeapon()->WeaponEntityComp();
-		if (weapon->BulletFireSpeed() >= 100)
-		{
-			auto attachment_array = weapon->ArrTslWeaponAttachmentData();
-			auto attachment_count = attachment_array.Length();
-			if (attachment_count > 0 && attachment_count < 10)
-			{
-				auto attachment_data = gcnew FWeaponAttachmentData(attachment_array.GetAddress());
-				attachment_data->SetZero();
-			}
-		}
 		Global::Canvas->RefreshAndSleep(16);
 	}
 }
-

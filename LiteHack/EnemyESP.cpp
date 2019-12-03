@@ -1,11 +1,4 @@
 #include "EnemyESP.h"
-#define TextWidth 150
-#define TextHeight 18.5
-#define TextAboveHead 20
-#define HealthHeight 10
-#define BGColor FGRAY_DARKGRAY
-#define TextColor FYELLOW_LIGHTGOLDENRODYELLOW
-
 void Radar(ESPInfo& info)
 {
 	FVector Pos = info.EnemyPos;
@@ -30,7 +23,7 @@ void ESPText(ESPInfo& info)
 	{
 		float boxHeight = info.RootScreenPos.Y - info.HeadScreenPos.Y;
 		float boxWidth = boxHeight / 1.7f;
-		Global::Draw->Rectangle(info.HeadScreenPos - FVector(boxWidth / 2, TextAboveHead - TextHeight - HealthHeight, 0), boxHeight, boxWidth, info.ESPColor);
+		Global::Draw->Rectangle(info.HeadScreenPos - FVector(boxWidth / 2, 0, 0), boxHeight, boxWidth, info.ESPColor);
 	}
 	if (!info.IsAI)
 		Global::Draw->Text(info.HeadScreenPos - FVector(TextWidth / 2, TextAboveHead, 0), FGRAY_BLACK, std::to_string(info.TeamID));
@@ -64,7 +57,7 @@ void ESPBone(ESPInfo& info)
 			}
 			p1 = Global::Draw->WorldToScreen(previous, info.POV);
 			c1 = Global::Draw->WorldToScreen(current, info.POV);
-			Global::Draw->Line(p1, c1, info.ESPColor, 2.0f);
+			Global::Draw->Line(p1, c1, info.ESPColor, 4.0f);
 			previous = current;
 		}
 	}

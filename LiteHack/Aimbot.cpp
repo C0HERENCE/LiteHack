@@ -1,8 +1,17 @@
 #include "Aimbot.h"
 
-void NoRecoil(ASTExtraPlayerCharacter^ local_pawn)
+void NoRecoil(UShootWeaponEntity^ weaponcomp)
 {
-	
+	auto attachment_array = weaponcomp->ArrTslWeaponAttachmentData();
+	auto attachment_count = attachment_array.Length();
+	if (attachment_count > 0 && attachment_count < 10)
+	{
+		auto attachment_data = gcnew FWeaponAttachmentData(attachment_array.GetAddress());
+		if (attachment_data->GetRecoilMultiplierVertical() != 0.f)
+		{
+			attachment_data->SetZero();
+		}
+	}
 }
 
 void Aimbot(ASTExtraPlayerCharacter^ local_pawn)
@@ -17,6 +26,9 @@ void Aimbot(ASTExtraPlayerCharacter^ local_pawn)
 			if (myBulletSpeed > 100)
 			{
 				ASTExtraPlayerCharacter^ nearest_enemy = gcnew ASTExtraPlayerCharacter(distances.begin().operator*().second);
+
+				NoRecoil(weaponcomp);
+
 				if ((GetAsyncKeyState(VK_RBUTTON) & 0x8000 || GetAsyncKeyState(VK_LBUTTON) & 0x8000))
 				{
 					FVector aimpos;
@@ -54,19 +66,20 @@ void AimAtPos(float x, float y)
 	Global::Draw->Line(FVector(ScreenCenterX, ScreenCenterY, 0) + FVector(10, 10, 0), FVector(ScreenCenterX, ScreenCenterY, 0) + FVector(-10, -10, 0), FColor(255, 0, 0), 1.2f);
 	float TargetX = 0;
 	float TargetY = 0;
+	int aimbot_speed = Global::Option->aimbot_speed;
 	if (x != 0)
 	{
 		if (x > ScreenCenterX)
 		{
 			TargetX = -(ScreenCenterX - x);
-			TargetX /= Global::Option->aimbot_speed;
+			TargetX /= aimbot_speed;
 			if (TargetX + ScreenCenterX > ScreenCenterX * 2) TargetX = 0;
 		}
 
 		if (x < ScreenCenterX)
 		{
 			TargetX = x - ScreenCenterX;
-			TargetX /= Global::Option->aimbot_speed;
+			TargetX /= aimbot_speed;
 			if (TargetX + ScreenCenterX < 0) TargetX = 0;
 		}
 	}
@@ -75,14 +88,14 @@ void AimAtPos(float x, float y)
 		if (y > ScreenCenterY)
 		{
 			TargetY = -(ScreenCenterY - y);
-			TargetY /= Global::Option->aimbot_speed;
+			TargetY /= aimbot_speed;
 			if (TargetY + ScreenCenterY > ScreenCenterY * 2) TargetY = 0;
 		}
 
 		if (y < ScreenCenterY)
 		{
 			TargetY = y - ScreenCenterY;
-			TargetY /= Global::Option->aimbot_speed;
+			TargetY /= aimbot_speed;
 			if (TargetY + ScreenCenterY < 0) TargetY = 0;
 		}
 	}

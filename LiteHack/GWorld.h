@@ -145,6 +145,8 @@ public:
 	FWeaponAttachmentData(uint64_t address) : Base(address) {}
 
 	void SetZero();
+
+	float GetRecoilMultiplierVertical();
 };
 
 ref class AActor : public Base
