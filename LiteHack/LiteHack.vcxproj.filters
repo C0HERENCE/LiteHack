@@ -88,6 +88,9 @@
     <ClCompile Include="Updates.cpp">
       <Filter>Source Files\Main</Filter>
     </ClCompile>
+    <ClCompile Include="ESPImages.cpp">
+      <Filter>Source Files\Overlay</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MainForm.h">
@@ -161,6 +164,10 @@
     </ClInclude>
     <ClInclude Include="Global.h">
       <Filter>Source Files\Main</Filter>
+    </ClInclude>
+    <ClInclude Include="stb_image.h" />
+    <ClInclude Include="Header.h">
+      <Filter>Source Files\Overlay</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

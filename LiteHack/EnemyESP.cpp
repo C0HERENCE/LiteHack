@@ -38,6 +38,7 @@ void ESPLine(ESPInfo& info)
 
 void ESPBone(ESPInfo& info)
 {
+	if (!Global::Option->bone) return;
 	if (info.Distance > Global::Option->maxBoneDis) return;
 	FVector previous(0, 0, 0);
 	FVector current, p1, c1;

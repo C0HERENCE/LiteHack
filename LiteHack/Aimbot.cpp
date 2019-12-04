@@ -27,18 +27,28 @@ void Aimbot(ASTExtraPlayerCharacter^ local_pawn)
 			{
 				ASTExtraPlayerCharacter^ nearest_enemy = gcnew ASTExtraPlayerCharacter(distances.begin().operator*().second);
 
-				NoRecoil(weaponcomp);
+				if (Global::Option->norecoil)
+				{
+					NoRecoil(weaponcomp);
+				}
 
 				if ((GetAsyncKeyState(VK_RBUTTON) & 0x8000 || GetAsyncKeyState(VK_LBUTTON) & 0x8000))
 				{
 					FVector aimpos;
 					if (weaponcomp->bHasAutoFireMode())
 					{
-						aimpos = GetBoneWithRotation(nearest_enemy, Global::Option->aimbot_part);
+						if ((GetAsyncKeyState(VK_LCONTROL) & 0x8000))
+						{
+							aimpos = GetBoneWithRotation(nearest_enemy, Global::Option->aimbot_second_part);
+						}
+						else
+						{
+							aimpos = GetBoneWithRotation(nearest_enemy, Global::Option->aimbot_part);
+						}
 					}
 					else
 					{
-						aimpos = GetBoneWithRotation(nearest_enemy, 6);
+						aimpos = GetBoneWithRotation(nearest_enemy, 7);
 					}
 					FVector velocity = nearest_enemy->RootComponent()->ComponentVelocity();
 					float FlyTime = distances.begin().operator*().first / (myBulletSpeed / 100.f);

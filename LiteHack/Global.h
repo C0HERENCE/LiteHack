@@ -11,14 +11,17 @@ void MainLoop();
 ref class Options
 {
 public:
+	// overlay
+	static bool UseHijackOverlay = true;
+
 	// color 
 	static FColor* BotColor = new FBLUE_BLUE;
 	static FColor* HumColor = new FPURPLE_BLUEVIOLET;
 	static FColor* VisColor = new FRED_RED;
 
 	// esp
-	static bool esp = false;
-	static bool bone = false;
+	static bool enemyESP = true;
+	static bool bone = true;
 	static int maxBoneDis = 100;
 	
 	// aimbot 
@@ -26,10 +29,18 @@ public:
 	static int aimbot_speed = 5;
 	static int aimbot_part = 1;
 	static float aimbot_radius = 500;
+	static int aimbot_second_part = 6;
+
+	// no recoil
+	static bool norecoil = true;
+	static bool noanimkick = true;
+	static bool noverticalrecoil = true;
+	static bool nospread = true;
+	static bool nosway = true;
 
 	//
-	static bool item = false;
-	static bool vehicle = false;
+	static bool itemESP = true;
+	static bool vehicleESP = true;
 };;
 
 ref class Global

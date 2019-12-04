@@ -28,7 +28,7 @@ void MainLoop()
 
 			//----------------------------------------------------------------------------Enemy Esp
 
-			if (current_actor->ComparisonIndex() == Global::GNames->CharacterId)
+			if ( Global::Option->enemyESP && current_actor->ComparisonIndex() == Global::GNames->CharacterId)
 			{
 				ASTExtraPlayerCharacter^ enemy = current_actor->CastTo<ASTExtraPlayerCharacter>();
 				info.TeamID = enemy->TeamID();
@@ -74,6 +74,7 @@ void MainLoop()
 		//---------------------------------------------------------------------------------Other Info
 		ShowInfo(local_pawn);
 
+		Global::Draw->Image();
 
 		auto weapon = local_pawn->WeaponManagerComponent()->CurrentWeapon()->WeaponEntityComp();
 		Global::Canvas->RefreshAndSleep(16);

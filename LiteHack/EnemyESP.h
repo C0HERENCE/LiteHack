@@ -1,7 +1,5 @@
 #include "Commons.h"
 
-
-
 #define TextWidth 150
 #define TextHeight 18.5
 #define TextAboveHead 50

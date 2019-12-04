@@ -142,10 +142,22 @@ void FWeaponAttachmentData::SetZero()
 {
 	uint64_t add = base_address;
 	uint64_t add2 = Global::GMemory->Read<uint64_t>(add);
-	Global::GMemory->Write<float>(add2 + Off::AnimationKickMultiplier, 0.f);
-	Global::GMemory->Write<float>(add2 + Off::RecoilMultiplierVertical, 0.f);
-	Global::GMemory->Write<float>(add2 + Off::MultipleFiringBulletsSpread, 0.f);
-	Global::GMemory->Write<float>(add2 + Off::SwayMultiplier, 0.f);
+	if (Global::Option->norecoil)
+	{
+		Global::GMemory->Write<float>(add2 + Off::RecoilMultiplierVertical, 0.f);
+	}
+	if (Global::Option->noverticalrecoil)
+	{
+		Global::GMemory->Write<float>(add2 + Off::AnimationKickMultiplier, 0.f);
+	}
+	if (Global::Option->nospread)
+	{
+		Global::GMemory->Write<float>(add2 + Off::MultipleFiringBulletsSpread, 0.f);
+	}
+	if (Global::Option->nosway)
+	{
+		Global::GMemory->Write<float>(add2 + Off::SwayMultiplier, 0.f);
+	}
 }
 
 float FWeaponAttachmentData::GetRecoilMultiplierVertical()

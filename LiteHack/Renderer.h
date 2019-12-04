@@ -14,6 +14,7 @@ public:
 	void Circle(FVector center, float radius, FColor color);
 	void Rectangle(FVector a, float, float, FColor color);
 	void RectangleFilled(FVector a, float, float, FColor color);
+	void Image();
 	FVector WorldToScreen(FVector WorldLocation, Off::FMinimalViewInfo POV);
 private:
 

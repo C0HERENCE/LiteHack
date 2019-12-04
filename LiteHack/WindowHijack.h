@@ -48,7 +48,7 @@ HWND HiJackNotepadWindow()
 	params.satisfyAllCriteria = true;
 	std::vector<HWND> hwnds;
 	int attempt = 0;
-	while (hwndHiHjacked == NULL || attempt > 500000) {
+	while (hwndHiHjacked == NULL || attempt > 50000) {
 		Sleep(100);
 		hwnds = WindowsFinder(params);
 		if (hwnds.size() > 1)
@@ -63,13 +63,6 @@ HWND HiJackNotepadWindow()
 		return hwndHiHjacked;
 	}
 	SetMenu(hwndHiHjacked, NULL);
-	SetWindowLongPtr(hwndHiHjacked, GWL_STYLE, WS_VISIBLE);
-	SetWindowLongPtr(hwndHiHjacked, GWL_EXSTYLE, WS_EX_TOPMOST | WS_EX_LAYERED | WS_EX_TRANSPARENT | WS_EX_TOOLWINDOW);
-	//SetLayeredWindowAttributes(hwndHiHjacked, 0, 1.0f, LWA_ALPHA);
-	//SetLayeredWindowAttributes(hwndHiHjacked, 0, RGB(0, 0, 0), LWA_COLORKEY);
-	MARGINS margins = { -1 };
-	DwmExtendFrameIntoClientArea(hwndHiHjacked, &margins);
-
 	return hwndHiHjacked;
 }
 
@@ -204,7 +197,7 @@ BOOL CALLBACK EnumWindowsCallback(HWND hwnd, LPARAM lParam) {
 
 	}
 
-	if (params.satisfyAllCriteria == 1 && unSatisfiedCriteria > 0) //满足数大于0，但要满足所有条件，继续查找
+	if (params.satisfyAllCriteria == 1 && unSatisfiedCriteria > 0)
 	{
 		return TRUE;
 	}

@@ -24,13 +24,13 @@ void Main(array<String^>^ args)
 	//	Application::Exit();
 	//	return;
 	//}
-	Application::Run(Global::MainForm);
 	if (!Global::GMemory->Init())
 	{
 		MessageBox::Show("Can't Read GameMemory");
 		Application::Exit();
 		return;
 	}
+	Application::Run(Global::MainForm);
 	#endif
 
 }
@@ -50,6 +50,7 @@ System::Void LiteHack::MainUI::btnToggleHack(System::Object^ sender, System::Eve
 	}
 	else
 	{
+		Global::Option->UseHijackOverlay = radioButton1->Checked;
 		Global::Canvas->Init();
 		Global::MainLoopThread->Start();
 		button1->Text = "Stop Hack";
@@ -67,3 +68,36 @@ System::Void LiteHack::MainUI::MainUI_FormClosing(System::Object^ sender, System
 	}
 }
 
+System::Void LiteHack::MainUI::btnUpdateOptions_Click(System::Object^ sender, System::EventArgs^ e)
+{
+	Global::Option->aimbot = switchAimbot->Checked;
+	Global::Option->aimbot_part = (int)aimPart->Value;
+	Global::Option->aimbot_radius = (float)aimRadius->Value;
+	Global::Option->aimbot_speed = (int)aimSpeed->Value;
+	Global::Option->aimbot_second_part = (int)secondAimPart->Value;
+
+	Global::Option->enemyESP = switchEnemyESP->Checked;
+	Global::Option->bone = switchBone->Checked;
+	Global::Option->maxBoneDis = maxBoneDis->Value;
+
+	Global::Option->norecoil = switchNoRecoil->Checked;
+	Global::Option->noanimkick = noanimkick->Checked;
+	Global::Option->noverticalrecoil = norecoil->Checked;
+	Global::Option->nospread = nospread->Checked;
+	Global::Option->nosway = nosway->Checked;
+}
+
+System::Void LiteHack::MainUI::switchEnemyESP_CheckedChanged(System::Object^ sender, System::EventArgs^ e)
+{
+	groupBox1->Enabled = switchEnemyESP->Checked;
+}
+
+System::Void LiteHack::MainUI::switchAimbot_CheckedChanged(System::Object^ sender, System::EventArgs^ e)
+{
+	groupBox2->Enabled = switchAimbot->Checked;
+}
+
+System::Void LiteHack::MainUI::switchNoRecoil_CheckedChanged(System::Object^ sender, System::EventArgs^ e)
+{
+	groupBox3->Enabled = switchNoRecoil->Checked;
+}
