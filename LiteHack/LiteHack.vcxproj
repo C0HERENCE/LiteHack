@@ -150,7 +150,6 @@
     <ClCompile Include="Aimbot.cpp" />
     <ClCompile Include="Commons.cpp" />
     <ClCompile Include="EnemyESP.cpp" />
-    <ClCompile Include="ESPImages.cpp" />
     <ClCompile Include="ItemsESP.cpp" />
     <ClCompile Include="MainLoop.cpp" />
     <ClCompile Include="GWorld.cpp" />
@@ -174,7 +173,6 @@
     <ClInclude Include="EnemyESP.h" />
     <ClInclude Include="Global.h" />
     <ClInclude Include="GWorld.h" />
-    <ClInclude Include="Header.h" />
     <ClInclude Include="IDA.h" />
     <ClInclude Include="imconfig.h" />
     <ClInclude Include="imgui.h" />

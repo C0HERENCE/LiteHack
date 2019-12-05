@@ -5,14 +5,12 @@
 #include "imgui_impl_win32.h"
 #include "imgui_impl_dx11.h"
 #pragma managed
-#include "Header.h"
 #include "Global.h"
 
 int Overlay::Init()
 {
 	Width = GetSystemMetrics(SM_CXSCREEN);
 	Height = GetSystemMetrics(SM_CYSCREEN);
-
 	if (Global::Option->UseHijackOverlay)
 	{
 		hwnd = HiJackNotepadWindow();
@@ -28,15 +26,10 @@ int Overlay::Init()
 		ShowWindow(hwnd, SW_SHOW);
 		UpdateWindow(hwnd);
 	}
-
 	SetWindowLongPtr(hwnd, GWL_STYLE, WS_VISIBLE);
 	SetWindowLongPtr(hwnd, GWL_EXSTYLE, WS_EX_TOPMOST | WS_EX_LAYERED | WS_EX_TRANSPARENT /*| WS_EX_TOOLWINDOW*/);
-	//SetLayeredWindowAttributes(hwnd, 0, 0, LWA_ALPHA);
-	//SetLayeredWindowAttributes(hwnd, 0, RGB(0, 0, 0), LWA_COLORKEY);
-	//SetLayeredWindowAttributes(hwnd, RGB(0, 0, 0), 255, ULW_COLORKEY | LWA_ALPHA);
 	MARGINS margins = { -1 };
 	DwmExtendFrameIntoClientArea(hwnd, &margins);
-
 	SetWindowPos(hwnd, 0, 0, 0, Width, Height, 0);
 	CreateDeviceD3D(hwnd);
 	SetWindowPos(hwnd, HWND_TOPMOST, 0, 0, Width, Height, SWP_SHOWWINDOW);
@@ -45,12 +38,6 @@ int Overlay::Init()
 	io.Fonts->AddFontFromFileTTF("C:\\Windows\\Fonts\\msyh.ttc", 18.f, NULL, io.Fonts->GetGlyphRangesChineseSimplifiedCommon());
 	ImGui_ImplWin32_Init(hwnd);
 	ImGui_ImplDX11_Init(g_pd3dDevice, g_pd3dDeviceContext);
-
-	int my_image_width = 0;
-	int my_image_height = 0;
-	bool ret = LoadTextureFromFile("Images/Ammunition/Item_Ammo_9mm_C.png", &my_texture, &my_image_width, &my_image_height);
-	IM_ASSERT(ret);
-	
 	return 1;
 }
 
@@ -140,7 +127,7 @@ void Overlay::CleanupRenderTarget()
 
 #define STB_IMAGE_IMPLEMENTATION
 #include "stb_image.h"
-bool Overlay::LoadTextureFromFile(const char* filename, ID3D11ShaderResourceView** out_srv, int* out_width, int* out_height)
+bool Overlay::LoadTextureFromFile(const char* filename, ID3D11ShaderResourceView** out_srv)
 {
 	// Load from disk into a raw RGBA buffer
 	int image_width = 0;
@@ -178,11 +165,7 @@ bool Overlay::LoadTextureFromFile(const char* filename, ID3D11ShaderResourceView
 	srvDesc.Texture2D.MostDetailedMip = 0;
 	g_pd3dDevice->CreateShaderResourceView(pTexture, &srvDesc, out_srv);
 	pTexture->Release();
-
-	*out_width = image_width;
-	*out_height = image_height;
 	stbi_image_free(image_data);
-
 	return true;
 }
 

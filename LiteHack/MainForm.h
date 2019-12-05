@@ -156,7 +156,7 @@ namespace LiteHack {
 			// 
 			// button1
 			// 
-			this->button1->Location = System::Drawing::Point(311, 377);
+			this->button1->Location = System::Drawing::Point(622, 303);
 			this->button1->Name = L"button1";
 			this->button1->Size = System::Drawing::Size(75, 23);
 			this->button1->TabIndex = 0;
@@ -167,7 +167,7 @@ namespace LiteHack {
 			// btnDeveloperMode
 			// 
 			this->btnDeveloperMode->AutoSize = true;
-			this->btnDeveloperMode->Location = System::Drawing::Point(572, 468);
+			this->btnDeveloperMode->Location = System::Drawing::Point(611, 280);
 			this->btnDeveloperMode->Name = L"btnDeveloperMode";
 			this->btnDeveloperMode->Size = System::Drawing::Size(73, 17);
 			this->btnDeveloperMode->TabIndex = 1;
@@ -194,7 +194,7 @@ namespace LiteHack {
 			this->aimSpeed->Name = L"aimSpeed";
 			this->aimSpeed->Size = System::Drawing::Size(120, 20);
 			this->aimSpeed->TabIndex = 7;
-			this->aimSpeed->Value = System::Decimal(gcnew cli::array< System::Int32 >(4) { 3, 0, 0, 0 });
+			this->aimSpeed->Value = System::Decimal(gcnew cli::array< System::Int32 >(4) { 5, 0, 0, 0 });
 			// 
 			// aimRadius
 			// 
@@ -314,7 +314,7 @@ namespace LiteHack {
 			this->secondAimPart->Name = L"secondAimPart";
 			this->secondAimPart->Size = System::Drawing::Size(61, 20);
 			this->secondAimPart->TabIndex = 10;
-			this->secondAimPart->Value = System::Decimal(gcnew cli::array< System::Int32 >(4) { 6, 0, 0, 0 });
+			this->secondAimPart->Value = System::Decimal(gcnew cli::array< System::Int32 >(4) { 7, 0, 0, 0 });
 			// 
 			// aimPart
 			// 
@@ -388,15 +388,15 @@ namespace LiteHack {
 			// 
 			// pictureBox1
 			// 
-			this->pictureBox1->Location = System::Drawing::Point(73, 412);
+			this->pictureBox1->Location = System::Drawing::Point(61, 226);
 			this->pictureBox1->Name = L"pictureBox1";
-			this->pictureBox1->Size = System::Drawing::Size(162, 126);
+			this->pictureBox1->Size = System::Drawing::Size(97, 75);
 			this->pictureBox1->TabIndex = 19;
 			this->pictureBox1->TabStop = false;
 			// 
 			// btnUpdateOptions
 			// 
-			this->btnUpdateOptions->Location = System::Drawing::Point(309, 313);
+			this->btnUpdateOptions->Location = System::Drawing::Point(609, 226);
 			this->btnUpdateOptions->Name = L"btnUpdateOptions";
 			this->btnUpdateOptions->Size = System::Drawing::Size(100, 23);
 			this->btnUpdateOptions->TabIndex = 20;
@@ -408,7 +408,7 @@ namespace LiteHack {
 			// 
 			this->radioButton1->AutoSize = true;
 			this->radioButton1->Checked = true;
-			this->radioButton1->Location = System::Drawing::Point(311, 267);
+			this->radioButton1->Location = System::Drawing::Point(446, 303);
 			this->radioButton1->Name = L"radioButton1";
 			this->radioButton1->Size = System::Drawing::Size(141, 17);
 			this->radioButton1->TabIndex = 21;
@@ -419,7 +419,7 @@ namespace LiteHack {
 			// radioButton2
 			// 
 			this->radioButton2->AutoSize = true;
-			this->radioButton2->Location = System::Drawing::Point(311, 290);
+			this->radioButton2->Location = System::Drawing::Point(446, 326);
 			this->radioButton2->Name = L"radioButton2";
 			this->radioButton2->Size = System::Drawing::Size(136, 17);
 			this->radioButton2->TabIndex = 22;
@@ -431,7 +431,7 @@ namespace LiteHack {
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
-			this->ClientSize = System::Drawing::Size(752, 619);
+			this->ClientSize = System::Drawing::Size(752, 377);
 			this->Controls->Add(this->radioButton2);
 			this->Controls->Add(this->radioButton1);
 			this->Controls->Add(this->btnUpdateOptions);

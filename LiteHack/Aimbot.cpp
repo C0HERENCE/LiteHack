@@ -48,7 +48,7 @@ void Aimbot(ASTExtraPlayerCharacter^ local_pawn)
 					}
 					else
 					{
-						aimpos = GetBoneWithRotation(nearest_enemy, 7);
+						aimpos = GetBoneWithRotation(nearest_enemy, 6);
 					}
 					FVector velocity = nearest_enemy->RootComponent()->ComponentVelocity();
 					float FlyTime = distances.begin().operator*().first / (myBulletSpeed / 100.f);
@@ -56,10 +56,11 @@ void Aimbot(ASTExtraPlayerCharacter^ local_pawn)
 					aimpos = aimpos + velocity * FlyTime;
 					auto aimScreenPos = Global::Draw->WorldToScreen(aimpos, local_pawn->STPlayerController()->CameraCache()->MinimalViewInfo());
 					AimAtPos(aimScreenPos.X, aimScreenPos.Y);
-					if (GetAsyncKeyState(VK_CAPITAL) & 0x0001)
-					{
-						mouse_event(MOUSEEVENTF_LEFTDOWN | MOUSEEVENTF_LEFTUP, 0, 0, 0, 0);
-					}
+				}
+
+				if (GetAsyncKeyState(VK_CAPITAL) & 0x0001)
+				{
+					mouse_event(MOUSEEVENTF_LEFTDOWN | MOUSEEVENTF_LEFTUP, 0, 0, 0, 0);
 				}
 			}
 		}

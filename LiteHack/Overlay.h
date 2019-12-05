@@ -10,7 +10,7 @@ public:
 	void NewFrame();
 	void RefreshAndSleep(int);
 	void CleanUp();
-	bool LoadTextureFromFile(const char* filename, ID3D11ShaderResourceView** out_srv, int* out_width, int* out_height);
+	bool LoadTextureFromFile(const char* filename, ID3D11ShaderResourceView** out_srv);
 	int Width;
 	int Height;
 //private:
@@ -24,9 +24,6 @@ public:
 	ID3D11DeviceContext* g_pd3dDeviceContext;
 	IDXGISwapChain* g_pSwapChain;
 	ID3D11RenderTargetView* g_mainRenderTargetView;
-	ID3D11BlendState* g_pBlendState;
-private:
-
 };
 
 LRESULT WINAPI WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);

@@ -38,10 +38,10 @@ void Renderer::RectangleFilled(FVector a, float h, float w, FColor color)
 	ImU32 _color = ImGui::GetColorU32({ color.R / 255.f ,color.G / 255.f ,color.B / 255.f ,1 });
 	ImGui::GetOverlayDrawList()->AddRectFilled(ImVec2(a.X, a.Y), ImVec2(a.X + w, a.Y + h), _color);
 }
-#include "Header.h"
-void Renderer::Image()
+
+void Renderer::Image(ID3D11ShaderResourceView* texture, FVector a, FVector b)
 {
-	ImGui::GetOverlayDrawList()->AddImage((void*)my_texture,ImVec2(0,0), ImVec2(100, 100));
+	ImGui::GetOverlayDrawList()->AddImage((void*)texture, ImVec2(a.X, a.Y), ImVec2(b.X, b.Y));
 }
 
 FVector Renderer::WorldToScreen(FVector WorldLocation, Off::FMinimalViewInfo POV)

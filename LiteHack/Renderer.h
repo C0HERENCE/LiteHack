@@ -2,6 +2,7 @@
 #include "Core.h"
 #include "Updates.h"
 #include <string>
+#include <d3d11.h>
 
 ref class Renderer
 {
@@ -14,7 +15,7 @@ public:
 	void Circle(FVector center, float radius, FColor color);
 	void Rectangle(FVector a, float, float, FColor color);
 	void RectangleFilled(FVector a, float, float, FColor color);
-	void Image();
+	void Image(ID3D11ShaderResourceView* texture, FVector a, FVector b);
 	FVector WorldToScreen(FVector WorldLocation, Off::FMinimalViewInfo POV);
 private:
 

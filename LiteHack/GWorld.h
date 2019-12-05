@@ -201,6 +201,8 @@ private:
 ref class ASTExtraWheeledVehicle : public AActor
 {
 public:
+	uint8_t VehicleShapeType();
+
 	ASTExtraWheeledVehicle() : AActor() {}
 
 	ASTExtraWheeledVehicle(uint64_t address) : AActor(address) {}

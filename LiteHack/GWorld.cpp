@@ -99,6 +99,15 @@ uint8_t ASTExtraPlayerCharacter::HealthStatus()
 {
 	return ReadOffset<uint8_t>(Off::HealthStatus);
 }
+
+// ASTExtraWheeledVehicle
+
+
+byte ASTExtraWheeledVehicle::VehicleShapeType()
+{
+	return ReadOffset<uint8_t>(Off::VehicleShapeType);
+}
+
 // USceneComponent
 FVector USceneComponent::ComponentVelocity()
 {

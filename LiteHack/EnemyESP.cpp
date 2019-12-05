@@ -58,7 +58,7 @@ void ESPBone(ESPInfo& info)
 			}
 			p1 = Global::Draw->WorldToScreen(previous, info.POV);
 			c1 = Global::Draw->WorldToScreen(current, info.POV);
-			Global::Draw->Line(p1, c1, info.ESPColor, 4.0f);
+			Global::Draw->Line(p1, c1, info.ESPColor, 1.2f);
 			previous = current;
 		}
 	}

@@ -1,4 +1,6 @@
 #include "EnemyESP.h"
+#include "ItemsESP.h"
+#include "VehiclesESP.h"
 #include "Aimbot.h"
 #include <iostream>
 
@@ -28,7 +30,7 @@ void MainLoop()
 
 			//----------------------------------------------------------------------------Enemy Esp
 
-			if ( Global::Option->enemyESP && current_actor->ComparisonIndex() == Global::GNames->CharacterId)
+			if ( Global::Option->enemyESP && current_actor->ComparisonIndex() == ComparisonIndexs[PlayerID])
 			{
 				ASTExtraPlayerCharacter^ enemy = current_actor->CastTo<ASTExtraPlayerCharacter>();
 				info.TeamID = enemy->TeamID();
@@ -45,7 +47,7 @@ void MainLoop()
 
 			//----------------------------------------------------------------------------Items ESP
 
-			else if (current_actor->ComparisonIndex() == Global::GNames->AirdropId)
+			else if (current_actor->ComparisonIndex() == ComparisonIndexs[AirdropID])
 			{
 				auto location = current_actor->RootComponent()->Location();
 				Global::Draw->Text(Global::Draw->WorldToScreen(location, info.POV), FGREEN_CHARTREUSE, "AirDrop [" + std::to_string((int)(location.Distance(info.LocalPos) / 100.f)) + "m]");
@@ -54,10 +56,15 @@ void MainLoop()
 
 			//----------------------------------------------------------------------------Vehicles ESP
 
-			else if (current_actor->ComparisonIndex() == Global::GNames->TombBox)
+			else if (current_actor->ComparisonIndex() == ComparisonIndexs[TombBoxID])
 			{
 				auto location = current_actor->RootComponent()->Location();
 				Global::Draw->Text(Global::Draw->WorldToScreen(location, info.POV), FGREEN_CHARTREUSE, "TombBox [" + std::to_string((int)(location.Distance(info.LocalPos) / 100.f)) + "m]");
+			}
+
+			else if (VehiclesIndexs.count(current_actor->ComparisonIndex()) == 1)
+			{
+				DrawVehicle(info, current_actor->CastTo<ASTExtraWheeledVehicle>());
 			}
 
 
@@ -71,12 +78,11 @@ void MainLoop()
 		//---------------------------------------------------------------------------------Aimbot
 		Aimbot(local_pawn);
 
+		Global::GMemory->Write<bool>(local_pawn->GetAddress() + 0xd0, false);
+
 		//---------------------------------------------------------------------------------Other Info
 		ShowInfo(local_pawn);
 
-		Global::Draw->Image();
-
-		auto weapon = local_pawn->WeaponManagerComponent()->CurrentWeapon()->WeaponEntityComp();
 		Global::Canvas->RefreshAndSleep(16);
 	}
 }

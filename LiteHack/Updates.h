@@ -50,6 +50,7 @@ public:
 	static const uint64 VehicleSeatIdx = 0x1BFC;
 	static const uint64 HealthStatus = 0x1B68;
 	// ASTExtraWheeledVehicle
+	static const uint64 VehicleShapeType = 0x0421;
 	// APickUpWrapperActor
 	// USceneComponent
 	static const uint64 RelativeLocation = 0x1A0;

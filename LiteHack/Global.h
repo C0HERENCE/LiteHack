@@ -29,7 +29,7 @@ public:
 	static int aimbot_speed = 5;
 	static int aimbot_part = 1;
 	static float aimbot_radius = 500;
-	static int aimbot_second_part = 6;
+	static int aimbot_second_part = 7;
 
 	// no recoil
 	static bool norecoil = true;
