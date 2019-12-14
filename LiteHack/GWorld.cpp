@@ -42,7 +42,7 @@ USceneComponent^ AActor::RootComponent()
 // STExtraPlayer
 UWeaponManagerComponent^ ASTExtraPlayerCharacter::WeaponManagerComponent()
 {
-	return gcnew UWeaponManagerComponent(ReadOffset<uint64_t>(Off::WeaponManager));
+	return gcnew UWeaponManagerComponent(ReadOffset<uint64_t>(Off::WeaponManagerComponent));
 }
 
 APlayerController^ ASTExtraPlayerCharacter::STPlayerController()
@@ -122,7 +122,7 @@ FVector USceneComponent::Location()
 // USkeletalMeshComponent
 uint64_t USkeletalMeshComponent::BoneArray()
 {
-	return ReadOffset<uint64_t>(Off::BoneArray);
+	return ReadOffset<uint64_t>(Off::CachedBoneSpaceTransforms);
 }
 
 FTransform USkeletalMeshComponent::ComponentToWorld()
@@ -132,7 +132,7 @@ FTransform USkeletalMeshComponent::ComponentToWorld()
 
 float USkeletalMeshComponent::LastRenderedTime()
 {
-	return ReadOffset<float>(Off::LastRenderedTime);
+	return ReadOffset<float>(Off::LastRenderTime);
 }
 
 // UWeaponManagerComponent

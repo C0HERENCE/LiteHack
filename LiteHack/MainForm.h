@@ -94,6 +94,8 @@ namespace LiteHack {
 	private: System::Windows::Forms::RadioButton^ radioButton1;
 	public:
 	private: System::Windows::Forms::RadioButton^ radioButton2;
+	public: System::Windows::Forms::CheckBox^ btnTestFunc;
+	private:
 	private:
 
 	private:
@@ -143,6 +145,7 @@ namespace LiteHack {
 			this->btnUpdateOptions = (gcnew System::Windows::Forms::Button());
 			this->radioButton1 = (gcnew System::Windows::Forms::RadioButton());
 			this->radioButton2 = (gcnew System::Windows::Forms::RadioButton());
+			this->btnTestFunc = (gcnew System::Windows::Forms::CheckBox());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->aimSpeed))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->aimRadius))->BeginInit();
 			this->groupBox1->SuspendLayout();
@@ -427,11 +430,22 @@ namespace LiteHack {
 			this->radioButton2->Text = L"Create Custom Window";
 			this->radioButton2->UseVisualStyleBackColor = true;
 			// 
+			// btnTestFunc
+			// 
+			this->btnTestFunc->AutoSize = true;
+			this->btnTestFunc->Location = System::Drawing::Point(496, 280);
+			this->btnTestFunc->Name = L"btnTestFunc";
+			this->btnTestFunc->Size = System::Drawing::Size(88, 17);
+			this->btnTestFunc->TabIndex = 23;
+			this->btnTestFunc->Text = L"TestFunction";
+			this->btnTestFunc->UseVisualStyleBackColor = true;
+			// 
 			// MainUI
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->ClientSize = System::Drawing::Size(752, 377);
+			this->Controls->Add(this->btnTestFunc);
 			this->Controls->Add(this->radioButton2);
 			this->Controls->Add(this->radioButton1);
 			this->Controls->Add(this->btnUpdateOptions);

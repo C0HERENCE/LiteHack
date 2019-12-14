@@ -107,10 +107,20 @@ void UpdateEnemyInfo(ESPInfo& info, ASTExtraPlayerCharacter^ enemy)
 
 void UpdateLocalInfo(ESPInfo& info, ASTExtraPlayerCharacter^ local_pawn)
 {
+	//System::Console::WriteLine(System::String::Format("Seat Index: {0}", local_pawn->VehicleSeatIdx()));
 	if (local_pawn->VehicleSeatIdx() == -1)
+	{
 		info.LocalPos = local_pawn->RootComponent()->Location();
+	}
 	else
+	{
 		info.LocalPos = local_pawn->CurrentVehicle()->RootComponent()->Location();
+	}
+	if (local_pawn->VehicleSeatIdx() == 0)
+	{
+		info.LocalPos.Z = local_pawn->RootComponent()->Location().Z;
+	}
+	//System::Console::WriteLine(System::String::Format("Pos: {0},{1},{2}", info.LocalPos.X, info.LocalPos.Y, info.LocalPos.Z));
 	info.POV = local_pawn->STPlayerController()->CameraCache()->MinimalViewInfo();
 	info.LocalTeamID = local_pawn->TeamID();
 }
