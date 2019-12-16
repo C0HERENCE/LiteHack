@@ -1,9 +1,6 @@
 #include "Overlay.h"
 #include "WindowHijack.h"
 #pragma unmanaged
-#include "imgui.h"
-#include "imgui_impl_win32.h"
-#include "imgui_impl_dx11.h"
 #pragma managed
 #include "Global.h"
 
@@ -34,6 +31,7 @@ int Overlay::Init()
 	CreateDeviceD3D(hwnd);
 	SetWindowPos(hwnd, HWND_TOPMOST, 0, 0, Width, Height, SWP_SHOWWINDOW);
 	ImGui::CreateContext();
+	ImGui::StyleColorsDark();
 	ImGuiIO& io = ImGui::GetIO(); (void)io;
 	io.Fonts->AddFontFromFileTTF("C:\\Windows\\Fonts\\msyh.ttc", 18.f, NULL, io.Fonts->GetGlyphRangesChineseSimplifiedCommon());
 	ImGui_ImplWin32_Init(hwnd);
@@ -48,7 +46,10 @@ void Overlay::CleanUp()
 	ImGui::DestroyContext();
 	CleanupDeviceD3D();
 	::DestroyWindow(hwnd);
-	TerminateNotepad();
+	if (Global::Option->UseHijackOverlay)
+	{
+		TerminateNotepad();
+	}
 }
 
 void Overlay::RefreshAndSleep(int sleep)

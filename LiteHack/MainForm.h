@@ -95,6 +95,8 @@ namespace LiteHack {
 	public:
 	private: System::Windows::Forms::RadioButton^ radioButton2;
 	public: System::Windows::Forms::CheckBox^ btnTestFunc;
+	private: System::Windows::Forms::Button^ button2;
+	public:
 	private:
 	private:
 
@@ -146,6 +148,7 @@ namespace LiteHack {
 			this->radioButton1 = (gcnew System::Windows::Forms::RadioButton());
 			this->radioButton2 = (gcnew System::Windows::Forms::RadioButton());
 			this->btnTestFunc = (gcnew System::Windows::Forms::CheckBox());
+			this->button2 = (gcnew System::Windows::Forms::Button());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->aimSpeed))->BeginInit();
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->aimRadius))->BeginInit();
 			this->groupBox1->SuspendLayout();
@@ -159,7 +162,7 @@ namespace LiteHack {
 			// 
 			// button1
 			// 
-			this->button1->Location = System::Drawing::Point(622, 303);
+			this->button1->Location = System::Drawing::Point(609, 320);
 			this->button1->Name = L"button1";
 			this->button1->Size = System::Drawing::Size(75, 23);
 			this->button1->TabIndex = 0;
@@ -410,18 +413,17 @@ namespace LiteHack {
 			// radioButton1
 			// 
 			this->radioButton1->AutoSize = true;
-			this->radioButton1->Checked = true;
 			this->radioButton1->Location = System::Drawing::Point(446, 303);
 			this->radioButton1->Name = L"radioButton1";
 			this->radioButton1->Size = System::Drawing::Size(141, 17);
 			this->radioButton1->TabIndex = 21;
-			this->radioButton1->TabStop = true;
 			this->radioButton1->Text = L"Hijack Notepad Window";
 			this->radioButton1->UseVisualStyleBackColor = true;
 			// 
 			// radioButton2
 			// 
 			this->radioButton2->AutoSize = true;
+			this->radioButton2->Checked = true;
 			this->radioButton2->Location = System::Drawing::Point(446, 326);
 			this->radioButton2->Name = L"radioButton2";
 			this->radioButton2->Size = System::Drawing::Size(136, 17);
@@ -440,11 +442,22 @@ namespace LiteHack {
 			this->btnTestFunc->Text = L"TestFunction";
 			this->btnTestFunc->UseVisualStyleBackColor = true;
 			// 
+			// button2
+			// 
+			this->button2->Location = System::Drawing::Point(405, 276);
+			this->button2->Name = L"button2";
+			this->button2->Size = System::Drawing::Size(75, 23);
+			this->button2->TabIndex = 24;
+			this->button2->Text = L"Start Hack";
+			this->button2->UseVisualStyleBackColor = true;
+			this->button2->Click += gcnew System::EventHandler(this, &MainUI::button2_Click);
+			// 
 			// MainUI
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->ClientSize = System::Drawing::Size(752, 377);
+			this->Controls->Add(this->button2);
 			this->Controls->Add(this->btnTestFunc);
 			this->Controls->Add(this->radioButton2);
 			this->Controls->Add(this->radioButton1);
@@ -487,5 +500,6 @@ namespace LiteHack {
 	private: System::Void switchEnemyESP_CheckedChanged(System::Object^ sender, System::EventArgs^ e);
 	private: System::Void switchNoRecoil_CheckedChanged(System::Object^ sender, System::EventArgs^ e);
 	private: System::Void switchAimbot_CheckedChanged(System::Object^ sender, System::EventArgs^ e);
+	private: System::Void button2_Click(System::Object^ sender, System::EventArgs^ e);
 };
 }

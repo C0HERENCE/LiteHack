@@ -15,32 +15,32 @@ public:
 	static bool UseHijackOverlay = true;
 
 	// color 
-	static FColor* BotColor = new FBLUE_BLUE;
-	static FColor* HumColor = new FPURPLE_BLUEVIOLET;
-	static FColor* VisColor = new FRED_RED;
+	FColor* BotColor = new FBLUE_BLUE;
+	FColor* HumColor = new FPURPLE_BLUEVIOLET;
+	FColor* VisColor = new FRED_RED;
 
 	// esp
-	static bool enemyESP = true;
-	static bool bone = true;
-	static int maxBoneDis = 100;
+	bool enemyESP = true;
+	bool bone = true;
+	int maxBoneDis = 100;
 	
 	// aimbot 
-	static bool aimbot = true;
-	static int aimbot_speed = 5;
-	static int aimbot_part = 1;
-	static float aimbot_radius = 500;
-	static int aimbot_second_part = 7;
+	bool aimbot = true;
+	int aimbot_speed = 5;
+	int aimbot_part = 1;
+	float aimbot_radius = 500;
+	int aimbot_second_part = 7;
 
 	// no recoil
-	static bool norecoil = true;
-	static bool noanimkick = true;
-	static bool noverticalrecoil = true;
-	static bool nospread = true;
-	static bool nosway = true;
+	bool norecoil = true;
+	bool noanimkick = true;
+	bool noverticalrecoil = true;
+	bool nospread = true;
+	bool nosway = true;
 
 	//
-	static bool itemESP = true;
-	static bool vehicleESP = true;
+	bool itemESP = true;
+	bool vehicleESP = true;
 };;
 
 ref class Global

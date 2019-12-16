@@ -31,10 +31,53 @@ void MainLoop()
 		System::Console::WriteLine(System::String::Format("LocalPawn: 0x{0:x}", Global::GWorld->OwningGameInstance()->LocalPlayer()->PlayerController()->LocalPawn()->GetAddress()));
 		std::cout << "Player Name: " << Global::GWorld->OwningGameInstance()->LocalPlayer()->PlayerController()->LocalPawn()->PlayerName().ToString() << std::endl;
 	}
-
+	bool showMenu = false;
+	int superjump = 0;
+	bool speedhack = false;
 	while (1)
 	{
 		Global::Canvas->NewFrame();
+		//--------------------------------------------------------------------------------Draw InGame Menu
+		if (GetAsyncKeyState(VK_OEM_3) & 0x0001) // ` key
+		{
+			showMenu = !showMenu;
+			if (showMenu)
+			{
+				SetWindowLongPtr(Global::Canvas->hwnd, GWL_EXSTYLE, WS_EX_TOPMOST | WS_EX_TRANSPARENT /*| WS_EX_TOOLWINDOW*/);
+				SetActiveWindow(Global::Canvas->hwnd);
+			}
+			else
+			{
+				SetWindowLongPtr(Global::Canvas->hwnd, GWL_EXSTYLE, WS_EX_TOPMOST | WS_EX_LAYERED | WS_EX_TRANSPARENT /*| WS_EX_TOOLWINDOW*/);
+			}
+		}
+		if (showMenu)
+		{
+			ImGui::Begin("Lite Hack");
+			ImGui::Text("What if we have a excellent in-game menu?");
+			if (ImGui::CollapsingHeader("About"))
+			{
+				ImGui::Text("ABOUT THIS HACK:");
+				ImGui::BulletText("It's made by ccwisp.");
+				ImGui::BulletText("Enjoy it!");
+				ImGui::Separator();
+				ImGui::Text("USER GUIDE:");
+				ImGui::BulletText("Press \"`(~)\" key to toggle in-game menu.");
+				ImGui::BulletText("Contact with me:");
+				ImGui::BulletText("QQ: 749976734 (ccwisp)\nDiscord: COHERENCE #3272\nGithub: https://github.com/C0HERENCE");
+				ImGui::Separator();
+			}
+			if (ImGui::CollapsingHeader("ESP Settings"))
+			{
+				pin_ptr<bool> ptr = &(Global::Option->enemyESP);
+				pin_ptr<int> ptr1 = &(Global::Option->maxBoneDis);
+				ImGui::Checkbox("Enemy ESP", ptr);
+				ImGui::SliderInt("Max Show Bone Distance: ", ptr1, 10, 200);
+				ImGui::ColorEdit3("Visible Color", (float*) & *(Global::Option->VisColor));
+			}
+
+
+		}
 		//--------------------------------------------------------------------------------Init
 		distances.clear();
 		warning_count = 0;
@@ -94,38 +137,174 @@ void MainLoop()
 			{
 				Global::Draw->Text(Global::Draw->WorldToScreen(current_actor->RootComponent()->Location(), info.POV), FGREEN_CHARTREUSE, std::to_string(current_actor->ComparisonIndex()));
 			}
-
-
 			if (Global::MainForm->btnTestFunc->Checked)
 			{
-				auto pMovement = gcnew AActor(local_pawn->ReadOffset<uint64_t>(0x0938));
-				auto pBreathe = gcnew AActor(local_pawn->ReadOffset<uint64_t>(0x0F80));
-				auto num1 = pBreathe->ReadOffset<float>(0x018c + 0x0);
-				//auto num2 = pMovement->ReadOffset<float>(0x022C +0x0);
+				if (local_pawn->Health() > 0.f && local_pawn->Health()<=100.f)
+				{
+					auto pMovement = gcnew AActor(local_pawn->ReadOffset<uint64_t>(0x0938));
 
-				Global::GMemory->Write<float>(pMovement->GetAddress() + 0x998 + 0x0, 1400.f); // prone speed
-				Global::GMemory->Write<float>(pMovement->GetAddress() + 0x9d8 + 0x0, 1500.f); // crouch speed
-				Global::GMemory->Write<float>(pMovement->GetAddress() + 0xa18 + 0x0, 1500.f); // groggy speed
-				Global::GMemory->Write<float>(pMovement->GetAddress() + 0xa20 + 0x0, 3720.f);// max acc
-				Global::GMemory->Write<float>(pMovement->GetAddress() + 0xa24 + 0x0, 3520.f);// min acc
-				Global::GMemory->Write<float>(pMovement->GetAddress() + 0x0278 + 0x0, 1.f); // mass
-				Global::GMemory->Write<float>(pMovement->GetAddress() + 0x01bc + 0x0, 886.f); // jump z
-				Global::GMemory->Write<float>(pMovement->GetAddress() + 0x022C + 0x0, 1.0f); // aircontrol;
+					Global::GMemory->Write<float>(pMovement->GetAddress() + 0x0278 + 0x0, 0.f); // mass
+					
+					Global::GMemory->Write<float>(pMovement->GetAddress() + 0x022C + 0x0, 1.0f); // aircontrol;
 
-				//Global::GMemory->Write<float>(pSwim->GetAddress() + 0x180 + 0x0, 25.5f); //swim speed factor
-
-				System::Console::WriteLine(System::String::Format("test num1: {0}", num1));
-				//System::Console::WriteLine(System::String::Format("test num2: {0}", num2));
+					//System::Console::WriteLine(System::String::Format("test num: {0}, {1}, {2}",num2.X,num2.Y,num2.Z));
+				}
 			}
 		}
 		//---------------------------------------------------------------------------------Aimbot
 		Aimbot(local_pawn);
 
-		Global::GMemory->Write<bool>(local_pawn->GetAddress() + 0xd0, false);
-
 		//---------------------------------------------------------------------------------Other Info
 		ShowInfo(local_pawn);
 
+		//---------------------------------------------------------------------------------Fast Sky Dive
+		if (GetAsyncKeyState(VK_F9) & 0x0001)
+		{
+			auto pSkyDive = gcnew AActor(local_pawn->ReadOffset<uint64_t>(0x20c8));
+			if (pSkyDive->ReadOffset<float>(0xac8 + 0x0004) <= 10000.f)
+			{
+				Global::GMemory->Write<float>(pSkyDive->GetAddress() + 0xac8 + 0x0004, 100000.f);
+			}
+			else
+			{
+				Global::GMemory->Write<float>(pSkyDive->GetAddress() + 0xac8 + 0x0004, 6500.f);
+			}
+		}
+
+		//---------------------------------------------------------------------------------Super Jump
+		if (superjump > 0)
+		{
+			superjump++;
+		}
+		if (superjump >= 10)
+		{
+			auto pMovement = gcnew AActor(local_pawn->ReadOffset<uint64_t>(0x0938));
+			superjump = 0;
+			Global::GMemory->Write<float>(pMovement->GetAddress() + 0x01bc, 443.f);
+		}
+		else if (superjump == 0 && GetAsyncKeyState(70) & 0x0001) // 70 = F
+		{
+			if (GetAsyncKeyState(VK_SPACE) & 0x0001)
+			{
+				auto pMovement = gcnew AActor(local_pawn->ReadOffset<uint64_t>(0x0938));
+				Global::GMemory->Write<float>(pMovement->GetAddress() + 0x01bc, 900.f);
+				superjump = 1;
+			}
+		}
+
+		//---------------------------------------------------------------------------------Spring Arm Length
+		if (GetAsyncKeyState(VK_OEM_PLUS) & 0x0001)
+		{
+			auto pSpringArm = gcnew AActor(local_pawn->ReadOffset<uint64_t>(0x1ca0));
+			float m = pSpringArm->ReadOffset<float>(0x02D0);
+			Global::GMemory->Write<float>(pSpringArm->GetAddress() + 0x02D0, m + 100.f);
+		}
+		if (GetAsyncKeyState(VK_OEM_MINUS) & 0x0001)
+		{
+			auto pSpringArm = gcnew AActor(local_pawn->ReadOffset<uint64_t>(0x1ca0));
+			float m = pSpringArm->ReadOffset<float>(0x02D0);
+			Global::GMemory->Write<float>(pSpringArm->GetAddress() + 0x02D0, 276.f);
+		}
+
+		//---------------------------------------------------------------------------------Speed Hack
+		if (GetAsyncKeyState(VK_CAPITAL) & 0x0001)
+		{
+			speedhack = !speedhack;
+			auto pMovement = gcnew AActor(local_pawn->ReadOffset<uint64_t>(0x0938));
+			float m2 = pMovement->ReadOffset<float>(0x82c + 0x0);
+			if (m2 >= 1000.f)
+			{
+				/*Global::GMemory->Write<float>(pMovement->GetAddress() + 0x958, 480.f);
+				Global::GMemory->Write<float>(pMovement->GetAddress() + 0x998, 120.f);
+				Global::GMemory->Write<float>(pMovement->GetAddress() + 0x9d8, 344.f);
+				Global::GMemory->Write<float>(pMovement->GetAddress() + 0xa18, 100.f);
+				Global::GMemory->Write<float>(pMovement->GetAddress() + 0x82c, 670.f);
+				Global::GMemory->Write<float>(pMovement->GetAddress() + 0xa20, 700.f);
+				Global::GMemory->Write<float>(pMovement->GetAddress() + 0xa24, 520.f);*/
+			}
+			else
+			{
+			/*	Global::GMemory->Write<float>(pMovement->GetAddress() + 0x958, 1000.F);
+				Global::GMemory->Write<float>(pMovement->GetAddress() + 0x998, 1000.F);
+				Global::GMemory->Write<float>(pMovement->GetAddress() + 0x9d8, 1000.F);
+				Global::GMemory->Write<float>(pMovement->GetAddress() + 0xa18, 1000.F);
+				Global::GMemory->Write<float>(pMovement->GetAddress() + 0x82c, 1000.F);
+				Global::GMemory->Write<float>(pMovement->GetAddress() + 0xa20, 1000.F);
+				Global::GMemory->Write<float>(pMovement->GetAddress() + 0xa24, 1000.F);*/
+			}
+		}
+		if (speedhack && local_pawn->VehicleSeatIdx() == -1)
+		{
+			auto pMovement = gcnew AActor(local_pawn->ReadOffset<uint64_t>(0x0938));
+			int pose = local_pawn->ReadOffset<int>(0x1570);
+			if (pose == 11 || pose == 19)
+			{
+				Global::GMemory->Write<float>(pMovement->GetAddress() + 0x82c, 1000.F);
+				Global::GMemory->Write<float>(pMovement->GetAddress() + 0x83c, 3.4f);
+			}
+			else
+			{
+				Global::GMemory->Write<float>(pMovement->GetAddress() + 0x82c, 670.f);
+				Global::GMemory->Write<float>(pMovement->GetAddress() + 0x83c, 0.5f);
+			}
+		}
+		else
+		{
+			auto pMovement = gcnew AActor(local_pawn->ReadOffset<uint64_t>(0x0938));
+			Global::GMemory->Write<float>(pMovement->GetAddress() + 0x82c, 670.f);
+			Global::GMemory->Write<float>(pMovement->GetAddress() + 0x83c, 0.5f);
+		}
+
+		//---------------------------------------------------------------------------------Mesh Scale
+		if (local_pawn->Health()>0.f && GetAsyncKeyState(VK_SPACE) & 0x0001)
+		{
+			//Global::GMemory->Write<FVector>(local_pawn->Mesh()->GetAddress() + 0x220 + 0x0, FVector(0.001f, 0.001f, 0.001f));
+			/*
+			if (auto num2 = local_pawn->Mesh()->ReadOffset<FVector>(0x220).X == 1.f)
+			{
+				Global::GMemory->Write<FVector>(local_pawn->Mesh()->GetAddress() + 0x220 + 0x0, FVector(0.001f, 0.001f, 0.001f)); // Mesh Scale;
+			}
+			else
+			{
+				Global::GMemory->Write<FVector>(local_pawn->Mesh()->GetAddress() + 0x220 + 0x0, FVector(1.f, 1.f, 1.f)); // Mesh Scale;
+			}*/
+			//Global::GMemory->Write<float>(local_pawn->GetAddress() + 0x0F18, -12000.f);
+			Global::GMemory->Write<FVector>(local_pawn->GetAddress() + 0x1e00, local_pawn->RootComponent()->Location + FVector(0.f, 0.f, 1000.f));
+			
+		}
+
+		//---------------------------------------------------------------------------------Car Hack
+		/*
+		struct FVehicleEngineData
+		{
+			unsigned char                                      UnknownData01[0x078];                                              // 0x0000(0x0078) (Edit)
+			float                                              MaxRPM;                                                   // 0x0078(0x0004) (Edit, ZeroConstructor, IsPlainOldData)
+			float                                              MOI;                                                      // 0x007C(0x0004) (Edit, ZeroConstructor, IsPlainOldData)
+			float                                              DampingRateFullThrottle;                                  // 0x0080(0x0004) (Edit, ZeroConstructor, IsPlainOldData)
+			float                                              DampingRateZeroThrottleClutchEngaged;                     // 0x0084(0x0004) (Edit, ZeroConstructor, IsPlainOldData)
+			float                                              DampingRateZeroThrottleClutchDisengaged;                  // 0x0088(0x0004) (Edit, ZeroConstructor, IsPlainOldData)
+			unsigned char                                      UnknownData00[0x4];                                       // 0x008C(0x0004) MISSED OFFSET
+		};
+		if (local_pawn->VehicleSeatIdx() == 0)
+		{
+			auto pCar = local_pawn->CurrentVehicle();
+			auto kph = pCar->ReadOffset<UINT64>(0x0878);
+			AActor^ mov = gcnew AActor(kph);
+
+			auto v = mov->ReadOffset<FVehicleEngineData>(0x308);
+			std::cout << v.MaxRPM << "," << v.MOI << "," << v.DampingRateFullThrottle << std::endl;
+			Global::GMemory->Write<float>(mov->GetAddress() + 0x308 + 0x0078, 1000.f);
+			Global::GMemory->Write<float>(mov->GetAddress() + 0x01D4, 1000.f);
+			Global::GMemory->Write<float>(mov->GetAddress() + 0x01b8, 1.f);
+			Global::GMemory->Write<float>(mov->GetAddress() + 0x01bc, 0.001f);
+			Global::GMemory->Write<float>(mov->GetAddress() + 0x01d0, 1.f); 
+			Global::GMemory->Write<float>(mov->GetAddress() + 0x308 + 0x007C, 5.0f); 
+			Global::GMemory->Write<float>(mov->GetAddress() + 0x308 + 0x0080, 0.01f);
+			Global::GMemory->Write<FVector>(mov->GetAddress() + 0x025C, FVector(300.f, 300.f, 300.f));
+			
+			//std::cout << std::hex << kph << std::endl;
+		}
+		*/
 		Global::Canvas->RefreshAndSleep(16);
 	}
 }

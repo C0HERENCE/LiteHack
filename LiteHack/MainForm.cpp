@@ -101,3 +101,9 @@ System::Void LiteHack::MainUI::switchNoRecoil_CheckedChanged(System::Object^ sen
 {
 	groupBox3->Enabled = switchNoRecoil->Checked;
 }
+
+System::Void LiteHack::MainUI::button2_Click(System::Object^ sender, System::EventArgs^ e)
+{
+	auto rootcomp = Global::GWorld->OwningGameInstance()->LocalPlayer()->PlayerController()->LocalPawn()->RootComponent();
+	Global::GMemory->Write<float>(rootcomp->GetAddress() + Off::RelativeLocation + 0x8, rootcomp->Location().Z + 200.f);
+}
