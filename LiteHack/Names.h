@@ -56,7 +56,8 @@ public:
 	System::String^ GetStringById(int Index);
 
 	std::string GetById(int Index);
+
+	void CacheNames();
 private:
 	uint64_t base_address;
-	void CacheNames();
 };

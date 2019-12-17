@@ -7,11 +7,8 @@
 void MainLoop()
 {
 	Global::GWorld = gcnew UWorld();
-	Global::GNames = gcnew Names();
 	Global::GWorld->Init(Global::GMemory->GetBase() + Off::UWorld);
-	Global::GNames->Init(Global::GMemory->GetBase() + Off::GNames);
 	player_keys.clear();
-
 	if (true)
 	{
 		System::Console::WriteLine(System::String::Format("GWord: 0x{0:x}", Global::GWorld->GetAddress()));
@@ -139,16 +136,7 @@ void MainLoop()
 			}
 			if (Global::MainForm->btnTestFunc->Checked)
 			{
-				if (local_pawn->Health() > 0.f && local_pawn->Health()<=100.f)
-				{
-					auto pMovement = gcnew AActor(local_pawn->ReadOffset<uint64_t>(0x0938));
 
-					Global::GMemory->Write<float>(pMovement->GetAddress() + 0x0278 + 0x0, 0.f); // mass
-					
-					Global::GMemory->Write<float>(pMovement->GetAddress() + 0x022C + 0x0, 1.0f); // aircontrol;
-
-					//System::Console::WriteLine(System::String::Format("test num: {0}, {1}, {2}",num2.X,num2.Y,num2.Z));
-				}
 			}
 		}
 		//---------------------------------------------------------------------------------Aimbot
@@ -175,21 +163,21 @@ void MainLoop()
 		if (superjump > 0)
 		{
 			superjump++;
-		}
-		if (superjump >= 10)
-		{
+			Global::Draw->Text(FVector(Global::Canvas->Width / 2.f - 100.f, 500.f, 0.f), FRED_DARKSALMON, "Super Jump Openning!");
 			auto pMovement = gcnew AActor(local_pawn->ReadOffset<uint64_t>(0x0938));
+			Global::GMemory->Write<float>(pMovement->GetAddress() + 0x01bc, 860.F);
+			//Global::GMemory->Write<float>(pMovement->GetAddress() + 0x022C + 0x0, 10.f);
+		}
+		if (superjump >= 20)
+		{
 			superjump = 0;
+			auto pMovement = gcnew AActor(local_pawn->ReadOffset<uint64_t>(0x0938));
 			Global::GMemory->Write<float>(pMovement->GetAddress() + 0x01bc, 443.f);
+			//Global::GMemory->Write<float>(pMovement->GetAddress() + 0x022C + 0x0, 10.f);
 		}
 		else if (superjump == 0 && GetAsyncKeyState(70) & 0x0001) // 70 = F
 		{
-			if (GetAsyncKeyState(VK_SPACE) & 0x0001)
-			{
-				auto pMovement = gcnew AActor(local_pawn->ReadOffset<uint64_t>(0x0938));
-				Global::GMemory->Write<float>(pMovement->GetAddress() + 0x01bc, 900.f);
-				superjump = 1;
-			}
+			superjump = 1;
 		}
 
 		//---------------------------------------------------------------------------------Spring Arm Length
@@ -255,8 +243,8 @@ void MainLoop()
 			Global::GMemory->Write<float>(pMovement->GetAddress() + 0x83c, 0.5f);
 		}
 
-		//---------------------------------------------------------------------------------Mesh Scale
-		if (local_pawn->Health()>0.f && GetAsyncKeyState(VK_SPACE) & 0x0001)
+		//---------------------------------------------------------------------------------New Func
+		if (local_pawn->Health()>0.f)
 		{
 			//Global::GMemory->Write<FVector>(local_pawn->Mesh()->GetAddress() + 0x220 + 0x0, FVector(0.001f, 0.001f, 0.001f));
 			/*
@@ -268,8 +256,8 @@ void MainLoop()
 			{
 				Global::GMemory->Write<FVector>(local_pawn->Mesh()->GetAddress() + 0x220 + 0x0, FVector(1.f, 1.f, 1.f)); // Mesh Scale;
 			}*/
-			//Global::GMemory->Write<float>(local_pawn->GetAddress() + 0x0F18, -12000.f);
-			Global::GMemory->Write<FVector>(local_pawn->GetAddress() + 0x1e00, local_pawn->RootComponent()->Location + FVector(0.f, 0.f, 1000.f));
+			//Global::GMemory->Write<float>(local_pawn->GetAddress() + 0x0F18, 88.f);
+			//Global::GMemory->Write<FVector>(local_pawn->GetAddress() + 0x1e00, local_pawn->RootComponent()->Location() + FVector(0.f, 0.f, 1000.f));
 			
 		}
 

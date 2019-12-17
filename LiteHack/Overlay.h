@@ -19,6 +19,7 @@ public:
 	int Height;
 //private:
 	HWND hwnd;
+	HWND twnd;
 	bool CreateDeviceD3D(HWND hWnd);
 	void CleanupDeviceD3D();
 	void CreateRenderTarget();

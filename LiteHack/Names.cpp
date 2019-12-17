@@ -17,8 +17,6 @@ std::map<uint8_t, ID3D11ShaderResourceView*> VehicleImages;
 void Names::Init(uint64_t address)
 {
 	base_address = Global::GMemory->Read64(address + Off::StaticGNames);
-	CacheNames();
-	LoadVehicleImages();
 }
 
 uint64_t Names::GetAddress()
@@ -161,6 +159,8 @@ void Names::CacheNames()
 			break;
 		}
 	}
+
+	LoadVehicleImages();
 }
 
 void LoadVehicleImages()
