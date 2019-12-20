@@ -149,7 +149,9 @@
   <ItemGroup>
     <ClCompile Include="Aimbot.cpp" />
     <ClCompile Include="Commons.cpp" />
+    <ClCompile Include="DevMode.cpp" />
     <ClCompile Include="EnemyESP.cpp" />
+    <ClCompile Include="FastSkyDive.cpp" />
     <ClCompile Include="ItemsESP.cpp" />
     <ClCompile Include="MainLoop.cpp" />
     <ClCompile Include="GWorld.cpp" />
@@ -161,16 +163,19 @@
     <ClCompile Include="imgui_widgets.cpp" />
     <ClCompile Include="MainForm.cpp" />
     <ClCompile Include="Memory.cpp" />
+    <ClCompile Include="Menu.cpp" />
     <ClCompile Include="Names.cpp" />
+    <ClCompile Include="NoRecoil.cpp" />
     <ClCompile Include="Overlay.cpp" />
     <ClCompile Include="Renderer.cpp" />
+    <ClCompile Include="SpeedHack.cpp" />
+    <ClCompile Include="SpringArm.cpp" />
+    <ClCompile Include="SuperJump.cpp" />
     <ClCompile Include="Updates.cpp" />
     <ClCompile Include="VehiclesESP.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Aimbot.h" />
     <ClInclude Include="Commons.h" />
-    <ClInclude Include="EnemyESP.h" />
     <ClInclude Include="Global.h" />
     <ClInclude Include="GWorld.h" />
     <ClInclude Include="IDA.h" />
@@ -182,7 +187,6 @@
     <ClInclude Include="imstb_rectpack.h" />
     <ClInclude Include="imstb_textedit.h" />
     <ClInclude Include="imstb_truetype.h" />
-    <ClInclude Include="ItemsESP.h" />
     <ClInclude Include="MainForm.h">
       <FileType>CppForm</FileType>
     </ClInclude>
@@ -193,7 +197,6 @@
     <ClInclude Include="Renderer.h" />
     <ClInclude Include="stb_image.h" />
     <ClInclude Include="Updates.h" />
-    <ClInclude Include="VehiclesESP.h" />
     <ClInclude Include="WindowHijack.h" />
   </ItemGroup>
   <ItemGroup>
@@ -256,6 +259,9 @@
     <Image Include="Images\Attachment\Item_Attach_Weapon_Upper_PM2_01_C.png" />
     <Image Include="Images\Attachment\Item_Attach_Weapon_Upper_Scope3x_C.png" />
     <Image Include="Images\Attachment\Item_Attach_Weapon_Upper_Scope6x_C.png" />
+    <Image Include="Images\CarePackage\Flying.png" />
+    <Image Include="Images\CarePackage\Normal.png" />
+    <Image Include="Images\CarePackage\Open.png" />
     <Image Include="Images\Equipment\Backpack\Item_Back_C_02_Lv3_C.png" />
     <Image Include="Images\Equipment\Backpack\Item_Back_E_02_Lv1_C.png" />
     <Image Include="Images\Equipment\Backpack\Item_Back_F_02_Lv2_C.png" />
@@ -270,6 +276,7 @@
     <Image Include="Images\Equipment\Vest\Item_Armor_C_01_Lv3_C.png" />
     <Image Include="Images\Equipment\Vest\Item_Armor_D_01_Lv2_C.png" />
     <Image Include="Images\Equipment\Vest\Item_Armor_E_01_Lv1_C.png" />
+    <Image Include="Images\Tombbox\Death.png" />
     <Image Include="Images\Use\Boost\Item_Boost_AdrenalineSyringe_C.png" />
     <Image Include="Images\Use\Boost\Item_Boost_EnergyDrink_C.png" />
     <Image Include="Images\Use\Boost\Item_Boost_PainKiller_C.png" />

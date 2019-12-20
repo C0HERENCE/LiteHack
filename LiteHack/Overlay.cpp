@@ -4,10 +4,23 @@
 #pragma managed
 #include "Global.h"
 
+#include <random>
+
 int Overlay::Init()
 {
 	Width = GetSystemMetrics(SM_CXSCREEN);
 	Height = GetSystemMetrics(SM_CYSCREEN);
+
+	// random window name
+	std::string overlayWindowName;
+	std::random_device rd;
+	std::mt19937 gen(rd());
+	std::uniform_int_distribution<> dis(0, 25);
+	std::uniform_int_distribution<> dis2(10, 15);
+	int namelen = dis(gen);
+	for (int n = 0; n < namelen; ++n)
+		overlayWindowName += char('a' + dis(gen));
+
 	if (Global::Option->UseHijackOverlay)
 	{
 		hwnd = HiJackNotepadWindow();
@@ -16,10 +29,10 @@ int Overlay::Init()
 	{
 		WNDCLASSEX wClass =
 		{
-			sizeof(WNDCLASSEX), 0, WndProc, 0, 0, nullptr, LoadIcon(nullptr, IDI_APPLICATION), LoadCursor(nullptr, IDC_ARROW), nullptr, nullptr, " ", LoadIcon(nullptr, IDI_APPLICATION)
+			sizeof(WNDCLASSEX), 0, WndProc, 0, 0, nullptr, LoadIcon(nullptr, IDI_APPLICATION), LoadCursor(nullptr, IDC_ARROW), nullptr, nullptr, overlayWindowName.c_str(), LoadIcon(nullptr, IDI_APPLICATION)
 		};
 		::RegisterClassEx(&wClass);
-		hwnd = CreateWindowEx(NULL, " ", " ", WS_POPUP | WS_VISIBLE, 0, 0, Width, Height, NULL, NULL, 0, NULL);
+		hwnd = CreateWindowEx(NULL, overlayWindowName.c_str(), overlayWindowName.c_str(), WS_POPUP | WS_VISIBLE, 0, 0, Width, Height, NULL, NULL, 0, NULL);
 		ShowWindow(hwnd, SW_SHOW);
 		UpdateWindow(hwnd);
 	}

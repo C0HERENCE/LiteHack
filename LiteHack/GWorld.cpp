@@ -122,7 +122,7 @@ FVector USceneComponent::Location()
 // USkeletalMeshComponent
 uint64_t USkeletalMeshComponent::BoneArray()
 {
-	return ReadOffset<uint64_t>(Off::CachedBoneSpaceTransforms);
+	return ReadOffset<uint64_t>(Off::BoneArray);
 }
 
 FTransform USkeletalMeshComponent::ComponentToWorld()
@@ -143,7 +143,7 @@ ASTExtraWeapon^ UWeaponManagerComponent::CurrentWeapon()
 
 UShootWeaponEntity^ ASTExtraWeapon::WeaponEntityComp()
 {
-	return gcnew UShootWeaponEntity(ReadOffset<uint64_t>(Off::WeaponEntity));
+	return gcnew UShootWeaponEntity(ReadOffset<uint64_t>(Off::WeaponEntityComp));
 }
 
 // FWeaponAttachmentData
@@ -206,7 +206,7 @@ APlayerController^ ULocalPlayer::PlayerController()
 // APlayerController
 ASTExtraPlayerCharacter^ APlayerController::LocalPawn()
 {
-	return gcnew ASTExtraPlayerCharacter(ReadOffset<uint64_t>(Off::local_pawn));
+	return gcnew ASTExtraPlayerCharacter(ReadOffset<uint64_t>(Off::STExtraBaseCharacter));
 }
 
 APlayerCameraManager^ APlayerController::CameraCache()
@@ -215,7 +215,12 @@ APlayerCameraManager^ APlayerController::CameraCache()
 }
 
 // APlayerCameraManager
-Off::FMinimalViewInfo APlayerCameraManager::MinimalViewInfo()
+FMinimalViewInfo APlayerCameraManager::MinimalViewInfo()
 {
-	return ReadOffset<Off::FMinimalViewInfo>(Off::CameraCache);
+	return
+	{
+		ReadOffset<FVector>(Off::CameraCache_POV_Location),
+		ReadOffset<FRotator>(Off::CameraCache_POV_Rotation),
+		ReadOffset<float>(Off::CameraCache_POV_FOV)
+	};
 }

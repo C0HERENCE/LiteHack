@@ -44,7 +44,7 @@ void Renderer::Image(ID3D11ShaderResourceView* texture, FVector a, FVector b)
 	ImGui::GetOverlayDrawList()->AddImage((void*)texture, ImVec2(a.X, a.Y), ImVec2(b.X, b.Y));
 }
 
-FVector Renderer::WorldToScreen(FVector WorldLocation, Off::FMinimalViewInfo POV)
+FVector Renderer::WorldToScreen(FVector WorldLocation, FMinimalViewInfo POV)
 {
 	FVector Screenlocation = FVector(0, 0, 0);
 	FRotator Rotation = POV.Rotation;

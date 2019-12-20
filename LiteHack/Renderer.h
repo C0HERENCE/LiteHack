@@ -3,7 +3,7 @@
 #include "Updates.h"
 #include <string>
 #include <d3d11.h>
-
+struct FMinimalViewInfo;
 ref class Renderer
 {
 public:
@@ -16,7 +16,7 @@ public:
 	void Rectangle(FVector a, float, float, FColor color);
 	void RectangleFilled(FVector a, float, float, FColor color);
 	void Image(ID3D11ShaderResourceView* texture, FVector a, FVector b);
-	FVector WorldToScreen(FVector WorldLocation, Off::FMinimalViewInfo POV);
+	FVector WorldToScreen(FVector WorldLocation, FMinimalViewInfo POV);
 private:
 
 };

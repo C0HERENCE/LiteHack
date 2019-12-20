@@ -1,6 +1,13 @@
 #pragma once
 #include "Updates.h"
 
+struct FMinimalViewInfo
+{
+	FVector Location;
+	FRotator Rotation;
+	float FOV;
+};
+
 ref class Base
 {
 public:
@@ -42,7 +49,7 @@ ref class APlayerCameraManager : public Base
 public:
 	APlayerCameraManager(uint64_t address) : Base(address) {}
 
-	Off::FMinimalViewInfo MinimalViewInfo();
+	FMinimalViewInfo MinimalViewInfo();
 private:
 
 };
@@ -214,6 +221,22 @@ public:
 	APickUpWrapperActor() : AActor() {}
 
 	APickUpWrapperActor(uint64_t address) : AActor(address) {}
+};
+
+ref class AAirDropBoxActor : public AActor
+{
+public:
+	AAirDropBoxActor() : AActor () {}
+
+	AAirDropBoxActor(uint64_t address) : AActor(address) {}
+};
+
+ref class APlayerTombBox : public AActor
+{
+public:
+	APlayerTombBox() : AActor() {}
+
+	APlayerTombBox(uint64_t address) : AActor(address) {}
 };
 
 ref class ULevel : public Base

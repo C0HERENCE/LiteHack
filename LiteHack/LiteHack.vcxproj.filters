@@ -5,9 +5,6 @@
       <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
       <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
     </Filter>
-    <Filter Include="Source Files\Functional">
-      <UniqueIdentifier>{7354328f-3fb0-467b-a811-a75bb7565c07}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source Files\GNames">
       <UniqueIdentifier>{ab62335d-42d2-44c9-bb61-e06a0a873f9e}</UniqueIdentifier>
     </Filter>
@@ -28,6 +25,9 @@
     </Filter>
     <Filter Include="Resources">
       <UniqueIdentifier>{58134287-a30d-413b-acad-fbd4a7f443b4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Main\Functional">
+      <UniqueIdentifier>{7354328f-3fb0-467b-a811-a75bb7565c07}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -65,19 +65,19 @@
       <Filter>Source Files\Overlay</Filter>
     </ClCompile>
     <ClCompile Include="Aimbot.cpp">
-      <Filter>Source Files\Functional</Filter>
+      <Filter>Source Files\Main\Functional</Filter>
     </ClCompile>
     <ClCompile Include="Commons.cpp">
-      <Filter>Source Files\Functional</Filter>
+      <Filter>Source Files\Main\Functional</Filter>
     </ClCompile>
     <ClCompile Include="EnemyESP.cpp">
-      <Filter>Source Files\Functional</Filter>
+      <Filter>Source Files\Main\Functional</Filter>
     </ClCompile>
     <ClCompile Include="ItemsESP.cpp">
-      <Filter>Source Files\Functional</Filter>
+      <Filter>Source Files\Main\Functional</Filter>
     </ClCompile>
     <ClCompile Include="VehiclesESP.cpp">
-      <Filter>Source Files\Functional</Filter>
+      <Filter>Source Files\Main\Functional</Filter>
     </ClCompile>
     <ClCompile Include="MainLoop.cpp">
       <Filter>Source Files\Main</Filter>
@@ -87,6 +87,27 @@
     </ClCompile>
     <ClCompile Include="Updates.cpp">
       <Filter>Source Files\Main</Filter>
+    </ClCompile>
+    <ClCompile Include="SpeedHack.cpp">
+      <Filter>Source Files\Main\Functional</Filter>
+    </ClCompile>
+    <ClCompile Include="SpringArm.cpp">
+      <Filter>Source Files\Main\Functional</Filter>
+    </ClCompile>
+    <ClCompile Include="SuperJump.cpp">
+      <Filter>Source Files\Main\Functional</Filter>
+    </ClCompile>
+    <ClCompile Include="FastSkyDive.cpp">
+      <Filter>Source Files\Main\Functional</Filter>
+    </ClCompile>
+    <ClCompile Include="DevMode.cpp">
+      <Filter>Source Files\Main\Functional</Filter>
+    </ClCompile>
+    <ClCompile Include="Menu.cpp">
+      <Filter>Source Files\Main\Functional</Filter>
+    </ClCompile>
+    <ClCompile Include="NoRecoil.cpp">
+      <Filter>Source Files\Main\Functional</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -138,20 +159,8 @@
     <ClInclude Include="Renderer.h">
       <Filter>Source Files\Overlay</Filter>
     </ClInclude>
-    <ClInclude Include="Aimbot.h">
-      <Filter>Source Files\Functional</Filter>
-    </ClInclude>
     <ClInclude Include="Commons.h">
-      <Filter>Source Files\Functional</Filter>
-    </ClInclude>
-    <ClInclude Include="EnemyESP.h">
-      <Filter>Source Files\Functional</Filter>
-    </ClInclude>
-    <ClInclude Include="ItemsESP.h">
-      <Filter>Source Files\Functional</Filter>
-    </ClInclude>
-    <ClInclude Include="VehiclesESP.h">
-      <Filter>Source Files\Functional</Filter>
+      <Filter>Source Files\Main\Functional</Filter>
     </ClInclude>
     <ClInclude Include="Updates.h">
       <Filter>Source Files\Main</Filter>
@@ -603,5 +612,9 @@
     <Image Include="Images\Vehicles\Uaz_C_00_C.png">
       <Filter>Resources</Filter>
     </Image>
+    <Image Include="Images\Tombbox\Death.png" />
+    <Image Include="Images\CarePackage\Flying.png" />
+    <Image Include="Images\CarePackage\Normal.png" />
+    <Image Include="Images\CarePackage\Open.png" />
   </ItemGroup>
 </Project>

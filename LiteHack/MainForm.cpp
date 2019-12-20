@@ -5,25 +5,9 @@ using namespace System;
 using namespace System::Windows::Forms;
 using namespace System::Collections::Generic;
 
-//#define DEBUG
-
 [STAThread]
 void Main(array<String^>^ args)
 {
-	#ifndef DEBUG
-	//if (args->Length == 0)
-	//{
-	//	MessageBox::Show("Run from HLeaker!");
-	//	Application::Exit();
-	//	return;
-	//}
-	//
-	//if (!Global::GMemory->Init(reinterpret_cast<void*>(int::Parse(args[0]))))
-	//{
-	//	MessageBox::Show("Can't Read GameMemory");
-	//	Application::Exit();
-	//	return;
-	//}
 	if (!Global::GMemory->Init())
 	{
 		MessageBox::Show("Can't Read GameMemory");
@@ -31,7 +15,6 @@ void Main(array<String^>^ args)
 		return;
 	}
 	Application::Run(Global::MainForm);
-	#endif
 
 }
 System::Void LiteHack::MainUI::MainUI_Load(System::Object^ sender, System::EventArgs^ e)
@@ -45,6 +28,8 @@ System::Void LiteHack::MainUI::MainUI_Load(System::Object^ sender, System::Event
 	}
 	System::Console::WriteLine("Now creating overlay and cache names...");
 	Global::Canvas->Init();
+	Global::Canvas->NewFrame();
+	Global::Canvas->RefreshAndSleep(1);
 	Global::GNames->Init(Global::GMemory->GetBase() + Off::GNames);
 	Global::GNames->CacheNames();
 	System::Console::WriteLine("Now Start Hack !");
@@ -54,6 +39,8 @@ System::Void LiteHack::MainUI::btnToggleHack(System::Object^ sender, System::Eve
 	if (Global::MainLoopThread->IsAlive)
 	{
 		Global::MainLoopThread->Abort();
+		Global::Canvas->NewFrame();
+		Global::Canvas->RefreshAndSleep(16);
 		Global::MainLoopThread = gcnew System::Threading::Thread(gcnew System::Threading::ThreadStart(MainLoop));
 		button1->Text = "Start Hack";
 	}
