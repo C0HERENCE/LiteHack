@@ -1,13 +1,16 @@
-#include "Renderer.h"
 #include "Global.h"
-#include "imgui.h"
-ImU32 ConvertColor(FColor color)
+#include "Renderer.h"
+
+ImU32 Renderer::ConvertColor(FColor color)
 {
-	return ImGui::GetColorU32({ color.R / 255.f ,color.G / 255.f ,color.B / 255.f ,color.A / 255.f });
-}
-ImU32 ConvertColorWithAlpha(FColor color)
-{
-	return ImGui::GetColorU32({ color.R / 255.f ,color.G / 255.f ,color.B / 255.f ,0.3f });
+	if (Alpha)
+	{
+		return ImGui::GetColorU32({ color.R / 255.f ,color.G / 255.f ,color.B / 255.f ,0.6f });
+	}
+	else
+	{
+		return ImGui::GetColorU32({ color.R / 255.f ,color.G / 255.f ,color.B / 255.f ,0.8f });
+	}
 }
 void Renderer::Line(FVector from, FVector end, FColor color, float thickness)
 {

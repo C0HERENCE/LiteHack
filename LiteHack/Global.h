@@ -26,10 +26,10 @@ public:
 	
 	// aimbot 
 	bool aimbot = true;
-	int aimbot_speed = 5;
-	int aimbot_part = 1;
+	int aimbot_speed = 3;
+	int aimbot_part = 4;
 	float aimbot_radius = 500;
-	int aimbot_second_part = 7;
+	int aimbot_second_part = 6;
 
 	// no recoil
 	bool norecoil = true;

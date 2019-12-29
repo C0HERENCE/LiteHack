@@ -178,7 +178,7 @@ float FWeaponAttachmentData::GetRecoilMultiplierVertical()
 {
 	uint64_t add = base_address;
 	uint64_t add2 = Global::GMemory->Read<uint64_t>(add);
-	return Global::GMemory->Read<float>(add2 + Off::FWeaponAttachmentData_AnimationKickMultiplier);
+	return Global::GMemory->Read<float>(add2 + Off::FWeaponAttachmentData_RecoilMultiplierVertical);
 }
 
 TArray<uint64_t> UShootWeaponEntity::ArrTslWeaponAttachmentData()

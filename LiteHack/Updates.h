@@ -58,10 +58,10 @@ public:
 	static const uint64_t bHasAutoFireMode = 0x50c; // ShootWeaponEntity -> bHasAutoFireMode
 	static const uint64_t FreefallVelocitySettings = 0xac8; // TslSkydiveComponent -> FreefallVelocitySettings
 
-	static const uint64_t FWeaponAttachmentData_SwayMultiplier = 0x38 + 0x1d8;
-	static const uint64_t FWeaponAttachmentData_RecoilMultiplierVertical = 0x38 + 0x114;
-	static const uint64_t FWeaponAttachmentData_AnimationKickMultiplier = 0x38 + 0xe4;
-	static const uint64_t FWeaponAttachmentData_MultipleFiringBulletsSpread = 0x38 + 0xe0;
+	static const uint64_t FWeaponAttachmentData_SwayMultiplier = 0x38 + SwayMultiplier;
+	static const uint64_t FWeaponAttachmentData_RecoilMultiplierVertical = 0x38 + RecoilMultiplierVertical;
+	static const uint64_t FWeaponAttachmentData_AnimationKickMultiplier = 0x38 + AnimationKickMultiplier;
+	static const uint64_t FWeaponAttachmentData_MultipleFiringBulletsSpread = 0x38 + MultipleFiringBulletsSpread;
 	static const uint64_t CameraCache_POV_Location = CameraCache + POV + Location;
 	static const uint64_t CameraCache_POV_Rotation = CameraCache + POV + Rotation;
 	static const uint64_t CameraCache_POV_FOV = CameraCache + POV + FOV;

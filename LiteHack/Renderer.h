@@ -3,12 +3,15 @@
 #include "Updates.h"
 #include <string>
 #include <d3d11.h>
+#include "imgui.h"
+
 struct FMinimalViewInfo;
 ref class Renderer
 {
 public:
 	Renderer() {};
 	~Renderer() {};
+	bool Alpha;
 	void Line(FVector from, FVector end, FColor color, float thickness);
 	void Text(FVector pos, FColor color, std::string string);
 	void Text(FVector pos, FColor color, char* string, int length);
@@ -18,7 +21,7 @@ public:
 	void Image(ID3D11ShaderResourceView* texture, FVector a, FVector b);
 	FVector WorldToScreen(FVector WorldLocation, FMinimalViewInfo POV);
 private:
-
+	ImU32 ConvertColor(FColor color);
 };
 
 #define FRED_INDIANRED  FColor(205, 92, 92)

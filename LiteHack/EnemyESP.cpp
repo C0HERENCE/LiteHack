@@ -36,7 +36,7 @@ void Radar(ESPInfo& info)
 void ESPText(ESPInfo& info)
 {
 	if (!info.Enemy.InScreen) return;
-	if (!info.Local.isGunADS)
+	if (true)
 	{
 		Global::Draw->RectangleFilled(info.Enemy.HeadScreenPos - FVector(TextWidth / 2 - TextHeight, TextAboveHead, 0), TextHeight, TextWidth - TextHeight, info.Enemy.ESPColor);
 		Global::Draw->RectangleFilled(info.Enemy.HeadScreenPos - FVector(TextWidth / 2, TextAboveHead, 0), TextHeight, TextHeight, BGColor);
@@ -47,7 +47,7 @@ void ESPText(ESPInfo& info)
 
 	Global::Draw->RectangleFilled(info.Enemy.HeadScreenPos - FVector(TextWidth / 2, TextAboveHead - TextHeight, 0), HealthHeight, TextWidth, FWHITE_ALICEBLUE);
 	Global::Draw->RectangleFilled(info.Enemy.HeadScreenPos - FVector(TextWidth / 2, TextAboveHead - TextHeight, 0), HealthHeight, info.Enemy.Health * 0.01f * TextWidth, FGREEN_LAWNGREEN);
-	if (info.Enemy.Distance < Global::Option->maxBoneDis)
+	if (info.Enemy.Distance < Global::Option->maxBoneDis || info.Local.isGunADS)
 	{
 		float boxHeight = info.Enemy.RootScreenPos.Y - info.Enemy.HeadScreenPos.Y;
 		float boxWidth = boxHeight / 1.7f;
@@ -64,7 +64,7 @@ void ESPLine(ESPInfo& info)
 void ESPBone(ESPInfo& info)
 {
 	if (!Global::Option->bone) return;
-	if (info.Enemy.Distance > Global::Option->maxBoneDis) return;
+	if (info.Enemy.Distance > Global::Option->maxBoneDis && !info.Local.isGunADS) return;
 	FVector previous(0, 0, 0);
 	FVector current, p1, c1;
 	ASTExtraPlayerCharacter^ enemy = gcnew ASTExtraPlayerCharacter(info.Enemy.Address);
@@ -146,6 +146,7 @@ void UpdateLocalInfo(ESPInfo& info, ASTExtraPlayerCharacter^ local_pawn)
 		info.Local.Pos = local_pawn->CurrentVehicle()->RootComponent()->Location();
 	else
 		info.Local.Pos = local_pawn->RootComponent()->Location();
+	Global::Draw->Alpha = info.Local.isGunADS || info.Local.isShoulderFiring;
 }
 
 void SpectorWarning(ASTExtraPlayerCharacter^ local_pawn)
