@@ -192,6 +192,8 @@ public:
 
 	uint8_t HealthStatus();
 
+	int LocalSimulateStates();
+
 	APlayerController^ STPlayerController();
 
 	ASTExtraWheeledVehicle^ CurrentVehicle();

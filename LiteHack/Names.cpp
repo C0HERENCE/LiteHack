@@ -6,6 +6,7 @@ void LoadVehicleImages();
 int AirdropID = 0;
 int TombBoxID = 1;
 int PlayerID = 2;
+int LobbyID = 3;
 std::set<int> VehiclesIndexs = {};
 std::set<int> ItemsIndexs = {};
 
@@ -18,7 +19,7 @@ ID3D11ShaderResourceView* TombboxImage;
 
 void Names::CacheNames()
 {
-	std::set<std::string> VehiclesNames = { "AquaRail_1_C","VH_PG117_C","Rony_01_C","Rony_02_C","Rony_03_C","Mirado_close_1_C","Mirado_close_2_C","Mirado_close_3_C","Mirado_close_4_C","Mirado_open_1_C","Mirado_open_2_C","Mirado_open_3_C","Mirado_open_4_C","VH_MotorcycleCart_C","VH_MotorcycleCart_1_C","VH_Motorcycle_C","VH_Motorcycle_1_C","PickUp_01_C","PickUp_02_C","PickUp_03_C","PickUp_04_C","PickUp_05_C","PickUp_06_C","PickUp_07_C","PickUp_08_C","PickUp_09_C","PickUp_10_C","VH_Scooter_C","VH_Scooter2_C","VH_Scooter3_C","VH_Scooter4_C","BP_VH_Tuk_1_C","VH_MiniBus_01_C","VH_MiniBus_02_C","VH_MiniBus_03_C","BP_VH_Buggy_C","BP_VH_Buggy_2_C","BP_VH_Buggy_3_C","BP_VH_Buggy_4_C","BP_VH_Buggy_5_C","BP_VH_Buggy_6_C","VH_Dacia_C","VH_Dacia_2_C","VH_Dacia_3_C","VH_Dacia_4_C","VH_UAZ01_C","VH_UAZ02_C","VH_UAZ03_C","VH_UAZ04_C","VH_UAZ_Armored_C" };
+	std::set<std::string> VehiclesNames = { "AquaRail_1_C","VH_PG117_C","Rony_01_C","Rony_02_C","Rony_03_C","Mirado_close_1_C","Mirado_close_2_C","Mirado_close_3_C","Mirado_close_4_C","Mirado_open_1_C","Mirado_open_2_C","Mirado_open_3_C","Mirado_open_4_C","BP_Motorbike_SideCart_1_C","BP_Motorbike_SideCart_C","BP_Motorbike_C","BP_Motorbike_1_C","PickUp_01_C","PickUp_02_C","PickUp_03_C","PickUp_04_C","PickUp_05_C","PickUp_06_C","PickUp_07_C","PickUp_08_C","PickUp_09_C","PickUp_10_C","VH_Scooter_C","VH_Scooter2_C","VH_Scooter3_C","VH_Scooter4_C","BP_VH_Tuk_1_C","VH_MiniBus_01_C","VH_MiniBus_02_C","VH_MiniBus_03_C","BP_VH_Buggy_C","BP_VH_Buggy_2_C","BP_VH_Buggy_3_C","BP_VH_Buggy_4_C","BP_VH_Buggy_5_C","BP_VH_Buggy_6_C","VH_Dacia_C","VH_Dacia_2_C","VH_Dacia_3_C","VH_Dacia_4_C","VH_UAZ01_C","VH_UAZ02_C","VH_UAZ03_C","VH_UAZ04_C","VH_UAZ_Armored_C" };
 	std::set<std::string> ItemsNames = {};
 	for (int Index = 70000; Index < 200000; Index++)
 	{
@@ -43,6 +44,10 @@ void Names::CacheNames()
 		{
 			PlayerID = Index;
 		}
+		else if (name == "BP_LitePCLobbyPC_C")
+		{
+			LobbyID = Index;
+		}
 	}
 	LoadVehicleImages();
 	Global::Canvas->LoadTextureFromFile("Images/CarePackage/Flying.png", &AirDropFlyingImages);
@@ -59,6 +64,11 @@ bool Names::IsEnemy(int id)
 bool Names::IsVehicle(int id)
 {
 	return VehiclesIndexs.count(id) == 1;
+}
+
+bool Names::IsInLobby(int id)
+{
+	return LobbyID == id;
 }
 
 bool Names::IsItem(int id)
@@ -78,7 +88,7 @@ bool Names::IsTombbox(int id)
 
 void LoadVehicleImages()
 {
-	for (int i = 1; i < 19; i++)
+	for (int i = 1; i < 29; i++)
 	{
 		ID3D11ShaderResourceView* texture;
 		std::string path = "Images/Vehicles/" + std::to_string(i) + ".png";

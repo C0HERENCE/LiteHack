@@ -37,6 +37,8 @@ public:
 	bool IsAirdrop(int id);
 
 	bool IsTombbox(int id);
+
+	bool IsInLobby(int id);
 private:
 	uint64_t base_address;
 };

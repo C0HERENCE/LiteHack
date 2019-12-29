@@ -27,8 +27,8 @@ void Radar(ESPInfo& info)
 	if (abs(Pos.X - myPos.X) < 15001 && abs(Pos.Y - myPos.Y) < 150001)
 	{
 		FVector mapPos;
-		mapPos.X = (Pos.X - myPos.X) / 157.f + (Global::Canvas->Width * 0.9166) - 3;
-		mapPos.Y = (Pos.Y - myPos.Y) / 157.f + (Global::Canvas->Height * 0.8563) - 3;
+		mapPos.X = (Pos.X - myPos.X) / 157.f + (Global::Canvas->Width * (float)0.9166) - 3;
+		mapPos.Y = (Pos.Y - myPos.Y) / 157.f + (Global::Canvas->Height * (float)0.8563) - 3;
 		Global::Draw->RectangleFilled(mapPos, 6, 6, FRED_RED);
 	}
 }
@@ -36,8 +36,15 @@ void Radar(ESPInfo& info)
 void ESPText(ESPInfo& info)
 {
 	if (!info.Enemy.InScreen) return;
-	Global::Draw->RectangleFilled(info.Enemy.HeadScreenPos - FVector(TextWidth / 2 - TextHeight, TextAboveHead, 0), TextHeight, TextWidth - TextHeight, info.Enemy.ESPColor);
-	Global::Draw->RectangleFilled(info.Enemy.HeadScreenPos - FVector(TextWidth / 2, TextAboveHead, 0), TextHeight, TextHeight, BGColor);
+	if (!info.Local.isGunADS)
+	{
+		Global::Draw->RectangleFilled(info.Enemy.HeadScreenPos - FVector(TextWidth / 2 - TextHeight, TextAboveHead, 0), TextHeight, TextWidth - TextHeight, info.Enemy.ESPColor);
+		Global::Draw->RectangleFilled(info.Enemy.HeadScreenPos - FVector(TextWidth / 2, TextAboveHead, 0), TextHeight, TextHeight, BGColor);
+		if (!info.Enemy.IsAI)
+			Global::Draw->Text(info.Enemy.HeadScreenPos - FVector(TextWidth / 2, TextAboveHead, 0), FGRAY_BLACK, std::to_string(info.Enemy.TeamID));
+		Global::Draw->Text(info.Enemy.HeadScreenPos - FVector(TextWidth / 2 - TextHeight, TextAboveHead, 0), FYELLOW_LIGHTGOLDENRODYELLOW, info.Enemy.PlayerName + "\t[" + std::to_string((int)info.Enemy.Distance) + "m]");
+	}
+
 	Global::Draw->RectangleFilled(info.Enemy.HeadScreenPos - FVector(TextWidth / 2, TextAboveHead - TextHeight, 0), HealthHeight, TextWidth, FWHITE_ALICEBLUE);
 	Global::Draw->RectangleFilled(info.Enemy.HeadScreenPos - FVector(TextWidth / 2, TextAboveHead - TextHeight, 0), HealthHeight, info.Enemy.Health * 0.01f * TextWidth, FGREEN_LAWNGREEN);
 	if (info.Enemy.Distance < Global::Option->maxBoneDis)
@@ -46,9 +53,6 @@ void ESPText(ESPInfo& info)
 		float boxWidth = boxHeight / 1.7f;
 		Global::Draw->Rectangle(info.Enemy.HeadScreenPos - FVector(boxWidth / 2, 0, 0), boxHeight, boxWidth, info.Enemy.ESPColor);
 	}
-	if (!info.Enemy.IsAI)
-		Global::Draw->Text(info.Enemy.HeadScreenPos - FVector(TextWidth / 2, TextAboveHead, 0), FGRAY_BLACK, std::to_string(info.Enemy.TeamID));
-	Global::Draw->Text(info.Enemy.HeadScreenPos - FVector(TextWidth / 2 - TextHeight, TextAboveHead, 0), FYELLOW_LIGHTGOLDENRODYELLOW, info.Enemy.PlayerName + "\t[" + std::to_string((int)info.Enemy.Distance) + "m]");
 }
 
 void ESPLine(ESPInfo& info)
@@ -97,7 +101,7 @@ void UpdateEnemyInfo(ESPInfo& info, ASTExtraPlayerCharacter^ enemy)
 	info.Enemy.IsAI = enemy->IsAI();
 	info.Enemy.PlayerName = enemy->PlayerName().ToString();
 	info.Enemy.Distance = info.Enemy.Pos.Distance(info.Local.Pos) / 100.f;
-
+	
 	// visible & color
 	info.Enemy.HeadScreenPos = Global::Draw->WorldToScreen(GetBoneWithRotation(enemy, 6), info.Local.POV);
 	info.Enemy.RootScreenPos = Global::Draw->WorldToScreen(GetBoneWithRotation(enemy, 0), info.Local.POV);
@@ -128,20 +132,20 @@ void UpdateEnemyInfo(ESPInfo& info, ASTExtraPlayerCharacter^ enemy)
 
 void UpdateLocalInfo(ESPInfo& info, ASTExtraPlayerCharacter^ local_pawn)
 {
-	if (local_pawn->VehicleSeatIdx() == -1)
-	{
-		info.Local.Pos = local_pawn->RootComponent()->Location();
-	}
-	else
-	{
-		info.Local.Pos = local_pawn->CurrentVehicle()->RootComponent()->Location();
-	}
-	if (local_pawn->VehicleSeatIdx() == 0)
-	{
-		info.Local.Pos.Z = local_pawn->RootComponent()->Location().Z;
-	}
 	info.Local.POV = local_pawn->STPlayerController()->CameraCache()->MinimalViewInfo();
 	info.Local.TeamID = local_pawn->TeamID();
+	uint64_t state = local_pawn->LocalSimulateStates();
+	info.Local.isGunADS = (state >> 9) & 1;
+	info.Local.isGunFire = (state >> 7) & 1;
+	info.Local.isInParachute = (state >> 23) & 1;
+	info.Local.isInVehicle = ((state >> 19) & 1) || ((state >> 20) & 1);
+	info.Local.isSprint = (state >> 1) & 1;
+	info.Local.isShoulderFiring = (state >> 29) & 1;
+	info.Local.isMove = (state >> 0) & 1;
+	if (info.Local.isInVehicle)
+		info.Local.Pos = local_pawn->CurrentVehicle()->RootComponent()->Location();
+	else
+		info.Local.Pos = local_pawn->RootComponent()->Location();
 }
 
 void SpectorWarning(ASTExtraPlayerCharacter^ local_pawn)

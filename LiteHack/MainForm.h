@@ -50,6 +50,7 @@ namespace LiteHack {
 		/// </summary>
 		void InitializeComponent(void)
 		{
+			System::ComponentModel::ComponentResourceManager^ resources = (gcnew System::ComponentModel::ComponentResourceManager(MainUI::typeid));
 			this->button1 = (gcnew System::Windows::Forms::Button());
 			this->btnDeveloperMode = (gcnew System::Windows::Forms::CheckBox());
 			this->SuspendLayout();

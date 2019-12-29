@@ -1,12 +1,10 @@
 #include "Commons.h"
 #include <iostream>
-
+#include <bitset>
 void MainLoop()
 {
 	Global::GWorld = gcnew UWorld();
 	Global::GWorld->Init(Global::GMemory->GetBase() + Off::UWorld);
-	player_keys.clear();
-	if (true) DebugInfo();
 	while (1)
 	{
 		Global::Canvas->NewFrame();
@@ -17,7 +15,9 @@ void MainLoop()
 		ASTExtraPlayerCharacter^ local_pawn = Global::GWorld->OwningGameInstance()->LocalPlayer()->PlayerController()->LocalPawn();
 		ESPInfo info;
 		UpdateLocalInfo(info, local_pawn);
-		for (size_t i = 0; i < Actors.Length(); i++)
+		int actor_length = Actors.Length();
+		if (actor_length > 25000) continue;
+		for (int i = 0; i < actor_length; i++)
 		{
 			AActor^ current_actor = gcnew ASTExtraPlayerCharacter(Actors.GetById(i));
 			int id = current_actor->ComparisonIndex();
@@ -25,15 +25,15 @@ void MainLoop()
 			else if (Global::GNames->IsAirdrop(id)) DrawAirdrop(info, current_actor->CastTo<AAirDropBoxActor>());
 			else if (Global::GNames->IsTombbox(id)) DrawTombbox(info, current_actor->CastTo<APlayerTombBox>());
 			else if (Global::GNames->IsVehicle(id)) DrawVehicle(info, current_actor->CastTo<ASTExtraWheeledVehicle>());
-			else if (false) DevMode(info, current_actor);
+			else if (Global::MainForm->btnDeveloperMode->Checked) DevMode(info, current_actor);
 		}
-		Aimbot(local_pawn);
+		Aimbot(info,local_pawn);
 		SpectorWarning(local_pawn);
 		NearbyEnemyWarning(local_pawn);
-		FastSkyDive(local_pawn);
+		FastSkyDive(info,local_pawn);
 		SuperJump(local_pawn);
 		SpringArm(local_pawn);
-		SpeedHack(local_pawn);
+		SpeedHack(info,local_pawn);
 		Global::Canvas->RefreshAndSleep(16);
 	}
 }

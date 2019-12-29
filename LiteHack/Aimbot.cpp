@@ -1,6 +1,6 @@
 #include "Commons.h"
 
-void Aimbot(ASTExtraPlayerCharacter^ local_pawn)
+void Aimbot(ESPInfo& info, ASTExtraPlayerCharacter^ local_pawn)
 {
 	if (Global::Option->aimbot)
 	{
@@ -8,46 +8,25 @@ void Aimbot(ASTExtraPlayerCharacter^ local_pawn)
 		{
 			Global::Draw->Circle(FVector(Global::Canvas->Width / 2.f, Global::Canvas->Height / 2.f, 0), Global::Option->aimbot_radius, FGRAY_BLACK);
 			auto weaponcomp = local_pawn->WeaponManagerComponent()->CurrentWeapon()->WeaponEntityComp();
-			float myBulletSpeed = weaponcomp->BulletFireSpeed();
-			if (myBulletSpeed > 100)
+			if (info.Local.isGunFire || info.Local.isShoulderFiring || (info.Local.isGunADS && GetAsyncKeyState(VK_LSHIFT)))
 			{
+				NoRecoil(weaponcomp);
+				if (distances.size() <= 0) return;
 				ASTExtraPlayerCharacter^ nearest_enemy = gcnew ASTExtraPlayerCharacter(distances.begin().operator*().second);
-
-				if (Global::Option->norecoil)
-				{
-					NoRecoil(weaponcomp);
-				}
-
-				if ((GetAsyncKeyState(VK_RBUTTON) & 0x8000 || GetAsyncKeyState(VK_LBUTTON) & 0x8000))
-				{
-					FVector aimpos;
-					if (weaponcomp->bHasAutoFireMode())
-					{
-						if ((GetAsyncKeyState(VK_LCONTROL) & 0x8000))
-						{
-							aimpos = GetBoneWithRotation(nearest_enemy, Global::Option->aimbot_second_part);
-						}
-						else
-						{
-							aimpos = GetBoneWithRotation(nearest_enemy, Global::Option->aimbot_part);
-						}
-					}
+				FVector aimpos;
+				if (weaponcomp->bHasAutoFireMode())
+					if ((GetAsyncKeyState(VK_LCONTROL) & 0x8000))
+						aimpos = GetBoneWithRotation(nearest_enemy, Global::Option->aimbot_second_part);
 					else
-					{
-						aimpos = GetBoneWithRotation(nearest_enemy, 6);
-					}
-					FVector velocity = nearest_enemy->RootComponent()->ComponentVelocity();
-					float FlyTime = distances.begin().operator*().first / (myBulletSpeed / 100.f);
-					float Fall = 0.98 * FlyTime * FlyTime * distances.begin().operator*().first;
-					aimpos = aimpos + velocity * FlyTime;
-					auto aimScreenPos = Global::Draw->WorldToScreen(aimpos, local_pawn->STPlayerController()->CameraCache()->MinimalViewInfo());
-					AimAtPos(aimScreenPos.X, aimScreenPos.Y);
-				}
-
-				if (GetAsyncKeyState(VK_CAPITAL) & 0x0001)
-				{
-					mouse_event(MOUSEEVENTF_LEFTDOWN | MOUSEEVENTF_LEFTUP, 0, 0, 0, 0);
-				}
+						aimpos = GetBoneWithRotation(nearest_enemy, Global::Option->aimbot_part);
+				else
+					aimpos = GetBoneWithRotation(nearest_enemy, 6);
+				FVector velocity = nearest_enemy->RootComponent()->ComponentVelocity();
+				float FlyTime = distances.begin().operator*().first / (weaponcomp->BulletFireSpeed() / 100.f);
+				float Fall = 0.98 * FlyTime * FlyTime * distances.begin().operator*().first;
+				aimpos = aimpos + velocity * FlyTime + FVector(0, 0, Fall);
+				auto aimScreenPos = Global::Draw->WorldToScreen(aimpos, local_pawn->STPlayerController()->CameraCache()->MinimalViewInfo());
+				AimAtPos(aimScreenPos.X, aimScreenPos.Y);
 			}
 		}
 	}

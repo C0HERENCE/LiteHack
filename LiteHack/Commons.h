@@ -21,6 +21,14 @@ struct ESPInfo
 		FVector Pos;
 		int TeamID;
 		FMinimalViewInfo POV;
+
+		bool isInVehicle;
+		bool isGunFire;
+		bool isGunADS;
+		bool isInParachute;
+		bool isSprint;
+		bool isShoulderFiring;
+		bool isMove;
 	} Local;
 
 	struct EnemyInfo
@@ -60,18 +68,18 @@ void NearbyEnemyWarning(ASTExtraPlayerCharacter^ local_pawn);
 void NoRecoil(UShootWeaponEntity^ weaponcomp);
 void AimAtPos(float x, float y);
 extern std::map<float, uint64_t> distances;
-void Aimbot(ASTExtraPlayerCharacter^ local_pawn);
+void Aimbot(ESPInfo& info, ASTExtraPlayerCharacter^ local_pawn);
 
 // Vehicle ESP
 void DrawVehicle(ESPInfo& info, ASTExtraWheeledVehicle^ vehicle);
 
 // Speed Hack
 extern bool speedhack;
-void SpeedHack(ASTExtraPlayerCharacter^ local_pawn);
+void SpeedHack(ESPInfo& info, ASTExtraPlayerCharacter^ local_pawn);
 void SpringArm(ASTExtraPlayerCharacter^ local_pawn);
 extern int superjump;
 void SuperJump(ASTExtraPlayerCharacter^ local_pawn);
-void FastSkyDive(ASTExtraPlayerCharacter^ local_pawn);
+void FastSkyDive(ESPInfo& info, ASTExtraPlayerCharacter^ local_pawn);
 
 // Item ESP
 void DrawTombbox(ESPInfo& info, APlayerTombBox^ item);

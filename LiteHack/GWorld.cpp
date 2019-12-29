@@ -67,12 +67,12 @@ bool ASTExtraPlayerCharacter::IsWeaponFiring()
 
 bool ASTExtraPlayerCharacter::IsAI()
 {
-	return ReadOffset<bool>(Off::isAI);
+	return ReadOffset<bool>(Off::bIsAI);
 }
 
 int ASTExtraPlayerCharacter::TeamID()
 {
-	return ReadOffset<int>(Off::teamID);
+	return ReadOffset<int>(Off::TeamID);
 }
 
 uint32_t ASTExtraPlayerCharacter::PlayerKey()
@@ -98,6 +98,11 @@ int ASTExtraPlayerCharacter::VehicleSeatIdx()
 uint8_t ASTExtraPlayerCharacter::HealthStatus()
 {
 	return ReadOffset<uint8_t>(Off::HealthStatus);
+}
+
+int ASTExtraPlayerCharacter::LocalSimulateStates()
+{
+	return ReadOffset<int>(Off::LocalSimulateStates);
 }
 
 // ASTExtraWheeledVehicle
@@ -153,19 +158,19 @@ void FWeaponAttachmentData::SetZero()
 	uint64_t add2 = Global::GMemory->Read<uint64_t>(add);
 	if (Global::Option->norecoil)
 	{
-		Global::GMemory->Write<float>(add2 + Off::RecoilMultiplierVertical, 0.f);
+		Global::GMemory->Write<float>(add2 + Off::FWeaponAttachmentData_RecoilMultiplierVertical, 0.f);
 	}
 	if (Global::Option->noverticalrecoil)
 	{
-		Global::GMemory->Write<float>(add2 + Off::AnimationKickMultiplier, 0.f);
+		Global::GMemory->Write<float>(add2 + Off::FWeaponAttachmentData_AnimationKickMultiplier, 0.f);
 	}
 	if (Global::Option->nospread)
 	{
-		Global::GMemory->Write<float>(add2 + Off::MultipleFiringBulletsSpread, 0.f);
+		Global::GMemory->Write<float>(add2 + Off::FWeaponAttachmentData_MultipleFiringBulletsSpread, 0.f);
 	}
 	if (Global::Option->nosway)
 	{
-		Global::GMemory->Write<float>(add2 + Off::SwayMultiplier, 0.f);
+		Global::GMemory->Write<float>(add2 + Off::FWeaponAttachmentData_SwayMultiplier, 0.f);
 	}
 }
 
@@ -173,7 +178,7 @@ float FWeaponAttachmentData::GetRecoilMultiplierVertical()
 {
 	uint64_t add = base_address;
 	uint64_t add2 = Global::GMemory->Read<uint64_t>(add);
-	return Global::GMemory->Read<float>(add2 + Off::AnimationKickMultiplier);
+	return Global::GMemory->Read<float>(add2 + Off::FWeaponAttachmentData_AnimationKickMultiplier);
 }
 
 TArray<uint64_t> UShootWeaponEntity::ArrTslWeaponAttachmentData()
@@ -211,7 +216,7 @@ ASTExtraPlayerCharacter^ APlayerController::LocalPawn()
 
 APlayerCameraManager^ APlayerController::CameraCache()
 {
-	return gcnew APlayerCameraManager(ReadOffset<uint64_t>(Off::CameraManager));
+	return gcnew APlayerCameraManager(ReadOffset<uint64_t>(Off::PlayerCameraManager));
 }
 
 // APlayerCameraManager

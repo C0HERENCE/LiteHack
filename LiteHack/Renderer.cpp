@@ -1,18 +1,25 @@
 #include "Renderer.h"
 #include "Global.h"
 #include "imgui.h"
-
+ImU32 ConvertColor(FColor color)
+{
+	return ImGui::GetColorU32({ color.R / 255.f ,color.G / 255.f ,color.B / 255.f ,color.A / 255.f });
+}
+ImU32 ConvertColorWithAlpha(FColor color)
+{
+	return ImGui::GetColorU32({ color.R / 255.f ,color.G / 255.f ,color.B / 255.f ,0.3f });
+}
 void Renderer::Line(FVector from, FVector end, FColor color, float thickness)
 {
 	ImVec2 _from = ImVec2(from.X, from.Y);
 	ImVec2 _end = ImVec2(end.X, end.Y);
-	ImU32 _color = ImGui::GetColorU32({ color.R / 255.f ,color.G / 255.f ,color.B / 255.f ,color.A / 255.f });
+	ImU32 _color = ConvertColor(color);
 	ImGui::GetOverlayDrawList()->AddLine(_from, _end, _color, thickness);
 }
 void Renderer::Text(FVector pos, FColor color, char* string, int length)
 {
 	ImVec2 _pos = ImVec2(pos.X, pos.Y);
-	ImU32 _color = ImGui::GetColorU32({ color.R / 255.f ,color.G / 255.f ,color.B / 255.f ,color.A / 255.f });
+	ImU32 _color = ConvertColor(color);
 	ImGui::GetOverlayDrawList()->AddText(_pos, _color, string, string + length);
 }
 void Renderer::Text(FVector pos, FColor color, std::string string)
@@ -20,22 +27,22 @@ void Renderer::Text(FVector pos, FColor color, std::string string)
 	char* _string;
 	_string = (char*)string.data();
 	ImVec2 _pos = ImVec2(pos.X, pos.Y);
-	ImU32 _color = ImGui::GetColorU32({ color.R / 255.f ,color.G / 255.f ,color.B / 255.f ,color.A / 255.f });
+	ImU32 _color = ConvertColor(color);
 	ImGui::GetOverlayDrawList()->AddText(_pos, _color, _string, _string + string.length());
 }
 void Renderer::Circle(FVector center, float radius, FColor color)
 {
-	ImU32 _color = ImGui::GetColorU32({ color.R / 255.f ,color.G / 255.f ,color.B / 255.f ,33 });
+	ImU32 _color = ConvertColor(color);
 	ImGui::GetOverlayDrawList()->AddCircle(ImVec2(center.X, center.Y), radius, _color);
 }
 void Renderer::Rectangle(FVector a, float h, float w, FColor color)
 {
-	ImU32 _color = ImGui::GetColorU32({ color.R / 255.f ,color.G / 255.f ,color.B / 255.f ,color.A / 255.f });
+	ImU32 _color = ConvertColor(color);
 	ImGui::GetOverlayDrawList()->AddRect(ImVec2(a.X, a.Y), ImVec2(a.X + w, a.Y + h), _color);
 }
 void Renderer::RectangleFilled(FVector a, float h, float w, FColor color)
 {
-	ImU32 _color = ImGui::GetColorU32({ color.R / 255.f ,color.G / 255.f ,color.B / 255.f ,1 });
+	ImU32 _color = ConvertColor(color);
 	ImGui::GetOverlayDrawList()->AddRectFilled(ImVec2(a.X, a.Y), ImVec2(a.X + w, a.Y + h), _color);
 }
 

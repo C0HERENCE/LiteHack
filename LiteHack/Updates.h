@@ -9,87 +9,81 @@ public:
 	static const uint64_t GNames = 0x470c7d0;
 	static const uint64_t StaticGNames = 0xFFFFFFFFFFEFE4B8;
 	static const uint64_t ChunkSize = 0x4100;
-	// UWorld
-	static const uint64 ulevel = 0x110;
-	static const uint64 gameinstance = 0xAD8;
-	// ULevel
-	static const uint64 actor = 0x100;
-	// UGameInstance
-	static const uint64 localplayer = 0x100;
-	// ULocalPlayer
-	static const uint64 playerconroller = 0x38;
-	// APlayerController
-	static const uint64 CameraManager = 0x460; // APlayerController -> PlayerCameraManager
-	static const uint64 CameraCache_POV_Location = 0x1610 + 0x10 + 0x0;
-	static const uint64 CameraCache_POV_Rotation = 0x1610 + 0x10 + 0x28;
-	static const uint64 CameraCache_POV_FOV = 0x1610 + 0x10 + 0x38;
-	// ULocalPlayer
-	static const uint64 STExtraBaseCharacter = 0x15F8; // ASTExtraPlayerController -> STExtraBaseCharacter
-	// AActor
-	static const uint64 ComparisonIndex = 0xc;
-	static const uint64 RootComponent = 0x02D8; // AActor -> RootComponent
-	static const uint64 Mesh = 0x0418; // ACharacter -> Mesh
-	// STExtraPlayerCharacter
-	static const uint64 PlayerName = 0x0810; // AUAECharacter -> PlayerName
-	static const uint64 PlayerKey = 0x07EC; // AUAECharacter -> PlayerKey
-	static const uint64 teamID = 0x07F4; // AUAECharacter -> TeamID
-	static const uint64 isAI = 0x082C; // AUAECharacter -> bIsAI
-	
-	static const uint64 Health = 0x0C4C; // STExtraPlayerCharacter -> Health
-	static const uint64 bIsWeaponFiring = 0x1818; // STExtraPlayerCharacter -> bIsWeaponFiring
-	static const uint64 WeaponManagerComponent = 0x0D20; // STExtraPlayerCharacter -> WeaponManagerComponent
-	static const uint64 STPlayerController = 0x2068; // STExtraPlayerCharacter -> STPlayerController
-	static const uint64 SpectatedCount = 0x1E18; // STExtraPlayerCharacter -> SpectatedCount
-	static const uint64 CurrentVehicle = 0x0C78; // STExtraPlayerCharacter -> CurrentVehicle
-	static const uint64 VehicleSeatIdx = 0x0B14; // STExtraPlayerCharacter -> VehicleSeatIdx
-	static const uint64 HealthStatus = 0x193C; // STExtraPlayerCharacter -> HealthStatus
-	static const uint64 SkydivingComponent = 0x20F0; // STExtraPlayerCharacter -> SkydivingComponent
-	static const uint64 STCharacterMovement = 0x0D70; // STExtraPlayerCharacter -> STCharacterMovement
-	static const uint64 LocalSimulateStates = 0x13B0; // STExtraPlayerCharacter -> LocalSimulateStates
-	// USTCharacterMovementComponent
-	static const uint64 JumpZVelocity = 0x01BC; // UCharacterMovementComponent -> JumpZVelocity
-	static const uint64 WalkSpeedCurveScale = 0x082C; // USTCharacterMovementComponent -> WalkSpeedCurveScale
-	static const uint64 MinWalkSpeedModifier = 0x083C; // USTCharacterMovementComponent -> MinWalkSpeedModifier
-	// UTslSkydiveComponent
-	static const uint64 FreefallVelocitySettings_SpeedMax = 0x0AC8 + 0x0004; // UTslSkydiveComponent -> FreefallVelocitySettings -> SpeedMax
-	// ASTExtraWheeledVehicle
-	static const uint64 VehicleShapeType = 0x0419; // ASTExtraVehicleBase -> VehicleShapeType
-	// APickUpWrapperActor
-	// USceneComponent
-	static const uint64 RelativeLocation = 0x01B8; // USceneComponent -> RelativeLocation
-	static const uint64 ComponentVelocity = 0x0138; // USceneComponent -> RelativeLocation
-	// USkeletalMeshComponent
-	static const uint64 BoneArray = 0x708;
-	static const uint64 ComponentToWorld = 0x220;
-	static const uint64 LastRenderTime = 0x0328; // UPrimitiveComponent -> LastRenderTime
-	// UWeaponManagerComponent
-	static const uint64 CurrentWeaponReplicated = 0x0520; // UWeaponManagerComponent -> CurrentWeaponReplicated
-	// ASTExtraWeapon
-	static const uint64 WeaponEntityComp = 0x04A0; // ASTExtraWeapon -> WeaponEntity
-	// UShootWeaponEntity
-	static const uint64 ArrTslWeaponAttachmentData = 0x0138; // UWeaponEntity -> ArrTslWeaponAttachmentData
-	static const uint64 BulletFireSpeed = 0x054C; // UShootWeaponEntity -> BulletFireSpeed
-	static const uint64 bHasAutoFireMode = 0x050C; // UShootWeaponEntity -> bHasAutoFireMode
-	// FWeaponAttachmentData
-	static const uint64 AnimationKickMultiplier = 0x38 + 0x00E4; // FWeaponAttachmentData -> AnimationKickMultiplier
-	static const uint64 RecoilMultiplierVertical = 0x38 + 0x0114; // FWeaponAttachmentData -> RecoilMultiplierVertical
-	static const uint64 MultipleFiringBulletsSpread = 0x38 + 0x00E0; // FWeaponAttachmentData -> MultipleFiringBulletsSpread
-	static const uint64 SwayMultiplier = 0x38 + 0x01D8; // FWeaponAttachmentData -> SwayMultiplier
+	static const uint64_t ulevel = 0x110;
+	static const uint64_t gameinstance = 0xAD8;
+	static const uint64_t actor = 0x100;
+	static const uint64_t localplayer = 0x100;
+	static const uint64_t playerconroller = 0x38;
+	static const uint64_t ComparisonIndex = 0xc;
+
+	static const uint64_t RootComponent = 0x2d8; // Actor -> RootComponent
+	static const uint64_t WeaponEntityComp = 0x4a0; // STExtraWeapon -> WeaponEntityComp
+	static const uint64_t RelativeLocation = 0x1b8; // SceneComponent -> RelativeLocation
+	static const uint64_t ComponentVelocity = 0x138; // SceneComponent -> ComponentVelocity
+	static const uint64_t Mesh = 0x418; // Character -> Mesh
+	static const uint64_t bIsAI = 0x82c; // UAECharacter -> bIsAI
+	static const uint64_t PlayerName = 0x810; // UAECharacter -> PlayerName
+	static const uint64_t TeamID = 0x7f4; // UAECharacter -> TeamID
+	static const uint64_t PlayerKey = 0x7ec; // UAECharacter -> PlayerKey
+	static const uint64_t SpectatedCount = 0x1e18; // STExtraBaseCharacter -> SpectatedCount
+	static const uint64_t HealthStatus = 0x193c; // STExtraBaseCharacter -> HealthStatus
+	static const uint64_t bIsWeaponFiring = 0x1818; // STExtraBaseCharacter -> bIsWeaponFiring
+	static const uint64_t LocalSimulateStates = 0x13b0; // STExtraBaseCharacter -> LocalSimulateStates
+	static const uint64_t STCharacterMovement = 0xd70; // STExtraBaseCharacter -> STCharacterMovement
+	static const uint64_t WeaponManagerComponent = 0xd20; // STExtraBaseCharacter -> WeaponManagerComponent
+	static const uint64_t CurrentVehicle = 0xc78; // STExtraBaseCharacter -> CurrentVehicle
+	static const uint64_t Health = 0xc4c; // STExtraBaseCharacter -> Health
+	static const uint64_t VehicleSeatIdx = 0xb14; // STExtraBaseCharacter -> VehicleSeatIdx
+	static const uint64_t SkydivingComponent = 0x20f0; // STExtraPlayerCharacter -> SkydivingComponent
+	static const uint64_t STPlayerController = 0x2068; // STExtraPlayerCharacter -> STPlayerController
+	static const uint64_t PlayerCameraManager = 0x460; // PlayerController -> PlayerCameraManager
+	static const uint64_t STExtraBaseCharacter = 0x15f8; // STExtraPlayerController -> STExtraBaseCharacter
+	static const uint64_t CurrentWeaponReplicated = 0x520; // WeaponManagerComponent -> CurrentWeaponReplicated
+	static const uint64_t LastRenderTime = 0x328; // PrimitiveComponent -> LastRenderTime
+	static const uint64_t FOV = 0x38; // MinimalViewInfo -> FOV
+	static const uint64_t Rotation = 0x28; // MinimalViewInfo -> Rotation
+	static const uint64_t Location = 0x0; // MinimalViewInfo -> Location
+	static const uint64_t POV = 0x10; // CameraCacheEntry -> POV
+	static const uint64_t SwayMultiplier = 0x1d8; // WeaponAttachmentData -> SwayMultiplier
+	static const uint64_t RecoilMultiplierVertical = 0x114; // WeaponAttachmentData -> RecoilMultiplierVertical
+	static const uint64_t AnimationKickMultiplier = 0xe4; // WeaponAttachmentData -> AnimationKickMultiplier
+	static const uint64_t MultipleFiringBulletsSpread = 0xe0; // WeaponAttachmentData -> MultipleFiringBulletsSpread
+	static const uint64_t ArrTslWeaponAttachmentData = 0x138; // WeaponEntity -> ArrTslWeaponAttachmentData
+	static const uint64_t CameraCache = 0x1610; // PlayerCameraManager -> CameraCache
+	static const uint64_t VehicleShapeType = 0x419; // STExtraVehicleBase -> VehicleType
+	static const uint64_t JumpZVelocity = 0x1bc; // CharacterMovementComponent -> JumpZVelocity
+	static const uint64_t MinWalkSpeedModifier = 0x83c; // STCharacterMovementComponent -> MinWalkSpeedModifier
+	static const uint64_t WalkSpeedCurveScale = 0x82c; // STCharacterMovementComponent -> WalkSpeedCurveScale
+	static const uint64_t BulletFireSpeed = 0x54c; // ShootWeaponEntity -> BulletFireSpeed
+	static const uint64_t bHasAutoFireMode = 0x50c; // ShootWeaponEntity -> bHasAutoFireMode
+	static const uint64_t FreefallVelocitySettings = 0xac8; // TslSkydiveComponent -> FreefallVelocitySettings
+
+	static const uint64_t FWeaponAttachmentData_SwayMultiplier = 0x38 + 0x1d8;
+	static const uint64_t FWeaponAttachmentData_RecoilMultiplierVertical = 0x38 + 0x114;
+	static const uint64_t FWeaponAttachmentData_AnimationKickMultiplier = 0x38 + 0xe4;
+	static const uint64_t FWeaponAttachmentData_MultipleFiringBulletsSpread = 0x38 + 0xe0;
+	static const uint64_t CameraCache_POV_Location = CameraCache + POV + Location;
+	static const uint64_t CameraCache_POV_Rotation = CameraCache + POV + Rotation;
+	static const uint64_t CameraCache_POV_FOV = CameraCache + POV + FOV;
+	static const uint64_t FreefallVelocitySettings_SpeedMax = FreefallVelocitySettings + 0x0004;
+
+	static const uint64_t BoneArray = 0x708;
+	static const uint64_t ComponentToWorld = 0x220;
 };
 
 class Dec
 {
 public:
 	// UWorld
-	static uint64 ulevel(uint64 v25);
-	static uint64 gameinstance(uint64 v1);
+	static uint64_t ulevel(uint64 v25);
+	static uint64_t gameinstance(uint64 v1);
 	// ULevel
-	static uint64 actor(uint64 v28);
+	static uint64_t actor(uint64 v28);
 	// AActor
-	static uint64 pawn(uint64 v45);
+	static uint64_t pawn(uint64 v45);
 	// UGameInstance
-	static uint64 localplayer(uint64 ENC);
+	static uint64_t localplayer(uint64 ENC);
 	// ULocalPlayer
-	static uint64 playercontroller(uint64 v9);
+	static uint64_t playercontroller(uint64 v9);
 	static uint32 ObjID(uint32 ID);
 };;
