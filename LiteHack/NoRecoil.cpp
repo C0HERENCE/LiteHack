@@ -6,16 +6,6 @@ void NoRecoil(UShootWeaponEntity^ weaponcomp)
 	if (attachment_count > 0 && attachment_count < 8)
 	{
 		auto attachment_data = gcnew FWeaponAttachmentData(attachment_array.GetAddress());
-		//auto data = Global::GMemory->Read64(attachment_data->GetAddress());
-		//auto data1 = Global::GMemory->Read<float>(data + Off::FWeaponAttachmentData_AnimationKickMultiplier);
-		//auto data2 = Global::GMemory->Read<float>(data + Off::FWeaponAttachmentData_MultipleFiringBulletsSpread);
-		//auto data3 = Global::GMemory->Read<float>(data + Off::FWeaponAttachmentData_RecoilMultiplierVertical);
-		//auto data4 = Global::GMemory->Read<float>(data + Off::FWeaponAttachmentData_SwayMultiplier);
-		//System::Console::WriteLine(data1);
-		//System::Console::WriteLine(data2);
-		//System::Console::WriteLine(data3);
-		//System::Console::WriteLine(data4);
-		//System::Console::WriteLine("xxxxxxxxxxxxxxx");
 		if (attachment_data->GetRecoilMultiplierVertical() != 0.f)
 		{
 			attachment_data->SetZero();

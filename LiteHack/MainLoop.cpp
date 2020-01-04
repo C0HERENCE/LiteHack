@@ -27,13 +27,13 @@ void MainLoop()
 			else if (Global::GNames->IsVehicle(id)) DrawVehicle(info, current_actor->CastTo<ASTExtraWheeledVehicle>());
 			else if (Global::MainForm->btnDeveloperMode->Checked) DevMode(info, current_actor);
 		}
-		Aimbot(info,local_pawn);
+		if (true) Aimbot(info,local_pawn);
 		SpectorWarning(local_pawn);
 		NearbyEnemyWarning(local_pawn);
-		FastSkyDive(info,local_pawn);
-		SuperJump(local_pawn);
-		SpringArm(local_pawn);
-		SpeedHack(info,local_pawn);
+		if (true) FastSkyDive(info,local_pawn);
+		if (false) SuperJump(local_pawn);
+		if (false) SpringArm(local_pawn);
+		if (false) SpeedHack(info,local_pawn);
 		Global::Canvas->RefreshAndSleep(16);
 	}
 }
