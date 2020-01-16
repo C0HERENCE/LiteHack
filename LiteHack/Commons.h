@@ -4,6 +4,7 @@
 #include <list>
 #include <d3d11.h>
 #include <string>
+#include <iostream>
 
 
 extern std::list<int> rightarm;

@@ -36,6 +36,12 @@ public:
 	}
 
 	template <typename T>
+	bool WriteOffset(uint64_t offset,T value)
+	{
+		return Global::GMemory->Write<T>(base_address + offset,value);
+	}
+
+	template <typename T>
 	T^ CastTo()
 	{
 		return gcnew T(base_address);

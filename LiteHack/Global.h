@@ -26,7 +26,7 @@ public:
 	
 	// aimbot 
 	bool aimbot = true;
-	int aimbot_speed = 3;
+	int aimbot_speed = 5;
 	int aimbot_part = 4;
 	float aimbot_radius = 500;
 	int aimbot_second_part = 6;

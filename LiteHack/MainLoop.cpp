@@ -1,6 +1,5 @@
 #include "Commons.h"
 #include <iostream>
-#include <bitset>
 void MainLoop()
 {
 	Global::GWorld = gcnew UWorld();
@@ -27,13 +26,13 @@ void MainLoop()
 			else if (Global::GNames->IsVehicle(id)) DrawVehicle(info, current_actor->CastTo<ASTExtraWheeledVehicle>());
 			else if (Global::MainForm->btnDeveloperMode->Checked) DevMode(info, current_actor);
 		}
-		if (true) Aimbot(info,local_pawn);
 		SpectorWarning(local_pawn);
 		NearbyEnemyWarning(local_pawn);
-		if (true) FastSkyDive(info,local_pawn);
-		if (false) SuperJump(local_pawn);
+		if (true) Aimbot(info,local_pawn);
+		if (false) FastSkyDive(info,local_pawn);
+		if (true) SuperJump(local_pawn);
 		if (false) SpringArm(local_pawn);
-		if (false) SpeedHack(info,local_pawn);
+		if (true) SpeedHack(info,local_pawn);
 		Global::Canvas->RefreshAndSleep(16);
 	}
 }

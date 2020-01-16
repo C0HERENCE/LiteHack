@@ -160,6 +160,7 @@ void FWeaponAttachmentData::SetZero()
 	{
 		Global::GMemory->Write<float>(add2 + Off::FWeaponAttachmentData_RecoilMultiplierVertical, 0.f);
 	}
+	//return;
 	if (Global::Option->noverticalrecoil)
 	{
 		Global::GMemory->Write<float>(add2 + Off::FWeaponAttachmentData_AnimationKickMultiplier, 0.f);
