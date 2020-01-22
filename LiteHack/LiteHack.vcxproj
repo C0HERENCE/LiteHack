@@ -259,9 +259,6 @@
     <Image Include="Images\Attachment\Item_Attach_Weapon_Upper_PM2_01_C.png" />
     <Image Include="Images\Attachment\Item_Attach_Weapon_Upper_Scope3x_C.png" />
     <Image Include="Images\Attachment\Item_Attach_Weapon_Upper_Scope6x_C.png" />
-    <Image Include="Images\CarePackage\Flying.png" />
-    <Image Include="Images\CarePackage\Normal.png" />
-    <Image Include="Images\CarePackage\Open.png" />
     <Image Include="Images\Equipment\Backpack\Item_Back_C_02_Lv3_C.png" />
     <Image Include="Images\Equipment\Backpack\Item_Back_E_02_Lv1_C.png" />
     <Image Include="Images\Equipment\Backpack\Item_Back_F_02_Lv2_C.png" />
@@ -276,7 +273,6 @@
     <Image Include="Images\Equipment\Vest\Item_Armor_C_01_Lv3_C.png" />
     <Image Include="Images\Equipment\Vest\Item_Armor_D_01_Lv2_C.png" />
     <Image Include="Images\Equipment\Vest\Item_Armor_E_01_Lv1_C.png" />
-    <Image Include="Images\Tombbox\Death.png" />
     <Image Include="Images\Use\Boost\Item_Boost_AdrenalineSyringe_C.png" />
     <Image Include="Images\Use\Boost\Item_Boost_EnergyDrink_C.png" />
     <Image Include="Images\Use\Boost\Item_Boost_PainKiller_C.png" />

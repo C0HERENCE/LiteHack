@@ -612,9 +612,5 @@
     <Image Include="Images\Vehicles\Uaz_C_00_C.png">
       <Filter>Resources</Filter>
     </Image>
-    <Image Include="Images\Tombbox\Death.png" />
-    <Image Include="Images\CarePackage\Flying.png" />
-    <Image Include="Images\CarePackage\Normal.png" />
-    <Image Include="Images\CarePackage\Open.png" />
   </ItemGroup>
 </Project>

@@ -1,66 +1,63 @@
 #include "Updates.h"
 #include "Global.h"
-uint64 Dec::ulevel(uint64 v5)
+uint64 Dec::ulevel(uint64 ptr)
 {
-	uint64 v11;
-	LODWORD(v11) = __ROR4__(__ROL4__(v5 + 1939245711, 8) - 493482368, 16) ^ 0xDFFF83F1;
-	HIDWORD(v11) = __ROR4__(__ROR4__(HIDWORD(v5) - 466102920, 16) - 779602935, 8) ^ 0xA1AFA16F;
-	return v11;
+	__int64 v20; // [rsp+40h] [rbp+18h]
+
+	LODWORD(v20) = __ROR4__(~__ROR4__(ptr, 16) + 553745679, 16) ^ 0xDEFE82F0;
+	HIDWORD(v20) = __ROR4__(~__ROR4__(HIDWORD(ptr), 8) - 1599168401, 8) ^ 0xA0AEA06E;
+	return v20;
 }
 uint64 Dec::gameinstance(uint64 ptr)
 {
 	__int64 v3; // [rsp+30h] [rbp+8h]
-	LODWORD(v3) = __ROL4__(__ROL4__(ptr, 16) - 58946492, 16) ^ 0xFC7C8C44;
-	HIDWORD(v3) = __ROR4__(__ROR4__(HIDWORD(ptr), 8) - 71042108, 8) ^ 0x43C043C;
+
+	LODWORD(v3) = __ROL4__(__ROL4__(ptr + 511116221, 16) + 852523252, 16) ^ 0x79597537;
+	HIDWORD(v3) = __ROR4__(__ROR4__(HIDWORD(ptr) - 2086222104, 8) + 394116991, 8) ^ 0x7290769;
 	return v3;
 }
 // ULevel
-uint64 Dec::actor(uint64 v24)
+uint64 Dec::actor(uint64 ptr)
 {
-	signed __int64 v7;
-	__int64 v9;
-	__int64 v38;
+	__int64 v3; // [rsp+30h] [rbp+8h]
 
-	v7 = Global::GWorld->GetAddress();
-
-	v9 = v24;
-	LODWORD(v7) = __ROL4__(v9 + 1670810255, 8);
-	LODWORD(v9) = __ROR4__(HIDWORD(v9) - 734538376, 16);
-	LODWORD(v7) = __ROR4__(v7 - 2109342256, 16);
-	LODWORD(v9) = __ROR4__(v9 + 1909974105, 8);
-	LODWORD(v38) = v7 ^ 0x8FAF7341;
-	HIDWORD(v38) = v9 ^ 0xF15FF11F;
-
-	return  v38;
-}
-// AActor
-uint64 Dec::pawn(uint64 v3)
-{
-	uint64 v5;
-	LODWORD(v5) = (v3 - 454596331) ^ 0x55B5619B;
-	HIDWORD(v5) = (HIDWORD(v3) + 776757835) ^ 0x2B452B85;
-	return v5;
-}
-// UGameInstance
-uint64 Dec::localplayer(uint64 v20)
-{
-	signed __int64 v1;
-	__int64 v3;
-
-	v1 = Global::GMemory->Read64(v20);
-	LODWORD(v3) = (~(v1 - 1543037276) + 680954511) ^ 0xC26256CC;
-	HIDWORD(v3) = (~(~HIDWORD(v1) + 171431288) + 588965531) ^ 0x43AD43ED;
+	LODWORD(v3) = ((ptr ^ 0x6888FC42) + 1301108050) ^ 0x7FFA56EC;
+	HIDWORD(v3) = ((HIDWORD(ptr) ^ 0x3593917) + 1309822610) ^ 0x264B7785;
 	return v3;
 }
-// ULocalPlayer
-uint64 Dec::playercontroller(uint64 v7)
+// AActor
+uint64 Dec::pawn(uint64 ptr)
 {
-	uint64 v8;
-	LODWORD(v8) = (~(_DWORD)v7 + 1901170111) ^ 0x8EAE7240,
-	HIDWORD(v8) = __ROL4__(~__ROL4__(HIDWORD(v7), 8) - 262213601, 8) ^ 0xF05EF01E;
+	__int64 v20; // [rsp+28h] [rbp-30h]
+	LODWORD(v20) = (ptr + 1273741253) ^ 0x4BEBBFC5;
+	HIDWORD(v20) = (HIDWORD(ptr) - 895169819) ^ 0x355B351B;
+	return v20;
+}
+// UGameInstance
+uint64 Dec::localplayer(uint64 ptr)
+{
+	unsigned __int64 v7 = Global::GMemory->Read64(ptr); // rcx
+	unsigned __int64 v8; // r9
+	unsigned int v9; // er8
+	__int64 v16; // [rsp+50h] [rbp+8h]
+
+	v8 = v7 >> 32;
+	v9 = (unsigned int)v7 >> 16;
+	LODWORD(v16) = (((v9 ^ (unsigned __int16)v7 | ((unsigned __int16)__ROL2__(v9, 8) << 16)) + 869467997) & 0xFFFF0000 | (unsigned __int16)((v9 ^ v7) + 1885) ^ (((v9 ^ (unsigned __int16)v7 | ((unsigned __int16)__ROL2__(v9, 8) << 16)) + 869467997) >> 16)) ^ 0x33D3075D;
+	LODWORD(v7) = (HIDWORD(v7) & 0xFFFF0000 | (unsigned __int16)__ROR2__(WORD2(v7) ^ WORD1(v8), 8)) - 1304644995;
+	HIDWORD(v16) = (((unsigned __int16)__ROL2__(WORD1(v7), 8) << 16) | (unsigned __int16)__ROR2__(v7 ^ WORD1(v7), 8)) ^ 0x4DC34D83;
+	return v16;
+}
+// ULocalPlayer
+uint64 Dec::playercontroller(uint64 ptr)
+{
+	__int64 v8; // rcx
+
+	LODWORD(v8) = __ROR4__(__ROR4__(ptr, 8) + 1736961001, 8) ^ 0x6787EBE9,
+		HIDWORD(v8) = (HIDWORD(ptr) - 431430007) ^ 0x19B71977;
 	return v8;
 }
 uint32 Dec::ObjID(uint32 v15)
 {
-	return __ROL4__(v15 ^ 0x6F08BDBC, 12) ^ (__ROL4__(v15 ^ 0x6F08BDBC, 12) << 16) ^ 0x5EA13260;
+	return __ROR4__(v15 ^ 0x7766ED5E, 14) ^ (__ROR4__(v15 ^ 0x7766ED5E, 14) << 16) ^ 0xF159012D;
 }
