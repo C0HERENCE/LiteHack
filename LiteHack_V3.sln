@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29519.87
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "LiteHack_V3", "LiteHack_V3\LiteHack_V3.vcxproj", "{D0BF15E1-E822-4237-9AC2-A48FAE6CDFAE}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x64 = Debug|x64
+		Release|x64 = Release|x64
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D0BF15E1-E822-4237-9AC2-A48FAE6CDFAE}.Debug|x64.ActiveCfg = Debug|x64
+		{D0BF15E1-E822-4237-9AC2-A48FAE6CDFAE}.Debug|x64.Build.0 = Debug|x64
+		{D0BF15E1-E822-4237-9AC2-A48FAE6CDFAE}.Release|x64.ActiveCfg = Release|x64
+		{D0BF15E1-E822-4237-9AC2-A48FAE6CDFAE}.Release|x64.Build.0 = Release|x64
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {2347DB90-4C68-4ECA-B221-381A4A1FE548}
+	EndGlobalSection
+EndGlobal
