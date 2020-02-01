@@ -28,7 +28,7 @@ void MainLoop()
 		}
 		SpectorWarning(local_pawn);
 		NearbyEnemyWarning(local_pawn);
-		if (false) Aimbot(info,local_pawn);
+		if (true) Aimbot(info,local_pawn);
 		if (false) FastSkyDive(info,local_pawn);
 		if (false) SuperJump(local_pawn);
 		if (false) SpringArm(local_pawn);

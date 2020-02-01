@@ -171,7 +171,12 @@
     <ClInclude Include="Global.h">
       <Filter>Source Files\Main</Filter>
     </ClInclude>
-    <ClInclude Include="stb_image.h" />
+    <ClInclude Include="stb_image.h">
+      <Filter>Source Files\Overlay</Filter>
+    </ClInclude>
+    <ClInclude Include="VMProtectSDK.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Images\Vehicles\AquaRail_A_00_C.png">
@@ -612,5 +617,8 @@
     <Image Include="Images\Vehicles\Uaz_C_00_C.png">
       <Filter>Resources</Filter>
     </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <Library Include="VMProtectSDK64.lib" />
   </ItemGroup>
 </Project>

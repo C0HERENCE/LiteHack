@@ -20,6 +20,7 @@ struct WindowsFinderParams {
 	bool satisfyAllCriteria = false;
 	std::vector<HWND> hwnds;
 };
+
 HWND HiJackNotepadWindow();
 std::vector<DWORD> GetPIDs(std::wstring targetProcessName);
 std::vector<HWND> WindowsFinder(WindowsFinderParams params);

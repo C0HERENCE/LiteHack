@@ -5,11 +5,11 @@ ImU32 Renderer::ConvertColor(FColor color)
 {
 	if (Alpha)
 	{
-		return ImGui::GetColorU32({ color.R / 255.f ,color.G / 255.f ,color.B / 255.f ,0.6f });
+		return ImGui::GetColorU32({ color.R / 255.f ,color.G / 255.f ,color.B / 255.f ,0.4f });
 	}
 	else
 	{
-		return ImGui::GetColorU32({ color.R / 255.f ,color.G / 255.f ,color.B / 255.f ,0.8f });
+		return ImGui::GetColorU32({ color.R / 255.f ,color.G / 255.f ,color.B / 255.f ,0.7f });
 	}
 }
 void Renderer::Line(FVector from, FVector end, FColor color, float thickness)
