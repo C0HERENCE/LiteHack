@@ -28,7 +28,7 @@ public:
 	void RefreshAndSleep(int);
 	void Cleanup();
 	void SetWindowToTarget();
-	//bool LoadTextureFromFile(const char* filename, ID3D11ShaderResourceView** out_srv);
+	bool LoadTextureFromFile(const char* filename, ID3D11ShaderResourceView** out_srv);
 
 	bool CreateDeviceD3D(HWND hWnd);
 	void CleanupDeviceD3D();
@@ -41,6 +41,5 @@ public:
 	ID3D11RenderTargetView* g_mainRenderTargetView;
 };
 
-void SetWindowToTarget();
 LRESULT WINAPI WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
 extern LRESULT ImGui_ImplWin32_WndProcHandler(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);

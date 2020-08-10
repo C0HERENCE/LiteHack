@@ -89,6 +89,7 @@
     <ClCompile Include="Source\Hack\ESP_Enemy.cpp" />
     <ClCompile Include="Source\Hack\ESP_Items.cpp" />
     <ClCompile Include="Source\Hack\ESP_Vehicles.cpp" />
+    <ClCompile Include="Source\Hack\MovementSpeed.cpp" />
     <ClCompile Include="Source\SDK\AActor.cpp" />
     <ClCompile Include="Source\SDK\Names.cpp" />
     <ClCompile Include="Source\Overlay\Imgui\imgui.cpp" />
@@ -105,6 +106,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Hack\Common.h" />
+    <ClInclude Include="Source\Overlay\stb_image.h" />
     <ClInclude Include="Source\SDK\AActor.h" />
     <ClInclude Include="Source\SDK\Names.h" />
     <ClInclude Include="Source\SDK\Core.h" />
@@ -127,6 +129,32 @@
   </ItemGroup>
   <ItemGroup>
     <Library Include="Source\Memory\VMProtectSDK64.lib" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="Source\Images\Vehicles\0.png">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</DeploymentContent>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</DeploymentContent>
+    </Image>
+    <Image Include="Source\Images\Vehicles\1.png" />
+    <Image Include="Source\Images\Vehicles\10.png" />
+    <Image Include="Source\Images\Vehicles\11.png" />
+    <Image Include="Source\Images\Vehicles\12.png" />
+    <Image Include="Source\Images\Vehicles\13.png" />
+    <Image Include="Source\Images\Vehicles\14.png" />
+    <Image Include="Source\Images\Vehicles\15.png" />
+    <Image Include="Source\Images\Vehicles\16.png" />
+    <Image Include="Source\Images\Vehicles\17.png" />
+    <Image Include="Source\Images\Vehicles\18.png" />
+    <Image Include="Source\Images\Vehicles\2.png" />
+    <Image Include="Source\Images\Vehicles\3.png" />
+    <Image Include="Source\Images\Vehicles\4.png" />
+    <Image Include="Source\Images\Vehicles\5.png" />
+    <Image Include="Source\Images\Vehicles\6.png" />
+    <Image Include="Source\Images\Vehicles\7.png" />
+    <Image Include="Source\Images\Vehicles\8.png" />
+    <Image Include="Source\Images\Vehicles\9.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -12,6 +12,7 @@ std::set<int> ItemsIndexs = {};
 bool Names::Init(uint64_t address)
 {
 	base_address = LiteHack.GMemory->Read64(address + Off::StaticGNames);
+	std::cout << GetById(1) << std::endl;
 	return GetById(1)=="ByteProperty";
 }
 
@@ -34,10 +35,7 @@ std::string Names::GetById(int Index)
 		delete name;
 		return s;
 	}
-	else
-	{
-		return "NULL";
-	}
+	return "NULL";
 }
 
 void Names::CacheNames()

@@ -34,7 +34,14 @@ void UpdateEnemyInfo(ESPInfo& info, ASTExtraPlayerCharacter enemy)
 			auto aimScreenPos = LiteHack.Draw->WorldToScreen(aimpos, info.Local.POV);
 			if (aimScreenPos.Distance(FVector(LiteHack.Canvas->Width / 2.f, LiteHack.Canvas->Height / 2.f, 0)) <= LiteHack.Option->aimbot_radius)
 			{
-				distances[info.Enemy.Distance] = info.Enemy.Address;
+				if (enemy.HealthStatus() == 0)
+				{
+					distances[info.Enemy.Distance] = info.Enemy.Address;
+				}
+				else if (enemy.HealthStatus() == 1 && !LiteHack.Option->NODBNO)
+				{
+					distances[info.Enemy.Distance] = info.Enemy.Address;
+				}
 			}
 		}
 	}

@@ -30,44 +30,45 @@ enum class PROTO_MESSAGE : uint8_t {
 class Memory
 {
 private:
-	void* control_function = 0;
 	uint64_t GameBase;
-	LONG UsermodePID;
-	LONG TargetPID;
+	HANDLE hProcess = 0;
+	// void* control_function = 0;
+	// LONG UsermodePID;
+	// LONG TargetPID;
 
-	template<typename ... A>
-	uint64_t call_hook(const A ... arguments)
-	{
-		const auto control = static_cast<uint64_t(__stdcall*)(A...)>(control_function);
-		return control(arguments ...);
-	}
+	// template<typename ... A>
+	// uint64_t call_hook(const A ... arguments)
+	// {
+	// 	const auto control = static_cast<uint64_t(__stdcall*)(A...)>(control_function);
+	// 	return control(arguments ...);
+	// }
 
-	template<typename T>
-	T KernelRead(const uint64_t& w_read)
-	{
-		T writeMe{};
-		if (w_read > 0x7FFFFFFFFFFF || w_read < 1) return T();
-		int size = sizeof(T);
-		MEMORY_STRUCT rStruct
-		{
-			(BYTE)PROTO_MESSAGE::READ, UsermodePID, TargetPID, GameBase, (void*)w_read, size, &writeMe
-		};
-		call_hook(&rStruct);
-		return writeMe;
-	}
+	// template<typename T>
+	// T KernelRead(const uint64_t& w_read)
+	// {
+	// 	T writeMe{};
+	// 	if (w_read > 0x7FFFFFFFFFFF || w_read < 1) return T();
+	// 	int size = sizeof(T);
+	// 	MEMORY_STRUCT rStruct
+	// 	{
+	// 		(BYTE)PROTO_MESSAGE::READ, UsermodePID, TargetPID, GameBase, (void*)w_read, size, &writeMe
+	// 	};
+	// 	call_hook(&rStruct);
+	// 	return writeMe;
+	// }
 
-	template<typename T>
-	BOOL KernelWrite(T what, const uint64_t& w_write)
-	{
-		T writeMe{};
-		if (w_write > 0x7FFFFFFFFFFF || w_write < 1) return (T)0;
-		int size = sizeof(T);
-		MEMORY_STRUCT rStruct
-		{
-			(BYTE)PROTO_MESSAGE::WRITE, UsermodePID, TargetPID, GameBase, (void*)w_write, size, &writeMe
-		};
-		return call_hook(&rStruct);
-	}
+	// template<typename T>
+	// BOOL KernelWrite(T what, const uint64_t& w_write)
+	// {
+	// 	T writeMe{};
+	// 	if (w_write > 0x7FFFFFFFFFFF || w_write < 1) return false;
+	// 	int size = sizeof(T);
+	// 	MEMORY_STRUCT rStruct
+	// 	{
+	// 		(BYTE)PROTO_MESSAGE::WRITE, UsermodePID, TargetPID, GameBase, (T*)w_write, size, &writeMe
+	// 	};
+	// 	return call_hook(&rStruct);
+	// }
 
 public:
 	Memory();
@@ -83,7 +84,8 @@ public:
 	template<typename T>
 	bool Write(const uint64_t& w_write, T what)
 	{
-		return KernelWrite<T>(what, w_write);
+		// return KernelWrite<T>(what, w_write);
+		return false;
 	}
 
 	byte* ReadSize(const int64_t& w_read, const int32_t& w_readSize);
@@ -92,6 +94,9 @@ public:
 
 	template<typename T> T Read(const uint64_t& w_read)
 	{
-		return KernelRead<T>(w_read);
+		// return KernelRead<T>(w_read);
+		T buff;
+		ReadProcessMemory(hProcess, (LPCVOID)w_read, &buff, sizeof(T), NULL);
+		return buff;
 	}
 };

@@ -70,3 +70,16 @@ void Radar(ESPInfo& info);
 // Aimbot
 void AimAtPos(float x, float y);
 void Aimbot(ESPInfo& info, ASTExtraPlayerCharacter local_pawn);
+
+
+// Vehicle ESP
+void LoadVehicleImages();
+void DrawVehicle(ESPInfo& info, ASTExtraWheeledVehicle vehicle);
+
+// Item ESP
+void LoadItemImages();
+void DrawAirdrop(ESPInfo& info, AAirDropBoxActor item);
+void DrawTombbox(ESPInfo& info, APlayerTombBox item);
+
+extern bool speedhack;
+void SpeedHack(ESPInfo& info, ASTExtraPlayerCharacter local_pawn);

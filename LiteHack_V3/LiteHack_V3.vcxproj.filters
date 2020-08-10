@@ -69,6 +69,9 @@
     <ClCompile Include="Source\Main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Hack\MovementSpeed.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Global.h">
@@ -131,8 +134,70 @@
     <ClInclude Include="Source\Hack\Common.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Source\Overlay\stb_image.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Library Include="Source\Memory\VMProtectSDK64.lib" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="Source\Images\Vehicles\0.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Source\Images\Vehicles\1.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Source\Images\Vehicles\2.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Source\Images\Vehicles\3.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Source\Images\Vehicles\4.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Source\Images\Vehicles\5.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Source\Images\Vehicles\6.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Source\Images\Vehicles\7.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Source\Images\Vehicles\8.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Source\Images\Vehicles\9.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Source\Images\Vehicles\10.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Source\Images\Vehicles\11.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Source\Images\Vehicles\12.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Source\Images\Vehicles\13.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Source\Images\Vehicles\14.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Source\Images\Vehicles\15.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Source\Images\Vehicles\16.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Source\Images\Vehicles\17.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Source\Images\Vehicles\18.png">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
 </Project>

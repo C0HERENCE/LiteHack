@@ -23,6 +23,8 @@ public:
 	float maxBoneDis = 75.f;
 	bool bone = true;
 	int aimbot_speed = 4;
+
+	bool NODBNO = true;
 };
 
 class Global
@@ -37,7 +39,7 @@ public:
 
 	LPCSTR WindowsClass = VmpStr("UnrealWindow");
 	LPCSTR WindowsCaption = VmpStr("PUBG LITE ");
-	LPCSTR M_Name = VmpStr("zb");
+	LPCSTR M_Name = VmpStr("sbsbsb123xx");
 };
 
 extern Global LiteHack;
